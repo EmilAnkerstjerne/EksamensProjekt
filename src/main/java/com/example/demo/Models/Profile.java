@@ -5,12 +5,12 @@ package com.example.demo.Models;
 public class Profile {
     private String username;
     private String password;
-    private int userID;
+    private int profileID;
 
     public Profile(String username, String password, int userID) {
         this.username = username;
         this.password = password;
-        this.userID = userID;
+        this.profileID = userID;
     }
 
     public Profile() {
@@ -32,11 +32,11 @@ public class Profile {
         this.password = password;
     }
 
-    public int getUserID() {
-        return userID;
+    public int getProfileID() {
+        return profileID;
     }
 
-    public void setUserID(int userID) {
-        this.userID = userID;
+    public void setProfileID(int profileID) {
+        this.profileID = profileID;
     }
 }
