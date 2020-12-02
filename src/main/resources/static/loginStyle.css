@@ -1,3 +1,5 @@
+/* @import url("navbarStyle.css"); */
+
 .login-div{
     margin: 175px auto 0 auto;
     width: 400px;
@@ -71,4 +73,14 @@
     text-decoration: none;
     color: inherit;
     font-weight: 550;
+}
+#error-message-div{
+    margin: 0 0 10px 0;
+    padding:0;
+    text-align: center;
+
+}
+#error-message{
+    text-align: center;
+    color:rgba(254, 114, 62,0.8);
 }

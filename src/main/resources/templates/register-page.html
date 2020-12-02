@@ -13,35 +13,66 @@
     <div class="sub-title">Opret dig som bruger</div>
 
     <!-- TODO: ADD ACTION HERE  -->
-    <form class="form" action="">
+    <form class="form" id="registration-form" action="" >
 
         <!-- USERNAME -->
         <div class="username">
             <label for="username">Username:</label>
-            <input type="text" placeholder="Username" id="username" name="username">
+            <input type="text" placeholder="Username" id="username" name="username" required>
         </div>
 
         <!-- PASSWORD -->
         <div class="password" style="margin-bottom: 0">
             <label for="password">Password:</label>
-            <input type="password" placeholder="Password" id="password" name="password">
+            <input type="password" placeholder="Password" id="password" name="password" required>
         </div>
 
         <!-- PASSWORD RE -->
         <div class="password">
             <label for="passwordre">Gentag password:</label>
-            <input type="password" placeholder="Password" id="passwordre" name="passwordre">
+            <input type="password" placeholder="Password" id="passwordre" name="passwordre" required>
         </div>
 
-        <button class="signin-btn" type="submit">OPRET</button>
+        <div id="error-message-div">
+            <span id="error-message"></span>
+        </div>
+
+        <button class="signin-btn" type="submit" id="create-button">OPRET</button>
         <div class="back-to-login">
-            <!-- TODO: Add href to create user page -->
+            <!-- TODO: Add href to login page -->
             <a href="/login">Tilbage til login-side</a>
         </div>
 
     </form>
 
 </div>
+<script>
+    function checkPassword(form){
+        username = form.username.value;
+        password = form.password.value;
+        passwordre = form.passwordre.value;
+        errorMessage ="";
+
+        if (password!==passwordre){
+            errorMessage = "Dine indtastede passwords matcher ikke";
+            document.getElementById("error-message").textContent = errorMessage;
+            return false;
+        }
+        else{
+            alert("Bruger oprettet!");
+            return true;
+        }
+    }
+
+    var form = document.getElementById("registration-form");
+    function handleForm(event){
+        if(!checkPassword(this)){
+            event.preventDefault();
+        }
+    }
+
+    form.addEventListener('submit', handleForm);
+</script>
 
 </body>
 </html>
