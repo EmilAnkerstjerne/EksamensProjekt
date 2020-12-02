@@ -1,6 +1,6 @@
 package com.example.demo.Repositories;
 
-import com.example.demo.Models.User;
+import com.example.demo.Models.Profile;
 
 import java.util.ArrayList;
 
@@ -10,14 +10,14 @@ public class UserRepository {
     }
 
     //EMIL
-    public static User getUserData(String username){
+    public Profile getUserData(String username){
         String passwordFromDB = "1234"; //SELECT PASSWORD FROM "USERNAME"
 
-        return new User(username, passwordFromDB, 1);
+        return new Profile(username, passwordFromDB, 1);
     }
 
     //EMIL
-    public static ArrayList getListOfUsernames(){
+    public ArrayList getListOfUsernames(){
         //Creates an ArrayList of all usernames from DB
         //SELECT * FROM USERNAMES
         ArrayList<String> usernames = new ArrayList();
@@ -30,7 +30,7 @@ public class UserRepository {
 
     //EMIL
     //Maybe needed, maybe not
-    public static ArrayList getListOfCookies(){
+    public ArrayList getListOfCookies(){
         ArrayList<String> cookies = new ArrayList<>();
         return cookies;
     }
