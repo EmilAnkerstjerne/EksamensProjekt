@@ -8,6 +8,7 @@ import com.example.demo.Repositories.ProjectRepository;
 
 import java.util.ArrayList;
 
+//JOHN
 public class ProjectService {
 
     ProjectRepository rep = new ProjectRepository();
@@ -17,8 +18,8 @@ public class ProjectService {
     }
 
     //TEST (JOHN)
-    public void projectTest(){
-        Project project = getProject(1);
+    public void projectTest(int projectID){
+        Project project = getProject(projectID);
         System.out.println(project);
         for(Subproject sp : project.getSubprojects()){
             System.out.println(sp);
@@ -29,7 +30,6 @@ public class ProjectService {
                 }
             }
         }
-
     }
 
     //TODO: Consider if structure of "downstream" is ok
