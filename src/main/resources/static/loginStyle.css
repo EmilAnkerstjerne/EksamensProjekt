@@ -1,0 +1,74 @@
+.login-div{
+    margin: 175px auto 0 auto;
+    width: 400px;
+    background-color: white;
+    padding:60px;
+    border: 1px solid black;
+}
+.logo{
+    height: 65px;
+    width: 280px;
+    margin: 0 auto;
+}
+.sub-title{
+    text-align: center;
+    color:#505050;
+    font-size: 18px;
+    margin: 5px 0 10px 0;
+}
+.form{
+    width: 100%;
+    margin-top:15px;
+}
+.username,.password{
+    display:block;
+    padding:10px 10px 0;
+    margin:0;
+    text-align: center;
+}
+.password{
+    margin-bottom: 20px;
+}
+.username label, .password label{
+    color:#505050;
+    font-size: 20px;
+    margin-bottom: 5px;
+}
+.username input, .password input{
+    text-align: center;
+    border-radius: 30px;
+    border: 1px solid black;
+    height: 35px;
+}
+.username input:focus, .password input:focus{
+    outline:none;
+}
+.signin-btn{
+    width:200px;
+    padding: 12px 10px;
+    font-size: 20px;
+    margin: 0 39px 5px 39px;
+    background-color: #86c232;
+    border: 1px solid #C6C6C6;
+    font-weight: bold;
+    color:white;
+    border-radius: 30px;
+}
+.signin-btn:focus, .signin-btn:active{
+    outline:none;
+    border:none;
+    height:56px;
+}
+.sign-up, .back-to-login{
+    text-align: center;
+    font-size: 14px;
+}
+.sign-up a, .back-to-login a{
+    text-decoration: none;
+    color: inherit;
+}
+.sign-up a:hover, .back-to-login a:hover{
+    text-decoration: none;
+    color: inherit;
+    font-weight: 550;
+}
