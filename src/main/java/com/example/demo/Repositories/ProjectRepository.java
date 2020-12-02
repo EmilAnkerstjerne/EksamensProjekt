@@ -48,6 +48,94 @@ public class ProjectRepository {
         return list;
     }
 
+    public ArrayList<Project> getAdminProjects(int userID, boolean archived){
+        String selectStatement =
+                "SELECT * FROM projects " +
+                "WHERE admin_user_id = ? AND archived = ?";
+        ArrayList<Project> list = new ArrayList<>();
+        try {
+            PreparedStatement preparedStatement = connection.prepareStatement(selectStatement);
+            preparedStatement.setInt(1, userID);
+            preparedStatement.setBoolean(2, archived);
+            ResultSet resultSet = preparedStatement.executeQuery();
+
+            while (resultSet.next()){
+                int projectID = resultSet.getInt("projectID");
+                String name = resultSet.getString("name");
+                int adminUserID  = resultSet.getInt("admin_user_id");
+
+                SimpleDateFormat sdf = new SimpleDateFormat("dd-MM-yyyy");
+                Date deadline = null;
+                Date startDate = null;
+                try{
+                    deadline = sdf.parse(resultSet.getString("deadline"));
+                }
+                catch (ParseException | NullPointerException e){
+                }
+                try{
+                    startDate = sdf.parse(resultSet.getString("startdate"));
+                }
+                catch (ParseException | NullPointerException e){
+                }
+                int weeklyHours  = resultSet.getInt("weekly_hours");
+                int weeklyDays = resultSet.getInt("weekly_days");
+                int daysOff = resultSet.getInt("days_off");
+
+                list.add(new Project(projectID, name, adminUserID, deadline, startDate, weeklyHours, weeklyDays, daysOff, archived));
+            }
+        }
+        catch (SQLException e){
+            System.out.println("Failed to get admin projects="+e.getMessage());
+            return null;
+        }
+        return list;
+    }
+
+    //JOHN TODO: Rename (Relates to non-admin projects)
+    public ArrayList<Project> getOtherProjects(int userID, boolean archived){
+        String selectStatement =
+                "SELECT pr.* FROM user_project_relations up " +
+                        "JOIN projects pr ON up.project_id = pr.project_id " +
+                        "WHERE up.user_id = ? pr.archived = ?";
+        ArrayList<Project> list = new ArrayList<>();
+        try {
+            PreparedStatement preparedStatement = connection.prepareStatement(selectStatement);
+            preparedStatement.setInt(1, userID);
+            preparedStatement.setBoolean(2, archived);
+            ResultSet resultSet = preparedStatement.executeQuery();
+
+            while (resultSet.next()){
+                int projectID = resultSet.getInt("projectID");
+                String name = resultSet.getString("name");
+                int adminUserID  = resultSet.getInt("admin_user_id");
+
+                SimpleDateFormat sdf = new SimpleDateFormat("dd-MM-yyyy");
+                Date deadline = null;
+                Date startDate = null;
+                try{
+                    deadline = sdf.parse(resultSet.getString("deadline"));
+                }
+                catch (ParseException | NullPointerException e){
+                }
+                try{
+                    startDate = sdf.parse(resultSet.getString("startdate"));
+                }
+                catch (ParseException | NullPointerException e){
+                }
+                int weeklyHours  = resultSet.getInt("weekly_hours");
+                int weeklyDays = resultSet.getInt("weekly_days");
+                int daysOff = resultSet.getInt("days_off");
+
+                list.add(new Project(projectID, name, adminUserID, deadline, startDate, weeklyHours, weeklyDays, daysOff, archived));
+            }
+        }
+        catch (SQLException e){
+            System.out.println("Failed to get invited to projects="+e.getMessage());
+            return null;
+        }
+        return list;
+    }
+
     //JOHN
     /**
      * @author John
