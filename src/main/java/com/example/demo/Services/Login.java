@@ -21,7 +21,7 @@ public class Login {
     public static boolean verifyLogin(String enteredUsername, String enteredPassword){
         ProfileRepository profileRepository = new ProfileRepository();
         profileRepository.setConnection();
-
+        //TODO: aendre til at return -1 hvis false, ellers return userID.
         //Checks if entered UN is in list of UN's
         //Checks if entered PW matches UN corresponding PW
         return profileRepository.getAllProfiles().contains(enteredUsername) &&
