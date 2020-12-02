@@ -17,8 +17,11 @@ import javax.servlet.http.HttpServletResponse;
 public class ControllerOne {
 
 
+    //TODO: create /login endpoint
     @GetMapping("/")
     public String login(){
+        //TODO: add cookieverifier here
+        //should redirect to login page if cookies is not verified.
         return "login-page";
     }
     //EMIL
@@ -30,6 +33,7 @@ public class ControllerOne {
             int profileID = Login.getProfileIDFromCookie(cookie);
             System.out.println(profileID);
             System.out.println("cookie verified, logging in");//return "logged in"-side
+            return "redirect:/startside";
         }else{
             //UN and PW entered in HTML form
             String enteredUsername = dataFromForm.getParameter("username");
@@ -44,6 +48,7 @@ public class ControllerOne {
 
                 return "index";
             }else{
+                //TODO: ErrorMessage.
                 return "redirect:/";
             }
         }
@@ -52,11 +57,9 @@ public class ControllerOne {
     @GetMapping("/startside")
     public String startside(Model model, @CookieValue(value = "user", defaultValue = "") String cookie){
 
-        ProfileRepository userRepository = new ProfileRepository();
 
         if(Login.verifyCookie(cookie)){
-            Profile profile = userRepository.getUserData(cookie);
-            model.addAttribute("user", profile.getUsername());
+            model.addAttribute("user",Login.getProfileIDFromCookie(cookie));
             return "startside";
         }
 
