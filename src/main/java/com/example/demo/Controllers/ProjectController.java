@@ -9,6 +9,7 @@ public class ProjectController {
 
     ProjectService ser = new ProjectService();
 
+    //TEST of Project creation
     @GetMapping("/Pro")
     public String projectTest(){
         ser.projectTest();

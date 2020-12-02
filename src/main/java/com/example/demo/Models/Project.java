@@ -1,18 +1,22 @@
 package com.example.demo.Models;
 
+import java.util.ArrayList;
 import java.util.Date;
 
+//JOHN
 public class Project {
 
-    int projectID;
-    String name;
-    int adminUserID;
-    Date deadline;
-    Date startDate;
-    int weeklyHours;
-    int weeklyDays;
-    int daysOff;
-    boolean archived;
+    private int projectID;
+    private String name;
+    private int adminUserID;
+    private Date deadline;
+    private Date startDate;
+    private int weeklyHours;
+    private int weeklyDays;
+    private int daysOff;
+    private boolean archived;
+
+    private ArrayList<Subproject> subprojects = new ArrayList<>();
 
     public Project(int projectID, String name, int adminUserID, Date deadline, Date startDate, int weeklyHours, int weeklyDays, int daysOff, boolean archived) {
         this.projectID = projectID;
@@ -24,6 +28,18 @@ public class Project {
         this.weeklyDays = weeklyDays;
         this.daysOff = daysOff;
         this.archived = archived;
+    }
+
+    public void addSubproject(Subproject subproject){
+        subprojects.add(subproject);
+    }
+
+    public ArrayList<Subproject> getSubprojects(){
+        return subprojects;
+    }
+
+    public void setSubprojects(ArrayList<Subproject> subprojects) {
+        this.subprojects = subprojects;
     }
 
     public int getProjectID() {
