@@ -62,4 +62,8 @@ public class ProjectService {
         }
         return project;
     }
+
+    public boolean createProject(int userID){
+        return rep.createProject(userID);
+    }
 }

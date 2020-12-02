@@ -10,10 +10,10 @@ public class ProjectController {
 
     ProjectService ser = new ProjectService();
 
-    //TEST of Project creation
+    //TEST of Project creation (JOHN)
     @GetMapping("/Pro")
     public String projectTest(){
-        ser.projectTest(1);
+        ser.createProject(1);
         return "index";
     }
 

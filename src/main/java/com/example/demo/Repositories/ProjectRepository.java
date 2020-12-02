@@ -56,7 +56,9 @@ public class ProjectRepository {
      * @return Project object or null if exception
      */
     public Project getProject(int projectID){
-        String selectStatement = "SELECT * FROM projects WHERE project_id = ?";
+        String selectStatement =
+                "SELECT * FROM projects " +
+                "WHERE project_id = ?";
         try{
             PreparedStatement preparedStatement = connection.prepareStatement(selectStatement);
             preparedStatement.setInt(1, projectID);
@@ -94,7 +96,8 @@ public class ProjectRepository {
 
     //JOHN
     public ArrayList<Subproject> getSubprojects(int projectID){
-        String selectStatement = "SELECT sp.* FROM projects pr " +
+        String selectStatement =
+                "SELECT sp.* FROM projects pr " +
                 "JOIN subprojects sp using(project_id)" +
                 "WHERE pr.project_id = ?";
         ArrayList<Subproject> list = new ArrayList<>();
@@ -120,7 +123,8 @@ public class ProjectRepository {
 
     //JOHN
     public ArrayList<Task> getTasks(int projectID){
-        String selectStatement = "SELECT ta.* FROM projects pr " +
+        String selectStatement =
+                "SELECT ta.* FROM projects pr " +
                 "JOIN subprojects sp using(project_id)" +
                 "JOIN tasks ta using(subproject_id)" +
                 "WHERE pr.project_id = ?";
@@ -148,7 +152,8 @@ public class ProjectRepository {
 
     //JOHN
     public ArrayList<Subtask> getSubtasks(int projectID){
-        String selectStatement = "SELECT st.* FROM projects pr " +
+        String selectStatement =
+                "SELECT st.* FROM projects pr " +
                 "JOIN subprojects sp using(project_id) " +
                 "JOIN tasks ta using(subproject_id) " +
                 "JOIN subtasks st using(task_id) " +
@@ -174,6 +179,211 @@ public class ProjectRepository {
             return null;
         }
         return list;
+    }
+
+    //JOHN
+    public boolean createProject(int adminUserID){
+        String insertStatement = "INSERT INTO projects (admin_user_id) VALUES (?)";
+        try {
+            PreparedStatement preparedStatement = connection.prepareStatement(insertStatement);
+            preparedStatement.setInt(1, adminUserID);
+            preparedStatement.execute();
+            return true;
+        }
+        catch (SQLException e){
+            System.out.println("Failed to create project="+e.getMessage());
+            return false;
+        }
+    }
+
+    //JOHN
+    public boolean createSubproject(int projectID, String name){
+        String insertStatement = "INSERT INTO subprojects (project_id, name) VALUES (?, ?)";
+        try {
+            PreparedStatement preparedStatement = connection.prepareStatement(insertStatement);
+            preparedStatement.setInt(1, projectID);
+            preparedStatement.setString(2, name);
+            preparedStatement.execute();
+            return true;
+        }
+        catch (SQLException e){
+            System.out.println("Failed to create subproject="+e.getMessage());
+            return false;
+        }
+    }
+
+    //JOHN
+    public boolean createTask(int subprojectID, String name){
+        String insertStatement = "INSERT INTO tasks (subproject_id, name) VALUES (?, ?)";
+        try {
+            PreparedStatement preparedStatement = connection.prepareStatement(insertStatement);
+            preparedStatement.setInt(1, subprojectID);
+            preparedStatement.setString(2, name);
+            preparedStatement.execute();
+            return true;
+        }
+        catch (SQLException e){
+            System.out.println("Failed to create task="+e.getMessage());
+            return false;
+        }
+    }
+
+    //JOHN
+    public boolean createSubtask(int taskID, String name, int timeEstimation){
+        String insertStatement = "INSERT INTO tasks (subproject_id, name, time_estimation) VALUES (?, ?, ?)";
+        try {
+            PreparedStatement preparedStatement = connection.prepareStatement(insertStatement);
+            preparedStatement.setInt(1, taskID);
+            preparedStatement.setString(2, name);
+            preparedStatement.setInt(2, timeEstimation);
+            preparedStatement.execute();
+            return true;
+        }
+        catch (SQLException e){
+            System.out.println("Failed to create subtask="+e.getMessage());
+            return false;
+        }
+    }
+
+    //JOHN TODO: Split to Essential information
+    public boolean changeProject(int projectID, String name){
+        String updateStatement =
+                "UPDATE projects SET name = ? " +
+                "WHERE project_id = ?";
+        try{
+            PreparedStatement preparedStatement = connection.prepareStatement(updateStatement);
+            preparedStatement.setString(1, name);
+            preparedStatement.setInt(2, projectID);
+            preparedStatement.execute();
+            return true;
+        }
+        catch (SQLException e){
+            System.out.println("Failed to update project="+e.getMessage());
+            return false;
+        }
+    }
+
+    //JOHN
+    public boolean changeSubproject(int subprojectID, String name){
+        String updateStatement =
+                "UPDATE subprojects SET name = ? " +
+                "WHERE subproject_id = ?";
+        try{
+            PreparedStatement preparedStatement = connection.prepareStatement(updateStatement);
+            preparedStatement.setString(1, name);
+            preparedStatement.setInt(2, subprojectID);
+            preparedStatement.execute();
+            return true;
+        }
+        catch (SQLException e){
+            System.out.println("Failed to update subproject="+e.getMessage());
+            return false;
+        }
+    }
+
+    //JOHN
+    public boolean changeTask(int taskID, String name){
+        String updateStatement =
+                "UPDATE tasks SET name = ? " +
+                "WHERE task_id = ?";
+        try{
+            PreparedStatement preparedStatement = connection.prepareStatement(updateStatement);
+            preparedStatement.setString(1, name);
+            preparedStatement.setInt(2, taskID);
+            preparedStatement.execute();
+            return true;
+        }
+        catch (SQLException e){
+            System.out.println("Failed to update task="+e.getMessage());
+            return false;
+        }
+    }
+
+    //JOHN
+    public boolean changeSubtask(int subtaskID, String name, int timeEstimation){
+        String updateStatement =
+                "UPDATE subtasks SET name = ?, time_estimation = ? " +
+                "WHERE subtask_id = ?";
+        try{
+            PreparedStatement preparedStatement = connection.prepareStatement(updateStatement);
+            preparedStatement.setString(1, name);
+            preparedStatement.setInt(2,timeEstimation);
+            preparedStatement.setInt(3, subtaskID);
+            preparedStatement.execute();
+            return true;
+        }
+        catch (SQLException e){
+            System.out.println("Failed to update subtask="+e.getMessage());
+            return false;
+        }
+    }
+
+    //JOHN
+    public boolean deleteProject(int projectID){
+        String deleteStatement =
+                "DELETE FROM projects " +
+                "WHERE project_id = ?";
+        try {
+            PreparedStatement preparedStatement = connection.prepareStatement(deleteStatement);
+            preparedStatement.setInt(1, projectID);
+            preparedStatement.execute();
+            return true;
+        }
+        catch (SQLException e) {
+            System.out.println("Failed to delete project="+e.getMessage());
+            return false;
+        }
+    }
+
+    //JOHN
+    public boolean deleteSubproject(int subprojectID){
+        String deleteStatement =
+                "DELETE FROM subprojects " +
+                "WHERE subproject_id = ?";
+        try {
+            PreparedStatement preparedStatement = connection.prepareStatement(deleteStatement);
+            preparedStatement.setInt(1, subprojectID);
+            preparedStatement.execute();
+            return true;
+        }
+        catch (SQLException e) {
+            System.out.println("Failed to delete subproject="+e.getMessage());
+            return false;
+        }
+    }
+
+    //JOHN
+    public boolean deleteTask(int taskID){
+        String deleteStatement =
+                "DELETE FROM tasks " +
+                "WHERE task_id = ?";
+        try {
+            PreparedStatement preparedStatement = connection.prepareStatement(deleteStatement);
+            preparedStatement.setInt(1, taskID);
+            preparedStatement.execute();
+            return true;
+        }
+        catch (SQLException e) {
+            System.out.println("Failed to delete task="+e.getMessage());
+            return false;
+        }
+    }
+
+    //JOHN
+    public boolean deleteSubtask(int subtaskID){
+        String deleteStatement =
+                "DELETE FROM subtasks " +
+                "WHERE subtask_id = ?";
+        try {
+            PreparedStatement preparedStatement = connection.prepareStatement(deleteStatement);
+            preparedStatement.setInt(1, subtaskID);
+            preparedStatement.execute();
+            return true;
+        }
+        catch (SQLException e) {
+            System.out.println("Failed to delete subtask="+e.getMessage());
+            return false;
+        }
     }
 
 }
