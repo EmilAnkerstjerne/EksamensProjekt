@@ -17,16 +17,15 @@ public class ProjectRepository {
     private Connection connection;
 
     public boolean setConnection(){
-        boolean bres = false;
         String url = "jdbc:mysql://localhost:3306/skidegodt?serverTimezone=UTC";
         try{
             connection = DriverManager.getConnection(url,"SkideGodt","SkideGodt");
-            bres = true;
+            return true;
         }
         catch (SQLException e){
             System.out.println("No connection to sever="+e.getMessage());
+            return false;
         }
-        return bres;
     }
 
     //TODO: Move. JOHN
@@ -264,6 +263,29 @@ public class ProjectRepository {
     }
 
     //JOHN
+    public boolean changeEssentialInformation(int projectID, Date deadline, Date startDate, int weeklyHours, int weeklyDays, int daysOff, boolean archived){
+        String updateStatement =
+                "UPDATE projects SET deadline = ?, startdate = ?, weekly_hours = ?, weekly_days = ?, days_off = ?, archived = ? " +
+                        "WHERE project_id = ?";
+        try{
+            PreparedStatement preparedStatement = connection.prepareStatement(updateStatement);
+            preparedStatement.setDate(1, new java.sql.Date((deadline.getTime())));
+            preparedStatement.setDate(2, new java.sql.Date((startDate.getTime())));
+            preparedStatement.setInt(3, weeklyHours);
+            preparedStatement.setInt(4, weeklyDays);
+            preparedStatement.setInt(5,daysOff);
+            preparedStatement.setBoolean(6, archived);
+            preparedStatement.setInt(7, projectID);
+            preparedStatement.execute();
+            return true;
+        }
+        catch (SQLException e){
+            System.out.println("Failed to update essential information="+e.getMessage());
+            return false;
+        }
+    }
+
+    //JOHN
     public boolean changeSubproject(int subprojectID, String name){
         String updateStatement =
                 "UPDATE subprojects SET name = ? " +
@@ -385,5 +407,4 @@ public class ProjectRepository {
             return false;
         }
     }
-
 }
