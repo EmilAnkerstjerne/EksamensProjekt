@@ -17,10 +17,13 @@ import javax.servlet.http.HttpServletResponse;
 public class ControllerOne {
 
 
-
-    //EMIL
     @GetMapping("/")
-    public String index(WebRequest dataFromForm, @CookieValue(value = "user", defaultValue = "") String cookie,
+    public String login(){
+        return "login-page";
+    }
+    //EMIL
+    @GetMapping("/verLogin")
+    public String verLogin(WebRequest dataFromForm, @CookieValue(value = "user", defaultValue = "") String cookie,
                         HttpServletResponse response){
         //Checks for cookie, if cookie exists - logging in
         if(Login.verifyCookie(cookie)){
@@ -29,8 +32,8 @@ public class ControllerOne {
             System.out.println("cookie verified, logging in");//return "logged in"-side
         }else{
             //UN and PW entered in HTML form
-            String enteredUsername = "Emil"; //dataFromForm.getParameter("username");
-            String enteredPassword = "password"; //dataFromForm.getParameter("password");
+            String enteredUsername = dataFromForm.getParameter("username");
+            String enteredPassword = dataFromForm.getParameter("password");
 
             //Checks if entered UN & PW matches DB UN & PW
             if(Login.verifyLogin(enteredUsername, enteredPassword)){
@@ -39,12 +42,11 @@ public class ControllerOne {
                 response.addCookie(userCook);
 
 
-                System.out.println("Username and password verified, logging in");//return "loggedin"-side
+                return "index";
             }else{
-                System.out.println("Username or password is incorrect");//return "wrong pw or username"-side
+                return "redirect:/";
             }
         }
-        return "index";
     }
 
     @GetMapping("/startside")
