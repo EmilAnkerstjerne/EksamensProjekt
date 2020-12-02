@@ -13,6 +13,12 @@ public class ProjectService {
 
         //TEST
         ArrayList<String> list = rep.getAllUsers();
-        System.out.println(list);
+        System.out.println("Database data test: "+list);
+
+
+    }
+
+    public void projectTest(){
+        System.out.println(rep.getProject(1));
     }
 }
