@@ -1,0 +1,47 @@
+<!DOCTYPE html>
+<html lang="en" xmlns:th="http://www.w3.org/1999/xhtml">
+<head>
+    <meta charset="UTF-8">
+    <title>Opret</title>
+    <link href="loginStyle.css" type="text/css" rel="stylesheet">
+    <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.5.2/css/bootstrap.min.css" integrity="sha384-JcKb8q3iqJ61gNV9KGb8thSsNjpSL0n8PARn9HuZOnIxN0hoP+VmmDGMN5t9UJ0Z" crossorigin="anonymous">
+</head>
+<body style="background-color: #333;">
+
+<div class="login-div">
+    <div><img th:src="@{/images/LogoFullG.png}" alt="Skide godt logo" class="logo"></div>
+    <div class="sub-title">Opret dig som bruger</div>
+
+    <!-- TODO: ADD ACTION HERE  -->
+    <form class="form" action="">
+
+        <!-- USERNAME -->
+        <div class="username">
+            <label for="username">Username:</label>
+            <input type="text" placeholder="Username" id="username" name="username">
+        </div>
+
+        <!-- PASSWORD -->
+        <div class="password" style="margin-bottom: 0">
+            <label for="password">Password:</label>
+            <input type="password" placeholder="Password" id="password" name="password">
+        </div>
+
+        <!-- PASSWORD RE -->
+        <div class="password">
+            <label for="passwordre">Gentag password:</label>
+            <input type="password" placeholder="Password" id="passwordre" name="passwordre">
+        </div>
+
+        <button class="signin-btn" type="submit">OPRET</button>
+        <div class="back-to-login">
+            <!-- TODO: Add href to create user page -->
+            <a href="/login">Tilbage til login-side</a>
+        </div>
+
+    </form>
+
+</div>
+
+</body>
+</html>
