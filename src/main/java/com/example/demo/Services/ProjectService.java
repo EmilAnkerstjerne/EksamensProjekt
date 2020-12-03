@@ -25,7 +25,7 @@ public class ProjectService {
     }
 
     //TEST (JOHN)
-    public void projectTest(int projectID){
+    public void projectTest(int projectID){ //Prints out a project in structure
         Project project = getProject(projectID);
         System.out.println(project);
         for(Subproject sp : project.getSubprojects()){
