@@ -29,8 +29,8 @@ public class ControllerOne {
     public String verLogin(WebRequest dataFromForm, @CookieValue(value = "user", defaultValue = "") String cookie,
                         HttpServletResponse response){
         //Checks for cookie, if cookie exists - logging in
-        if(Login.verifyCookie(cookie)){
-            int profileID = Login.getProfileIDFromCookie(cookie);
+        int profileID = Login.verifyCookie(cookie) ;
+        if( profileID > 0){
             System.out.println(profileID);
             System.out.println("cookie verified, logging in");//return "logged in"-side
             return "redirect:/startside";
@@ -40,7 +40,7 @@ public class ControllerOne {
             String enteredPassword = dataFromForm.getParameter("password");
 
             //Checks if entered UN & PW matches DB UN & PW
-            if(Login.verifyLogin(enteredUsername, enteredPassword)){
+            if(Login.verifyLogin(enteredUsername, enteredPassword) > 0){
                 //Creates cookie to users browser
                 Cookie userCook = new Cookie("user", Login.generateCookie(10, enteredUsername));
                 response.addCookie(userCook);
@@ -57,9 +57,9 @@ public class ControllerOne {
     @GetMapping("/startside")
     public String startside(Model model, @CookieValue(value = "user", defaultValue = "") String cookie){
 
-
-        if(Login.verifyCookie(cookie)){
-            model.addAttribute("user",Login.getProfileIDFromCookie(cookie));
+        int profileID = Login.verifyCookie(cookie);
+        if(profileID > 0){
+            model.addAttribute("user",profileID);
             return "startside";
         }
 

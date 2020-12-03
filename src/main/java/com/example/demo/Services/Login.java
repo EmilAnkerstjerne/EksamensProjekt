@@ -17,28 +17,28 @@ public class Login {
 
 
     //EMIL
-    //Checks if entered UN & PW matches DB UN &PW
-    public static boolean verifyLogin(String enteredUsername, String enteredPassword){
+    //Checks if entered UN & PW matches DB UN &PW. RETURNS the profileID if verified
+    //verifyLogin(UN, PW) > 0 //Login verified
+    //verifyLogin(UN, PW) = -1 //Login not verified
+    public static int verifyLogin(String enteredUsername, String enteredPassword){
         ProfileRepository profileRepository = new ProfileRepository();
         profileRepository.setConnection();
-        //TODO: aendre til at return -1 hvis false, ellers return userID.
+        Profile profile = profileRepository.getProfileDataFromUsername(enteredUsername);
         //Checks if entered UN is in list of UN's
         //Checks if entered PW matches UN corresponding PW
-        return profileRepository.getAllProfiles().contains(enteredUsername) &&
-                profileRepository.getUserData(enteredUsername).getPassword().equals(enteredPassword);
+        if(profile.getProfileID() > 0 && profile.getPassword().equals(enteredPassword)){
+            return profile.getProfileID();
+        }else{
+            return -1;
+        }
     }
 
     //EMIL
     //Checks if harvested cookie exists in DB list of UN/Cookies
-    public static boolean verifyCookie(String cookie){
-        ProfileRepository profileRepository = new ProfileRepository();
-        profileRepository.setConnection();
-        return profileRepository.getListOfCookies().contains(cookie);
-    }
-
-    //EMIL
-    //Gets a profileID from the harvested cookie
-    public static int getProfileIDFromCookie(String cookie){
+    //Returns -1 if cookies is not fount, returns profileID if cookie is found
+    //verifyCookie(cookie) > 0 //Cookie verified
+    //verifyCookie(cookie) = -1 //Cookie not verified
+    public static int verifyCookie(String cookie){
         ProfileRepository profileRepository = new ProfileRepository();
         profileRepository.setConnection();
         return profileRepository.getProfileIDFromCookie(cookie);
@@ -57,7 +57,7 @@ public class Login {
             generatedCookie += characters.charAt(new Random().nextInt(characters.length()));
         }
 
-        profileRepository.insertCookie(profileRepository.getUserData(username).getProfileID(), generatedCookie);
+        profileRepository.insertCookie(profileRepository.getProfileDataFromUsername(username).getProfileID(), generatedCookie);
 
         return generatedCookie;
     }

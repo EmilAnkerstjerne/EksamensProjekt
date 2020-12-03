@@ -24,7 +24,7 @@ public class ProfileRepository {
     }
 
     //EMIL
-    public Profile getUserData(String username){
+    public Profile getProfileDataFromUsername(String username){
         String selectStatement = "SELECT * FROM users WHERE username = ?";
         try{
             PreparedStatement preparedStatement = connection.prepareStatement(selectStatement);
@@ -38,48 +38,29 @@ public class ProfileRepository {
             return new Profile(username, password, profileID);
 
         }catch (SQLException e){
-            System.out.println(e);
+            System.out.println("ProfileDataGet: " + e);
             return new Profile("", "", -1);
         }
     }
 
-    //EMIL
-    public ArrayList<String> getAllProfiles(){
-        //Creates an ArrayList of all usernames from DB
-        String selectStatement = "SELECT username FROM users";
-        ArrayList<String> profilesList = new ArrayList();
+    //Emil
+    public Profile getProfileDataFromProfileID(int profileID){
+        String selectStatement = "SELECT * FROM users WHERE user_id = ?";
         try{
             PreparedStatement preparedStatement = connection.prepareStatement(selectStatement);
+            preparedStatement.setInt(1, profileID);
             ResultSet resultSet = preparedStatement.executeQuery();
 
-            while(resultSet.next()){
-                String username = resultSet.getString("username");
-                profilesList.add(username);
-            }
-        }catch(SQLException e){
-            return null;
+            resultSet.next();
+            String username = resultSet.getString("username");
+            String password = resultSet.getString("password");
+
+            return new Profile(username, password, profileID);
+
+        }catch (SQLException e){
+            System.out.println("ProfileDataGet: " + e);
+            return new Profile("", "", -1);
         }
-        return profilesList;
-    }
-
-
-    //EMIL
-    public ArrayList<String> getListOfCookies(){
-        //Creates an arraylist of cookies from DB
-        String selectStatement = "SELECT cookie_value FROM cookies";
-        ArrayList<String> cookiesList = new ArrayList();
-        try{
-            PreparedStatement preparedStatement = connection.prepareStatement(selectStatement);
-            ResultSet resultSet = preparedStatement.executeQuery();
-
-            while(resultSet.next()){
-                String cookie = resultSet.getString("cookie_value");
-                cookiesList.add(cookie);
-            }
-        }catch(SQLException e){
-            return null;
-        }
-        return cookiesList;
     }
 
     public int getProfileIDFromCookie(String cookie){
@@ -95,7 +76,7 @@ public class ProfileRepository {
             return profileID;
 
         }catch (SQLException e){
-            System.out.println(e);
+            System.out.println("CookieGet: " + e);
             return -1;
         }
     }
@@ -110,7 +91,7 @@ public class ProfileRepository {
             preparedStatement.execute();
             return true;
         }catch (SQLException e){
-            System.out.println(e);
+            System.out.println("CookieInsert: " + e);
             return false;
         }
     }
