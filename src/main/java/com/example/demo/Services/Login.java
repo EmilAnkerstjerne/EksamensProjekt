@@ -23,6 +23,7 @@ public class Login {
     public static int verifyLogin(String enteredUsername, String enteredPassword){
         ProfileRepository profileRepository = new ProfileRepository();
         Profile profile = profileRepository.getProfileDataFromUsername(enteredUsername);
+        CookieService.deleteOldCookies();//Deletes any old cookies from DB
         //Checks if entered UN is in list of UN's
         //Checks if entered PW matches UN corresponding PW
         if(profile.getProfileID() > 0 && profile.getPassword().equals(enteredPassword)){

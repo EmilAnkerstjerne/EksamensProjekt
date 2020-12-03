@@ -125,8 +125,17 @@ public class ProfileRepository {
     }
 
     //EMIL
-    public boolean deleteCookie(){
+    public boolean deleteCookie(int cookieID){
+        String insertStatement = "DELETE FROM cookies WHERE cookie_id = ?";
 
-        return true;
+        try {
+            PreparedStatement preparedStatement = connection.prepareStatement(insertStatement);
+            preparedStatement.setInt(1, cookieID);
+            preparedStatement.execute();
+            return true;
+        }catch (SQLException e){
+            System.out.println("CookieDelete: " + e);
+            return false;
+        }
     }
 }
