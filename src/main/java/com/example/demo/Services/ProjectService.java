@@ -5,6 +5,7 @@ import com.example.demo.Models.Subproject;
 import com.example.demo.Models.Subtask;
 import com.example.demo.Models.Task;
 import com.example.demo.Repositories.ProjectRepository;
+import org.springframework.ui.ModelMap;
 
 import java.util.ArrayList;
 
@@ -14,7 +15,8 @@ public class ProjectService {
     ProjectRepository rep = new ProjectRepository();
 
     public ProjectService(){
-        System.out.println("Database connection established: " + rep.setConnection());
+        rep.setConnection();
+
     }
 
     //TEST (JOHN)
@@ -63,7 +65,24 @@ public class ProjectService {
         return project;
     }
 
+    //JOHN TODO: ModelMap parameter? Return project object?
     public boolean createProject(int userID){
-        return rep.createProject(userID);
+        int projectID = rep.createProject(userID);
+
+        if (projectID == -1){
+            return false;
+        }
+
+        return true;
+    }
+
+    //JOHN TODO: Change model name, refactor modelmap scope?
+    public void getAdminProjects(int userID, ModelMap modelMap, boolean archived){
+        modelMap.addAttribute("Test1", rep.getAdminProjects(userID, archived));
+    }
+
+    //JOHN TODO: Change model name, refactor modelmap scope?
+    public void getOtherProjects(int userID, ModelMap modelMap, boolean archived){
+        modelMap.addAttribute("Test2", rep.getOtherProjects(userID, archived));
     }
 }
