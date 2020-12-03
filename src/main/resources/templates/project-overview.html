@@ -1,0 +1,134 @@
+<!DOCTYPE html>
+<html lang="en" xmlns:th="http://www.w3.org/1999/xhtml">
+<head>
+    <meta charset="UTF-8">
+    <title>Startside</title>
+    <link href="overviewStyle.css" type="text/css" rel="stylesheet">
+
+</head>
+<body>
+    <!-- Navigation bar - can be collapsed at <header> -->
+    <header>
+    <div class="navbar">
+        <div class="navbar-logo-a" style="padding:0;text-align: center;"><img th:src="@{/images/LogoSmallG.png}" alt="logo" class="navbar-logo"></div>
+        <!-- TODO: Add relevant hrefs -->
+        <a id="highlighted-focus" href="#">Projektoversigt</a>
+        <a href="#">Opret projekt</a>
+        <a href="#">Projekt arkiv</a>
+        <a style="float:right;" href="#">Log ud</a>
+        <a style="float:right;" href="#">Profil</a>
+        <div class="dropdown" style="float:right">
+            <!-- TODO: Thymeleaf input here: how many invitations-->
+            <button class="dropbtn" onclick="dropDown()">Invitationer (2)
+            </button>
+            <!-- TODO: Thymeleaf each here -->
+            <div class="dropdown-content" id="myDropdown">
+                <!-- Each invite "form"-->
+                <div class="invite-div">
+                    <span class="variables-invite-text">USERNAME </span><br><span>har inviteret dig til</span><br><span class="variables-invite-text"> PROJEKTNAVN</span>
+                    <br>
+                    <div style="text-align: center; margin-top:5px">
+                        <!-- TODO: Add accept invitation mapping -->
+                        <input class="invite-accept-button" type="button" value="Accepter" >
+                        <input class="invite-decline-button" type="button" value="Afslå" >
+                    </div>
+                </div>
+                <!-- JUST FOR TESTING, THIS HAS TO BE DELETED WHEN THYMELEAF IS IMPLEMENTED-->
+                <div class="invite-div">
+                    <span class="variables-invite-text">USERNAME </span><br><span>har inviteret dig til</span><br><span class="variables-invite-text"> PROJEKTNAVN</span>
+                    <br>
+                    <div style="text-align: center; margin-top:5px">
+                        <input class="invite-accept-button" type="button" value="Accepter" >
+                        <input class="invite-decline-button" type="button" value="Afslå" >
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+    <script>
+        //When the user clicks on the button, toggle between hiding and showing the dropdown content
+        function dropDown() {
+            document.getElementById("myDropdown").classList.toggle("show");
+        }
+
+        // Close the dropdown if the user clicks outside of it
+        window.onclick = function(e) {
+            if (!e.target.matches('.dropbtn')) {
+                var myDropdown = document.getElementById("myDropdown");
+                if (myDropdown.classList.contains('show')) {
+                    myDropdown.classList.remove('show');
+                }
+            }
+        }
+    </script>
+</header>
+
+    <div class="page-titel"><p>Projektoversigt</p></div>
+
+    <!-- List of projects owned by you -->
+    <div class="list-of-projects">
+        <div><p class="page-subtitle">Projekter ejet af dig:</p></div>
+
+        <!-- TODO: Thymeleaf each -->
+        <!-- TODO: Form: action="/endpoint" - endpoint that redirects the project summary page --->
+        <!-- Project box - can be collapsed at <form> -->
+        <form action="" method="post">
+            <!-- TODO: value: project ID and id/name for the input -->
+            <input value="" hidden>
+            <button class="project" type="submit">
+                <div class="project-wrapper">
+                    <!-- TODO: th: Project name -->
+                    <span class="project-name">PROJECTNAME</span>
+                    <br>
+                    <!-- TODO: th: Project DETAIL -->
+                    <span class="project-detail">DETAIL 1</span>
+                    <br>
+                    <!-- TODO: th: Project DETAIL -->
+                    <span class="project-detail">DETAIL 2</span>
+                    <br>
+                    <!-- TODO: th: Project DETAIL -->
+                    <span class="project-detail">DETAIL 3</span>
+                </div>
+            </button>
+        </form>
+
+        <!-- TODO: href="create-project-page" -->
+        <div class="create-project-circle-div"><button class="create-project-circle">+</button></div>
+
+    </div>
+
+    <!-- List of projects shared with you -->
+    <div class="list-of-projects">
+        <div><p class="page-subtitle">Projekter delt med dig:</p></div>
+
+        <!-- TODO: Thymeleaf each -->
+        <!-- TODO: Form: action="/endpoint" - endpoint that redirects the project summary page --->
+        <!-- Project box - can be collapsed at <form> -->
+        <form action="" method="post">
+                <!-- TODO: value: project ID and id/name for the input -->
+                <input value="" hidden>
+                <button class="project" type="submit">
+                    <div class="project-wrapper">
+                        <!-- TODO: th: Project name -->
+                        <span class="project-name">PROJECTNAME</span>
+                        <br>
+                        <!-- TODO: th: Project DETAIL -->
+                        <span class="project-detail">DETAIL 1</span>
+                        <br>
+                        <!-- TODO: th: Project DETAIL -->
+                        <span class="project-detail">DETAIL 2</span>
+                        <br>
+                        <!-- TODO: th: Project DETAIL -->
+                        <span class="project-detail">DETAIL 3</span>
+                    </div>
+                </button>
+            </form>
+
+    </div>
+
+
+
+
+
+</body>
+</html>
