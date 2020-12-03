@@ -22,7 +22,6 @@ public class Login {
     //verifyLogin(UN, PW) = -1 //Login not verified
     public static int verifyLogin(String enteredUsername, String enteredPassword){
         ProfileRepository profileRepository = new ProfileRepository();
-        profileRepository.setConnection();
         Profile profile = profileRepository.getProfileDataFromUsername(enteredUsername);
         //Checks if entered UN is in list of UN's
         //Checks if entered PW matches UN corresponding PW
@@ -40,7 +39,6 @@ public class Login {
     //verifyCookie(cookie) = -1 //Cookie not verified
     public static int verifyCookie(String cookie){
         ProfileRepository profileRepository = new ProfileRepository();
-        profileRepository.setConnection();
         return profileRepository.getProfileIDFromCookie(cookie);
     }
 
@@ -48,7 +46,6 @@ public class Login {
     //Generates random cookie and inserts it to DB
     public static String generateCookie(int cookieSize, String username){
         ProfileRepository profileRepository = new ProfileRepository();
-        profileRepository.setConnection();
         String characters = "0123456789aAbBcCdDeEfFgGhHiIjJkKlLmMnNoOpPqQrRsStTuUvVwWxXyYzZ"; //String of characters used to generate a random cookie
         String generatedCookie = ""; //Empty string to save random generated characters in
 
