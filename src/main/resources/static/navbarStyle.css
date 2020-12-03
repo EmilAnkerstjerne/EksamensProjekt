@@ -1,0 +1,137 @@
+body{
+    margin:0;
+    font-family: Arial, Helvetica, sans-serif;
+}
+.navbar {
+    overflow: hidden;
+    background-color: #222629;
+    font-family: Arial, Helvetica, sans-serif;
+    box-shadow: 0 0 16px 0 rgba(0,0,0,0.4);
+}
+
+.navbar a, .navbar-logo-a{
+    float: left;
+    font-size: 16px;
+    color: white;
+    text-align: center;
+    /*padding: 14px 16px;*/
+    text-decoration: none;
+    /*test*/
+    border-radius: 30px;
+    padding: 10px 12px;
+    margin: 5px 5px auto 0;
+}
+.navbar-logo{
+    width: 29px;
+    height: 29px;
+    padding: 5px 10px 5px 10px;
+    /*test*/
+    margin-right: 5px;
+}
+
+.navbar-logo-a:hover{
+    background-color: #222629;
+    cursor:pointer;
+}
+
+
+.dropdown {
+    float: left;
+    overflow: hidden;
+}
+
+.dropdown .dropbtn {
+    cursor: pointer;
+    font-size: 16px;
+    border: none;
+    outline: none;
+    color: white;
+    background-color: inherit;
+    font-family: inherit;
+    border-radius: 30px;
+    padding: 10px 12px;
+    margin: 5px 5px auto 0;
+}
+
+.navbar a:hover, .dropdown:hover .dropbtn, .dropbtn:focus {
+    background-color: #474B4F;
+}
+#highlighted-focus{
+    background-color: #474B4F;
+}
+
+.dropdown-content {
+    display: none;
+    position: absolute;
+    background-color: #f9f9f9;
+    min-width: 160px;
+    max-width: 200px;
+    box-shadow: 0 8px 16px 0 rgba(0,0,0,0.2);
+    z-index: 1;
+    border-radius: 10px;
+}
+
+.dropdown-content a {
+    float: none;
+    color: black;
+    padding: 12px 16px;
+    text-decoration: none;
+    display: block;
+    text-align: left;
+}
+.invite-div{
+    float: none;
+    color: black;
+    padding: 12px 16px;
+    text-decoration: none;
+    display: block;
+    text-align: left;
+    border-bottom: 1px solid rgba(107, 110, 112,0.2);
+}
+.variables-invite-text{
+    font-style:italic;
+    font-weight: bold;
+}
+
+.invite-accept-button{
+    border-radius: 30px;
+    margin-right: 7px;
+    background-color: #86c232;
+    border: 1px solid #76AB2C;
+    color:white;
+}
+
+.invite-decline-button{
+    border-radius: 30px;
+    margin-right: 7px;
+    border: 1px solid #B5BCC1;
+}
+
+.invite-accept-button:hover{
+    background-color: #80B732;
+    cursor:pointer;
+}
+
+.invite-decline-button:hover{
+    background-color: #E4E4E4;
+    cursor:pointer;
+}
+
+.invite-decline-button:focus, .invite-accept-button:focus{
+    outline:none;
+}
+
+.dropdown-content a:hover, .invite-div:hover{
+    /* background-color: #ddd; */
+}
+
+.page-titel{
+    margin:auto;
+    width: 60%;
+    text-align: center;
+    font-size:36px;
+}
+
+.show {
+    display: block;
+}

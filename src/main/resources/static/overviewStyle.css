@@ -1,0 +1,67 @@
+@import "navbarStyle.css";
+
+
+.page-subtitle{
+    font-size:28px;
+}
+
+.list-of-projects{
+    margin: 0 auto 0 20px;
+    max-width: 1370px;
+    min-height: 175px;
+    height: auto;
+    width: auto;
+    overflow:hidden;
+
+}
+
+.project{
+    border: 1px solid #CACACA;
+    width: 175px;
+    height: 85px;
+    padding:8px;
+    text-align: left;
+    margin: 0 25px 15px 0;
+    border-radius: 10px;
+    float: left;
+}
+
+.project-wrapper{
+    height: 69px;
+    width: 159px;
+}
+
+.project-name{
+    font-size:14px;
+    font-weight: 600;
+    font-family: inherit;
+}
+.project-detail{
+    font-size:12px;
+    font-style: italic;
+}
+
+.create-project-circle-div{
+    width: auto;
+}
+
+.create-project-circle{
+    border-radius: 50%;
+    border: 1px solid #C4C4C4;
+    width: 35px;
+    height: 35px;
+    margin: 25px 0 25px 0;
+    font-size:23px;
+    text-align: center;
+    float: left;
+}
+
+.project:hover, .create-project-circle:hover{
+    border-color: black;
+    background-color: #E6E6E6;
+    cursor:pointer;
+}
+
+.project:focus, .create-project-circle:focus{
+    outline:none;
+}
