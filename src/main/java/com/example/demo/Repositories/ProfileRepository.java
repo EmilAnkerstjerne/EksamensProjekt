@@ -97,15 +97,13 @@ public class ProfileRepository {
             preparedStatement.setString(1, cookie);
             ResultSet resultSet = preparedStatement.executeQuery();
 
-            resultSet.next();
-            int profileID = resultSet.getInt("user_id");
-
-            return profileID;
-
+            if (resultSet.next()){
+                return resultSet.getInt("user_id");
+            }
         }catch (SQLException e){
-            System.out.println("CookieGet: " + e);
-            return -1;
+            System.out.println("Failed to get profileID from cookie=" + e);
         }
+        return -1;
     }
 
     //EMIL

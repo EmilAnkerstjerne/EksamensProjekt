@@ -4,10 +4,12 @@ package com.example.demo.Controllers;
 import com.example.demo.Models.Profile;
 import com.example.demo.Repositories.ProfileRepository;
 import com.example.demo.Services.Login;
+import com.example.demo.Services.RegistrationService;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.CookieValue;
 import org.springframework.web.bind.annotation.GetMapping;
+import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.context.request.WebRequest;
 
 import javax.servlet.http.Cookie;
@@ -29,7 +31,7 @@ public class ControllerOne {
         return "redirect:/startside";
     }
     //EMIL
-    @GetMapping("/verLogin")
+    @PostMapping("/verLogin")
     public String verLogin(WebRequest dataFromForm, @CookieValue(value = "user", defaultValue = "") String cookie,
                         HttpServletResponse response){
         //Checks for cookie, if cookie exists - logging in
@@ -78,4 +80,32 @@ public class ControllerOne {
         return "redirect:/startside";
     }
 
+    //JOHN
+    @GetMapping("/opret")
+    public String registration(@CookieValue(value = "user", defaultValue = "") String cookie){
+        int profileID = Login.verifyCookie(cookie);
+        if(profileID == -1){
+            return "register-page";
+        }
+        return "redirect:/startside";
+    }
+
+    //JOHN
+    @PostMapping("/verRegistration")
+    public String registration(@CookieValue(value = "user", defaultValue = "") String cookie, WebRequest dataFromForm){
+        int profileID = Login.verifyCookie(cookie);
+        if(profileID == -1){
+            String username = dataFromForm.getParameter("username");
+            String password = dataFromForm.getParameter("password");
+            RegistrationService reg = new RegistrationService();
+            if (reg.checkIfUsernameIsTaken(username)){
+                return "register-page";
+            }
+            profileID = reg.createProfile(username,password);
+            //TODO: add cookie
+            return "redirect:/startside";
+        }
+
+        return "redirect:/startside";
+    }
 }
