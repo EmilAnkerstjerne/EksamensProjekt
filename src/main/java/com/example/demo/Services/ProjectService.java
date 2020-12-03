@@ -19,9 +19,7 @@ public class ProjectService {
     ProfileProjectRelationRepository relationRepository = new ProfileProjectRelationRepository();
 
     public ProjectService(){
-        projectRep.setConnection();
-        processRep.setConnection();
-        relationRepository.setConnection();
+
     }
 
     //TEST (JOHN)
@@ -83,11 +81,11 @@ public class ProjectService {
 
     //JOHN TODO: Change model name, refactor modelmap scope?
     public void getAdminProjects(int userID, ModelMap modelMap, boolean archived){
-        modelMap.addAttribute("Test1", projectRep.getAdminProjects(userID, archived));
+        modelMap.addAttribute("adminProjects", projectRep.getAdminProjects(userID, archived));
     }
 
     //JOHN TODO: Change model name, refactor modelmap scope?
     public void getOtherProjects(int userID, ModelMap modelMap, boolean archived){
-        modelMap.addAttribute("Test2", projectRep.getOtherProjects(userID, archived));
+        modelMap.addAttribute("otherProjects", projectRep.getOtherProjects(userID, archived));
     }
 }

@@ -7,6 +7,10 @@ import java.util.Date;
 public class ProcessRepository { //Create, edit, delete process elements
     private Connection connection;
 
+    public ProcessRepository() {
+        setConnection();
+    }
+
     public boolean setConnection(){
         String url = "jdbc:mysql://localhost:3306/skidegodt?serverTimezone=UTC";
         try{

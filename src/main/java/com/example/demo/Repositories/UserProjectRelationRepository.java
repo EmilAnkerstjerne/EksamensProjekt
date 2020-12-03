@@ -11,6 +11,10 @@ import java.util.ArrayList;
 public class UserProjectRelationRepository {
     private Connection connection;
 
+    public UserProjectRelationRepository() {
+        setConnection();
+    }
+
     public boolean setConnection(){
         String url = "jdbc:mysql://localhost:3306/skidegodt?serverTimezone=UTC";
         try{

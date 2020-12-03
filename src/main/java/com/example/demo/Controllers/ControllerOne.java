@@ -4,9 +4,12 @@ package com.example.demo.Controllers;
 import com.example.demo.Models.Profile;
 import com.example.demo.Repositories.ProfileRepository;
 import com.example.demo.Services.Login;
+import com.example.demo.Services.ProfileService;
+import com.example.demo.Services.ProjectService;
 import com.example.demo.Services.RegistrationService;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
+import org.springframework.ui.ModelMap;
 import org.springframework.web.bind.annotation.CookieValue;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PostMapping;
@@ -52,7 +55,7 @@ public class ControllerOne {
                 response.addCookie(userCook);
 
 
-                return "index";
+                return "redirect:/startside";
             }else{
                 //TODO: ErrorMessage.
                 return "redirect:/";
@@ -61,13 +64,41 @@ public class ControllerOne {
     }
 
     @GetMapping("/startside")
-    public String startside(Model model, @CookieValue(value = "user", defaultValue = "") String cookie){
+    public String startside(ModelMap modelMap, @CookieValue(value = "user", defaultValue = "") String cookie){
         int profileID = Login.verifyCookie(cookie);
         if(profileID == -1){
             return "redirect:/login";
         }
-        model.addAttribute("user",profileID);
+        modelMap.addAttribute("user",profileID);
+        ProjectService ser = new ProjectService();
+        ser.getAdminProjects(profileID,modelMap,false);
+        ser.getOtherProjects(profileID, modelMap, false);
         return "startside";
+    }
+
+    //JOHN
+    @GetMapping("/projektArkiv")
+    public String projectArchive(ModelMap modelMap, @CookieValue(value = "user", defaultValue = "") String cookie){
+        int profileID = Login.verifyCookie(cookie);
+        if(profileID == -1){
+            return "redirect:/login";
+        }
+        modelMap.addAttribute("user",profileID);
+        ProjectService ser = new ProjectService();
+        ser.getAdminProjects(profileID,modelMap,true);
+        ser.getOtherProjects(profileID, modelMap, true);
+        return "startside";
+    }
+
+    //JOHN
+    @GetMapping("/projektOversigt")
+    public String project(@CookieValue(value = "user", defaultValue = "") String cookie, WebRequest request){
+        int profileID = Login.verifyCookie(cookie);
+        if(profileID == -1){
+            return "redirect:/login";
+        }
+
+        return "test-project-summary-page";
     }
 
     //JOHN
@@ -108,5 +139,48 @@ public class ControllerOne {
         }
 
         return "redirect:/startside";
+    }
+
+    //JOHN
+    @GetMapping("/profil")
+    public String profile(@CookieValue(value = "user", defaultValue = "") String cookie, ModelMap modelMap){
+        int profileID = Login.verifyCookie(cookie);
+        if(profileID == -1){
+            return "redirect:/login";
+        }
+        ProfileService ser = new ProfileService();
+        modelMap.addAttribute("profile", ser.getProfile(profileID));
+        return "test-profile-page";
+    }
+
+    //JOHN
+    @PostMapping("/updatePassword")
+    public String savePassword(@CookieValue(value = "user", defaultValue = "") String cookie, WebRequest dataFromForm){
+        int profileID = Login.verifyCookie(cookie);
+        if(profileID == -1){
+            return "redirect:/login";
+        }
+        String oldPassword = dataFromForm.getParameter("old-password");
+        String password = dataFromForm.getParameter("new-password");
+
+        ProfileService ser = new ProfileService();
+
+        if (ser.checkPassword(profileID,oldPassword)){
+            ser.changePassword(profileID, password);
+        }
+        return "redirect:/profil";
+    }
+
+    //JOHN TODO: temporary
+    @GetMapping("/logud")
+    public String logout(@CookieValue(value = "user", defaultValue = "") String cookie, HttpServletResponse response){
+        int profileID = Login.verifyCookie(cookie);
+        if(profileID == -1){
+            return "redirect:/login";
+        }
+        //Temporary: changes cookie on users side
+        Cookie userCook = new Cookie("user", "");
+        response.addCookie(userCook);
+        return "redirect:/login";
     }
 }

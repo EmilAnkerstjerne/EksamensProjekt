@@ -36,6 +36,7 @@ public class CookieService {
     //NYI
     public boolean deleteCookie(){
         //TODO: implement deleteCookies
+        //TODO: Consider, delete by cookie value
         return true;
     }
 }

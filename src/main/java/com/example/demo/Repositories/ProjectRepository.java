@@ -16,6 +16,10 @@ public class ProjectRepository {
 
     private Connection connection;
 
+    public ProjectRepository() {
+        setConnection();
+    }
+
     public boolean setConnection(){
         String url = "jdbc:mysql://localhost:3306/skidegodt?serverTimezone=UTC";
         try{
@@ -41,7 +45,7 @@ public class ProjectRepository {
             ResultSet resultSet = preparedStatement.executeQuery();
 
             while (resultSet.next()){
-                int projectID = resultSet.getInt("projectID");
+                int projectID = resultSet.getInt("project_id");
                 String name = resultSet.getString("name");
                 int adminUserID  = resultSet.getInt("admin_user_id");
 
@@ -77,7 +81,7 @@ public class ProjectRepository {
         String selectStatement =
                 "SELECT pr.* FROM user_project_relations up " +
                         "JOIN projects pr ON up.project_id = pr.project_id " +
-                        "WHERE up.user_id = ? pr.archived = ?";
+                        "WHERE up.user_id = ? AND pr.archived = ?";
         ArrayList<Project> list = new ArrayList<>();
         try {
             PreparedStatement preparedStatement = connection.prepareStatement(selectStatement);

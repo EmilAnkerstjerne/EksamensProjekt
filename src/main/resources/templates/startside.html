@@ -1,5 +1,5 @@
 <!DOCTYPE html>
-<html lang="en" xmlns:th="http://www.w3.org/1999/xhtml">
+<html xmlns:th="http://www.thymeleaf.org" lang="da">
 <head>
     <meta charset="UTF-8">
     <title>Title</title>
@@ -7,8 +7,30 @@
           integrity="sha384-JcKb8q3iqJ61gNV9KGb8thSsNjpSL0n8PARn9HuZOnIxN0hoP+VmmDGMN5t9UJ0Z" crossorigin="anonymous">
 </head>
 <body>
+<div class="row">
+    <div class="col-1">
+        <p th:text="'ProfileID: ' + ${user}"></p>
+        <a href="/"><p>Projekt oversigt</p></a>
+        <a href="/opretProjekt"><p>Opret projekt</p></a>
+        <a href="/projektArkiv"><p>Projekt arkiv</p></a>
+        <a href="/profil"><p>Profil</p></a>
+        <a href="/logud"><p>Log ud</p></a>
+    </div>
+    <div class="col">
+        <!--/*@thymesVar id="project" type="com.example.demo.Models.Project"*/-->
+        <!--/*@thymesVar id="adminProjects" type="ArrayList"*/-->
+        <!--/*@thymesVar id="otherProjects" type="ArrayList"*/-->
+        <p>Admin:</p>
+        <div th:each="project: ${adminProjects}" style="border: solid">
+            <a th:href="'/projektOversigt?projectID=' + ${project.getProjectID()}"><p th:text="${project.getName()}"></p></a>
+        </div>
+        <p>Other:</p>
+        <div th:each="project: ${otherProjects}" style="border: solid">
+            <a th:href="'/projektOversigt?projectID=' + ${project.getProjectID()}"><p th:text="${project.getName()}"></p></a>
+        </div>
+    </div>
+</div>
 
-<p th:text="${user}"></p>
 
 </body>
 </html>

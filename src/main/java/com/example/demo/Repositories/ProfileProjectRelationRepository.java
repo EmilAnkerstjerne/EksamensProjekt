@@ -7,6 +7,10 @@ public class ProfileProjectRelationRepository { //For utility methods used to id
 
     private Connection connection;
 
+    public ProfileProjectRelationRepository() {
+        setConnection();
+    }
+
     public boolean setConnection(){
         String url = "jdbc:mysql://localhost:3306/skidegodt?serverTimezone=UTC";
         try{

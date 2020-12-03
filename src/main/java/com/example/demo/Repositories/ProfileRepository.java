@@ -174,6 +174,24 @@ public class ProfileRepository {
     }
 
     //JOHN
+    public boolean changePassword(int profileID, String password){
+        String updateStatement =
+                "UPDATE users SET password = ? " +
+                "WHERE user_id = ?";
+        try {
+            PreparedStatement preparedStatement = connection.prepareStatement(updateStatement);
+            preparedStatement.setString(1, password);
+            preparedStatement.setInt(2, profileID);
+            preparedStatement.execute();
+            return true;
+        }
+        catch (SQLException e){
+            System.out.println("Failed to update password="+e.getMessage());
+            return false;
+        }
+    }
+
+    //JOHN
     public int getLastCreatedID(){ //Returns AI ID of last added row (Utility method)
         String selectStatement = "SELECT last_insert_id()";
         int res = -1;
