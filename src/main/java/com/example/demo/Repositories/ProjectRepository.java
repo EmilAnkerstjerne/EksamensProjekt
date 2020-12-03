@@ -496,7 +496,49 @@ public class ProjectRepository {
         }
     }
 
-    public int getLastCreatedID(){ //Returns AI ID of last added row
+    //JOHN
+    public boolean checkIfAdminOnProject(int userID, int projectID){
+        String selectStatement = "SELECT * FROM projects WHERE admin_user_id = ? AND project_id = ?";
+        try{
+            PreparedStatement preparedStatement = connection.prepareStatement(selectStatement);
+            preparedStatement.setInt(1, userID);
+            preparedStatement.setInt(2, projectID);
+            ResultSet resultSet = preparedStatement.executeQuery();
+
+            if (resultSet.next()){
+                return true;
+            }
+        }
+        catch (SQLException e){
+            System.out.println("Failed to check if admin="+e.getMessage());
+        }
+        return false;
+    }
+
+    //JOHN
+    public boolean checkIfAssociatedUser(int userID, int projectID){
+        String selectStatement =
+                "SELECT * FROM user_project_relations " +
+                "JOIN projects using(project_id) " +
+                "WHERE user_id = ? AND project_id = ?";
+        try{
+            PreparedStatement preparedStatement = connection.prepareStatement(selectStatement);
+            preparedStatement.setInt(1, userID);
+            preparedStatement.setInt(2, projectID);
+            ResultSet resultSet = preparedStatement.executeQuery();
+
+            if (resultSet.next()){
+                return true;
+            }
+        }
+        catch (SQLException e){
+            System.out.println("Failed to check if user is associated to project="+e.getMessage());
+        }
+        return false;
+    }
+
+    //JOHN
+    public int getLastCreatedID(){ //Returns AI ID of last added row (Utility method)
         String selectStatement = "SELECT last_insert_id()";
         int res = -1;
         try{

@@ -16,13 +16,17 @@ import javax.servlet.http.HttpServletResponse;
 @Controller
 public class ControllerOne {
 
-
+    //JOHN (Just a bit)
     //TODO: create /login endpoint
     @GetMapping("/")
-    public String login(){
+    public String index(@CookieValue(value = "user", defaultValue = "") String cookie){
         //TODO: add cookieverifier here
         //should redirect to login page if cookies is not verified.
-        return "login-page";
+        int profileID = Login.verifyCookie(cookie);
+        if (profileID == -1){
+            return "redirect:/login";
+        }
+        return "redirect:/startside";
     }
     //EMIL
     @GetMapping("/verLogin")
@@ -56,14 +60,22 @@ public class ControllerOne {
 
     @GetMapping("/startside")
     public String startside(Model model, @CookieValue(value = "user", defaultValue = "") String cookie){
-
         int profileID = Login.verifyCookie(cookie);
-        if(profileID > 0){
-            model.addAttribute("user",profileID);
-            return "startside";
+        if(profileID == -1){
+            return "redirect:/login";
         }
+        model.addAttribute("user",profileID);
+        return "startside";
+    }
 
-        return "redirect:/";
+    //JOHN
+    @GetMapping("/login")
+    public String login(@CookieValue(value = "user", defaultValue = "") String cookie){
+        int profileID = Login.verifyCookie(cookie);
+        if(profileID == -1){
+            return "login-page";
+        }
+        return "redirect:/startside";
     }
 
 }
