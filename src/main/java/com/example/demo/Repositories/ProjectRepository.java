@@ -269,17 +269,17 @@ public class ProjectRepository {
     }
 
     //JOHN
-    public boolean createProject(int adminUserID){
+    public int createProject(int adminUserID){
         String insertStatement = "INSERT INTO projects (admin_user_id) VALUES (?)";
         try {
             PreparedStatement preparedStatement = connection.prepareStatement(insertStatement);
             preparedStatement.setInt(1, adminUserID);
             preparedStatement.execute();
-            return true;
+            return getLastCreatedID();
         }
         catch (SQLException e){
             System.out.println("Failed to create project="+e.getMessage());
-            return false;
+            return -1;
         }
     }
 
@@ -494,5 +494,22 @@ public class ProjectRepository {
             System.out.println("Failed to delete subtask="+e.getMessage());
             return false;
         }
+    }
+
+    public int getLastCreatedID(){ //Returns AI ID of last added row
+        String selectStatement = "SELECT last_insert_id()";
+        int res = -1;
+        try{
+            PreparedStatement preparedStatement = connection.prepareStatement(selectStatement);
+
+            ResultSet resultSet = preparedStatement.executeQuery();
+
+            resultSet.next();
+            res = resultSet.getInt("last_insert_id()");
+        }
+        catch (SQLException e){
+            System.out.println("last_insert_id() error="+e.getMessage());
+        }
+        return res;
     }
 }
