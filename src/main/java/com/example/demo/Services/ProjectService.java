@@ -4,6 +4,8 @@ import com.example.demo.Models.Project;
 import com.example.demo.Models.Subproject;
 import com.example.demo.Models.Subtask;
 import com.example.demo.Models.Task;
+import com.example.demo.Repositories.ProcessRepository;
+import com.example.demo.Repositories.ProfileProjectRelationRepository;
 import com.example.demo.Repositories.ProjectRepository;
 import org.springframework.ui.ModelMap;
 
@@ -12,11 +14,14 @@ import java.util.ArrayList;
 //JOHN
 public class ProjectService {
 
-    ProjectRepository rep = new ProjectRepository();
+    ProjectRepository projectRep = new ProjectRepository();
+    ProcessRepository processRep = new ProcessRepository();
+    ProfileProjectRelationRepository relationRepository = new ProfileProjectRelationRepository();
 
     public ProjectService(){
-        rep.setConnection();
-
+        projectRep.setConnection();
+        processRep.setConnection();
+        relationRepository.setConnection();
     }
 
     //TEST (JOHN)
@@ -38,10 +43,10 @@ public class ProjectService {
     //JOHN
     public Project getProject(int projectID){
         //Gets project objects
-        Project project = rep.getProject(projectID);
-        ArrayList<Subproject> subprojects = rep.getSubprojects(projectID);
-        ArrayList<Task> tasks = rep.getTasks(projectID);
-        ArrayList<Subtask> subtasks = rep.getSubtasks(projectID);
+        Project project = projectRep.getProject(projectID);
+        ArrayList<Subproject> subprojects = projectRep.getSubprojects(projectID);
+        ArrayList<Task> tasks = projectRep.getTasks(projectID);
+        ArrayList<Subtask> subtasks = projectRep.getSubtasks(projectID);
         //Adds subprojects
         project.setSubprojects(subprojects);
         //Adds tasks
@@ -67,7 +72,7 @@ public class ProjectService {
 
     //JOHN TODO: ModelMap parameter? Return project object?
     public boolean createProject(int userID){
-        int projectID = rep.createProject(userID);
+        int projectID = processRep.createProject(userID);
 
         if (projectID == -1){
             return false;
@@ -78,11 +83,11 @@ public class ProjectService {
 
     //JOHN TODO: Change model name, refactor modelmap scope?
     public void getAdminProjects(int userID, ModelMap modelMap, boolean archived){
-        modelMap.addAttribute("Test1", rep.getAdminProjects(userID, archived));
+        modelMap.addAttribute("Test1", projectRep.getAdminProjects(userID, archived));
     }
 
     //JOHN TODO: Change model name, refactor modelmap scope?
     public void getOtherProjects(int userID, ModelMap modelMap, boolean archived){
-        modelMap.addAttribute("Test2", rep.getOtherProjects(userID, archived));
+        modelMap.addAttribute("Test2", projectRep.getOtherProjects(userID, archived));
     }
 }
