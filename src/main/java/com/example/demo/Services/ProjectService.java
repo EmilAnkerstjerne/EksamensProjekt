@@ -15,9 +15,8 @@ public class ProjectService {
     ProjectRepository rep = new ProjectRepository();
 
     public ProjectService(){
-        if (rep.setConnection()){
-            System.out.println("Database connection established: failed");
-        }
+        rep.setConnection();
+
     }
 
     //TEST (JOHN)
