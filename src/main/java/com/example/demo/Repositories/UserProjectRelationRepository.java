@@ -1,6 +1,7 @@
 package com.example.demo.Repositories;
 
 import com.example.demo.Models.Invitation;
+import com.example.demo.Models.Profile;
 
 import java.sql.*;
 import java.util.ArrayList;
@@ -113,6 +114,53 @@ public class UserProjectRelationRepository {
             System.out.println("Failed to create user project relation="+e.getMessage());
             return false;
         }
+    }
+
+    //JOHN
+    public boolean deleteUserProjectRelation(int userID, int projectID){
+        String updateStatement =
+                "DELETE FROM user_project_relations " +
+                "WHERE user_id = ? AND project_id = ?";
+        try{
+            PreparedStatement preparedStatement = connection.prepareStatement(updateStatement);
+            preparedStatement.setInt(1, userID);
+            preparedStatement.setInt(2, projectID);
+            preparedStatement.execute();
+            return true;
+        }
+        catch (SQLException e){
+            System.out.println("Failed to delete user project relation="+e.getMessage());
+            return false;
+        }
+    }
+
+    //JOHN
+    public ArrayList<Profile> getUserProfiles(int projectID){
+        String selectStatement =
+                "SELECT u.* FROM user_project_relations up " +
+                "JOIN users u on up.user_id = u.user_id " +
+                "WHERE project_id = ? " +
+                "ORDER BY u.username";
+        ArrayList<Profile> list = new ArrayList<>();
+        try {
+            PreparedStatement preparedStatement = connection.prepareStatement(selectStatement);
+            preparedStatement.setInt(1, projectID);
+            ResultSet resultSet = preparedStatement.executeQuery();
+
+            while (resultSet.next()){
+                String username = resultSet.getString("username");
+                String password = resultSet.getString("password");
+                int profileID = resultSet.getInt("user_id");
+
+                Profile profile = new Profile(username, password, profileID);
+                list.add(profile);
+            }
+        }
+        catch (SQLException e){
+            System.out.println("Failed to get user profiles="+e.getMessage());
+            return null;
+        }
+        return list;
     }
 
 
