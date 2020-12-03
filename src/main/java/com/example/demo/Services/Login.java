@@ -54,8 +54,10 @@ public class Login {
         for(int i = 0; i < cookieSize; i++){
             generatedCookie += characters.charAt(new Random().nextInt(characters.length()));
         }
-
-        profileRepository.insertCookie(profileRepository.getProfileDataFromUsername(username).getProfileID(), generatedCookie);
+        boolean success = profileRepository.insertCookie(profileRepository.getProfileDataFromUsername(username).getProfileID(), generatedCookie);
+        if (!success){
+            generatedCookie = generateCookie(cookieSize,username);
+        }
 
         return generatedCookie;
     }

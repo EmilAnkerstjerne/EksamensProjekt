@@ -74,6 +74,7 @@ public class ProfileRepository {
             PreparedStatement preparedStatement = connection.prepareStatement(selectStatement);
             ResultSet resultSet = preparedStatement.executeQuery();
 
+            //TODO: .next() will skip first
             resultSet.next();
             while(resultSet.next()){
                 cookies.add(new CookieModel(resultSet.getInt("cookie_id"),
@@ -135,5 +136,58 @@ public class ProfileRepository {
             System.out.println("CookieDelete: " + e);
             return false;
         }
+    }
+
+    //JOHN
+    public boolean checkUsername(String username){
+        String selectStatement =
+                "SELECT * FROM users " +
+                "WHERE username = ?";
+        try {
+            PreparedStatement preparedStatement = connection.prepareStatement(selectStatement);
+            preparedStatement.setString(1, username);
+            ResultSet resultSet = preparedStatement.executeQuery();
+
+            return resultSet.next();
+        }
+        catch (SQLException e){
+            System.out.println("Failed to check username="+e.getMessage());
+            return true;
+        }
+    }
+
+    //JOHN
+    public int createProfile(String username, String password){
+        String insertStatement = "INSERT INTO users (username, password) VALUES (?, ?)";
+        try {
+            PreparedStatement preparedStatement = connection.prepareStatement(insertStatement);
+            preparedStatement.setString(1, username);
+            preparedStatement.setString(2, password);
+            preparedStatement.execute();
+
+            return getLastCreatedID();
+        }
+        catch (SQLException e){
+            System.out.println("Failed to create profile="+e.getMessage());
+            return -1;
+        }
+    }
+
+    //JOHN
+    public int getLastCreatedID(){ //Returns AI ID of last added row (Utility method)
+        String selectStatement = "SELECT last_insert_id()";
+        int res = -1;
+        try{
+            PreparedStatement preparedStatement = connection.prepareStatement(selectStatement);
+
+            ResultSet resultSet = preparedStatement.executeQuery();
+
+            resultSet.next();
+            res = resultSet.getInt("last_insert_id()");
+        }
+        catch (SQLException e){
+            System.out.println("last_insert_id() error="+e.getMessage());
+        }
+        return res;
     }
 }

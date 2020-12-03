@@ -92,7 +92,7 @@ public class ControllerOne {
 
     //JOHN
     @PostMapping("/verRegistration")
-    public String registration(@CookieValue(value = "user", defaultValue = "") String cookie, WebRequest dataFromForm){
+    public String registration(@CookieValue(value = "user", defaultValue = "") String cookie, WebRequest dataFromForm, HttpServletResponse response){
         int profileID = Login.verifyCookie(cookie);
         if(profileID == -1){
             String username = dataFromForm.getParameter("username");
@@ -101,8 +101,9 @@ public class ControllerOne {
             if (reg.checkIfUsernameIsTaken(username)){
                 return "register-page";
             }
-            profileID = reg.createProfile(username,password);
-            //TODO: add cookie
+            reg.createProfile(username,password);
+            Cookie userCook = new Cookie("user", Login.generateCookie(10, username));
+            response.addCookie(userCook);
             return "redirect:/startside";
         }
 

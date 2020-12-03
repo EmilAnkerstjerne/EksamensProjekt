@@ -1,25 +1,24 @@
 package com.example.demo.Services;
 
 import com.example.demo.Repositories.ProcessRepository;
+import com.example.demo.Repositories.ProfileRepository;
 
 //JOHN
 public class RegistrationService {
 
-    ProcessRepository rep = new ProcessRepository();
+    ProfileRepository rep = new ProfileRepository();
 
     public RegistrationService() {
         rep.setConnection();
     }
 
     //JOHN
-    public boolean checkIfUsernameIsTaken(String username){
-        //TODO: Missing body
-        return true;
+    public boolean checkIfUsernameIsTaken(String username){ //If taken = true
+        return rep.checkUsername(username);
     }
 
     //JOHN
     public int createProfile(String username, String password){
-        //TODO: Missing body
-        return -1;
+        return rep.createProfile(username,password);
     }
 }
