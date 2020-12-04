@@ -29,6 +29,14 @@
             <a th:href="'/projektOverblik?projectID=' + ${project.getProjectID()}"><p th:text="${project.getName()}"></p></a>
         </div>
     </div>
+    <div class="col-1">
+        <div th:each="invitation: ${invitations}">
+            <p th:text="${invitation.getProjectName()}"></p>
+            <p th:text="'Admin: ' + ${invitation.getAdminUsername()}"></p>
+            <a th:href="'/acceptInvitation?invID=' + ${invitation.getInvitationID()}">Accepter</a>
+            <a th:href="'/declineInvitation?invID=' + ${invitation.getInvitationID()}">Afslå</a>
+        </div>
+    </div>
 </div>
 
 
