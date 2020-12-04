@@ -74,8 +74,6 @@ public class ProfileRepository {
             PreparedStatement preparedStatement = connection.prepareStatement(selectStatement);
             ResultSet resultSet = preparedStatement.executeQuery();
 
-            //TODO: .next() will skip first
-            resultSet.next();
             while(resultSet.next()){
                 cookies.add(new CookieModel(resultSet.getInt("cookie_id"),
                         resultSet.getString("cookie_value"),
@@ -124,12 +122,12 @@ public class ProfileRepository {
     }
 
     //EMIL
-    public boolean deleteCookie(int cookieID){
-        String insertStatement = "DELETE FROM cookies WHERE cookie_id = ?";
+    public boolean deleteCookie(String cookieValue){
+        String insertStatement = "DELETE FROM cookies WHERE cookie_value = ?";
 
         try {
             PreparedStatement preparedStatement = connection.prepareStatement(insertStatement);
-            preparedStatement.setInt(1, cookieID);
+            preparedStatement.setString(1, cookieValue);
             preparedStatement.execute();
             return true;
         }catch (SQLException e){

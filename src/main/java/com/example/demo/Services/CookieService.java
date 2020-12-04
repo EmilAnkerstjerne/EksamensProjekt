@@ -17,7 +17,7 @@ public class CookieService {
         ProfileRepository profileRepository = new ProfileRepository();
         ArrayList<CookieModel> cookies = profileRepository.getAllCookies();
 
-        int maxDaysOld = 7; //Change this to change the max age of a cookie.
+        int maxDaysOld = -1; //Change this to change the max age of a cookie.
         Date cookieCreatedAt;
         Date now = new Date(System.currentTimeMillis());
         long daysBetween;
@@ -27,16 +27,15 @@ public class CookieService {
             daysBetween = ((now.getTime()-cookieCreatedAt.getTime())/(1000*60*60*24));
 
             if(daysBetween > maxDaysOld){
-                profileRepository.deleteCookie(cookie.getCookieID());
+                profileRepository.deleteCookie(cookie.getCookieValue());
             }
         }
         return true;
     }
 
-    //NYI
-    public boolean deleteCookie(){
-        //TODO: implement deleteCookies
-        //TODO: Consider, delete by cookie value
+    public static boolean deleteCookie(String cookieValue){
+        ProfileRepository profileRepository = new ProfileRepository();
+        profileRepository.deleteCookie(cookieValue);
         return true;
     }
 }
