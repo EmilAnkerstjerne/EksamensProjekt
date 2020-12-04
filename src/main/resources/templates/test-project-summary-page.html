@@ -6,5 +6,19 @@
 </head>
 <body>
 <a href="/"><p>Projekt oversigt</p></a>
+<!--/*@thymesVar id="project" type="com.example.demo.Models.Project"*/-->
+<!--/*@thymesVar id="subproject" type="com.example.demo.Models.Subproject"*/-->
+<!--/*@thymesVar id="task" type="com.example.demo.Models.Task"*/-->
+<!--/*@thymesVar id="subtask" type="com.example.demo.Models.Subtask"*/-->
+<p th:text="${project.getName()}"></p>
+<div th:each="subproject: ${project.getSubprojects()}" style="margin-left: 10px">
+    <p th:text="${subproject.getName()}"></p>
+    <div th:each="task: ${subproject.getTasks()}" style="margin-left: 10px">
+        <p th:text="${task.getName()}"></p>
+        <div th:each="subtask: ${task.getSubtasks()}" style="margin-left: 10px">
+            <p th:text="${subtask.getName()}"></p>
+        </div>
+    </div>
+</div>
 </body>
 </html>

@@ -91,13 +91,15 @@ public class ControllerOne {
     }
 
     //JOHN
-    @GetMapping("/projektOversigt")
-    public String project(@CookieValue(value = "user", defaultValue = "") String cookie, WebRequest request){
+    @GetMapping("/projektOverblik")
+    public String project(@CookieValue(value = "user", defaultValue = "") String cookie, WebRequest request, ModelMap modelMap){
         int profileID = Login.verifyCookie(cookie);
         if(profileID == -1){
             return "redirect:/login";
         }
-
+        int projectID = Integer.parseInt(request.getParameter("projectID"));
+        ProjectService ser = new ProjectService();
+        modelMap.addAttribute("project", ser.getProject(projectID));
         return "test-project-summary-page";
     }
 

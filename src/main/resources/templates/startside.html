@@ -22,11 +22,11 @@
         <!--/*@thymesVar id="otherProjects" type="ArrayList"*/-->
         <p>Admin:</p>
         <div th:each="project: ${adminProjects}" style="border: solid">
-            <a th:href="'/projektOversigt?projectID=' + ${project.getProjectID()}"><p th:text="${project.getName()}"></p></a>
+            <a th:href="'/projektOverblik?projectID=' + ${project.getProjectID()}"><p th:text="${project.getName()}"></p></a>
         </div>
         <p>Other:</p>
         <div th:each="project: ${otherProjects}" style="border: solid">
-            <a th:href="'/projektOversigt?projectID=' + ${project.getProjectID()}"><p th:text="${project.getName()}"></p></a>
+            <a th:href="'/projektOverblik?projectID=' + ${project.getProjectID()}"><p th:text="${project.getName()}"></p></a>
         </div>
     </div>
 </div>
