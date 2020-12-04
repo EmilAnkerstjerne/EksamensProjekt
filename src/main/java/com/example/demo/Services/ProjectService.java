@@ -69,14 +69,9 @@ public class ProjectService {
     }
 
     //JOHN TODO: ModelMap parameter? Return project object?
-    public boolean createProject(int userID){
+    public int createProject(int userID){
         int projectID = processRep.createProject(userID);
-
-        if (projectID == -1){
-            return false;
-        }
-
-        return true;
+        return projectID;
     }
 
     //JOHN TODO: Change model name, refactor modelmap scope?

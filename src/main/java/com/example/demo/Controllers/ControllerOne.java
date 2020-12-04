@@ -90,7 +90,7 @@ public class ControllerOne {
         return "startside";
     }
 
-    //JOHN
+    //JOHN TODO: verify access to project
     @GetMapping("/projektOverblik")
     public String project(@CookieValue(value = "user", defaultValue = "") String cookie, WebRequest request, ModelMap modelMap){
         int profileID = Login.verifyCookie(cookie);
@@ -101,6 +101,18 @@ public class ControllerOne {
         ProjectService ser = new ProjectService();
         modelMap.addAttribute("project", ser.getProject(projectID));
         return "test-project-summary-page";
+    }
+
+    //JOHN
+    @GetMapping("/opretProjekt")
+    public String createProject(@CookieValue(value = "user", defaultValue = "") String cookie){
+        int profileID = Login.verifyCookie(cookie);
+        if(profileID == -1){
+            return "redirect:/login";
+        }
+        ProjectService ser = new ProjectService();
+        int projectID = ser.createProject(profileID);
+        return "redirect:/projektOverblik?projectID=" + projectID;
     }
 
     //JOHN
