@@ -3,10 +3,7 @@ package com.example.demo.Controllers;
 
 import com.example.demo.Models.Profile;
 import com.example.demo.Repositories.ProfileRepository;
-import com.example.demo.Services.Login;
-import com.example.demo.Services.ProfileService;
-import com.example.demo.Services.ProjectService;
-import com.example.demo.Services.RegistrationService;
+import com.example.demo.Services.*;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.ui.ModelMap;
@@ -216,16 +213,14 @@ public class ControllerOne {
         return "redirect:/profil";
     }
 
-    //JOHN TODO: temporary
+    //JOHN
     @GetMapping("/logud")
     public String logout(@CookieValue(value = "user", defaultValue = "") String cookie, HttpServletResponse response){
         int profileID = Login.verifyCookie(cookie);
         if(profileID == -1){
             return "redirect:/login";
         }
-        //Temporary: changes cookie on users side
-        Cookie userCook = new Cookie("user", "");
-        response.addCookie(userCook);
+        CookieService.deleteCookie(cookie);
         return "redirect:/login";
     }
 }
