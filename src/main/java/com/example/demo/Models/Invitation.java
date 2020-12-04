@@ -4,11 +4,31 @@ public class Invitation {
     private int invitationID;
     private int userID;
     private int projectID;
+    private String projectName;
+    private String adminUsername;
 
-    public Invitation(int invitationID, int userID, int projectID) {
+    public Invitation(int invitationID, int userID, int projectID, String projectName, String adminUsername) {
         this.invitationID = invitationID;
         this.userID = userID;
         this.projectID = projectID;
+        this.projectName = projectName;
+        this.adminUsername = adminUsername;
+    }
+
+    public String getProjectName() {
+        return projectName;
+    }
+
+    public void setProjectName(String projectName) {
+        this.projectName = projectName;
+    }
+
+    public String getAdminUsername() {
+        return adminUsername;
+    }
+
+    public void setAdminUsername(String adminUsername) {
+        this.adminUsername = adminUsername;
     }
 
     public int getInvitationID() {
@@ -41,6 +61,8 @@ public class Invitation {
                 "invitationID=" + invitationID +
                 ", userID=" + userID +
                 ", projectID=" + projectID +
+                ", projectName='" + projectName + '\'' +
+                ", adminUsername='" + adminUsername + '\'' +
                 '}';
     }
 }

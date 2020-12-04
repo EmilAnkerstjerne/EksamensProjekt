@@ -73,6 +73,8 @@ public class ControllerOne {
         ProjectService ser = new ProjectService();
         ser.getAdminProjects(profileID,modelMap,false);
         ser.getOtherProjects(profileID, modelMap, false);
+        ProfileService ser2 = new ProfileService();
+        modelMap.addAttribute("invitations", ser2.getInvitations(profileID));
         return "startside";
     }
 
@@ -113,6 +115,35 @@ public class ControllerOne {
         ProjectService ser = new ProjectService();
         int projectID = ser.createProject(profileID);
         return "redirect:/projektOverblik?projectID=" + projectID;
+    }
+
+    //JOHN
+    @GetMapping("/acceptInvitation")
+    public String acceptInvitation(@CookieValue(value = "user", defaultValue = "") String cookie, WebRequest request){
+        int profileID = Login.verifyCookie(cookie);
+        if(profileID == -1){
+            return "redirect:/login";
+        }
+        int invitationID = Integer.parseInt(request.getParameter("invID"));
+        ProfileService ser = new ProfileService();
+        int projectID = ser.getProjectIDFromInvitationID(invitationID);
+        if (ser.deleteInvitation(invitationID, profileID)){
+            ser.createUserProjectRelation(profileID,projectID);
+        }
+        return "redirect:/startside";
+    }
+
+    //JOHN
+    @GetMapping("/declineInvitation")
+    public String declineInvitation(@CookieValue(value = "user", defaultValue = "") String cookie, WebRequest request){
+        int profileID = Login.verifyCookie(cookie);
+        if(profileID == -1){
+            return "redirect:/login";
+        }
+        int invitationID = Integer.parseInt(request.getParameter("invID"));
+        ProfileService ser = new ProfileService();
+        ser.deleteInvitation(invitationID, profileID);
+        return "redirect:/startside";
     }
 
     //JOHN

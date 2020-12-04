@@ -29,7 +29,10 @@ public class UserProjectRelationRepository {
 
     //JOHN
     public ArrayList<Invitation> getInvitations(int userID){
-        String selectStatement = "SELECT * FROM invitations WHERE user_id = ?";
+        String selectStatement = "SELECT ii.*, pr.name, uu.username FROM invitations ii " +
+                "JOIN projects pr ON ii.project_id = pr.project_id " +
+                "JOIN users uu ON pr.admin_user_id = uu.user_id " +
+                "WHERE ii.user_id = ?";
         ArrayList<Invitation> list = new ArrayList<>();
         try {
             PreparedStatement preparedStatement = connection.prepareStatement(selectStatement);
@@ -39,7 +42,9 @@ public class UserProjectRelationRepository {
             while (resultSet.next()){
                 int invitationID = resultSet.getInt("invitation_id");
                 int projectID = resultSet.getInt("project_id");
-                Invitation invitation = new Invitation(invitationID, userID, projectID);
+                String projectName = resultSet.getString("name");
+                String adminUsername = resultSet.getString("username");
+                Invitation invitation = new Invitation(invitationID, userID, projectID, projectName, adminUsername);
                 list.add(invitation);
             }
         }
@@ -53,8 +58,10 @@ public class UserProjectRelationRepository {
     //JOHN
     public Invitation getInvitation(int invitationID){
         String selectStatement =
-                "SELECT * FROM invitations " +
-                "WHERE invitation_id = ?";
+                "SELECT ii.*, pr.name, uu.username FROM invitations ii " +
+                "JOIN projects pr ON ii.project_id = pr.project_id " +
+                "JOIN users uu ON pr.admin_user_id = uu.user_id " +
+                "WHERE ii.invitation_id = ?";
         try {
             PreparedStatement preparedStatement = connection.prepareStatement(selectStatement);
             preparedStatement.setInt(1, invitationID);
@@ -63,8 +70,10 @@ public class UserProjectRelationRepository {
             resultSet.next();
             int userID = resultSet.getInt("user_id");
             int projectID = resultSet.getInt("project_id");
+            String projectName = resultSet.getString("name");
+            String adminUsername = resultSet.getString("username");
 
-            return new Invitation(invitationID,userID,projectID);
+            return new Invitation(invitationID,userID,projectID, projectName, adminUsername);
         }
         catch (SQLException e){
             System.out.println("Failed to get invitation="+e.getMessage());
@@ -89,13 +98,14 @@ public class UserProjectRelationRepository {
     }
 
     //JOHN
-    public boolean deleteInvitation(int invitationID){
+    public boolean deleteInvitation(int invitationID, int profileID){
         String updateStatement =
                 "DELETE FROM invitations " +
-                "WHERE invitation_id = ?";
+                "WHERE invitation_id = ? AND user_id = ?";
         try{
             PreparedStatement preparedStatement = connection.prepareStatement(updateStatement);
             preparedStatement.setInt(1, invitationID);
+            preparedStatement.setInt(2, profileID);
             preparedStatement.execute();
             return true;
         }
