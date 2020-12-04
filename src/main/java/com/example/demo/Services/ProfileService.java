@@ -52,4 +52,9 @@ public class ProfileService {
     public boolean createUserProjectRelation(int profileID, int projectID){
         return userProjectRelationRepository.createUserProjectRelation(profileID,projectID);
     }
+
+    //JOHN
+    public ArrayList<Profile> getUserProfiles(int projectID){
+        return userProjectRelationRepository.getUserProfiles(projectID);
+    }
 }

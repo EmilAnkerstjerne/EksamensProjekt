@@ -7,6 +7,7 @@
 <body>
 <p th:text="'ProjectID: ' + ${project.getProjectID()}"></p><br>
 <a href="/"><p>Projekt oversigt</p></a>
+<a th:href="'/brugerAdministration?projectID=' + ${project.getProjectID()}"><p>Administrer brugere</p></a>
 <!--/*@thymesVar id="project" type="com.example.demo.Models.Project"*/-->
 <!--/*@thymesVar id="subproject" type="com.example.demo.Models.Subproject"*/-->
 <!--/*@thymesVar id="task" type="com.example.demo.Models.Task"*/-->

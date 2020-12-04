@@ -18,8 +18,11 @@ import javax.servlet.http.HttpServletResponse;
 @Controller
 public class ControllerOne {
 
+    ProfileService profileService = new ProfileService();
+    ProjectService projectService = new ProjectService();
+    RegistrationService registrationService = new RegistrationService();
+
     //JOHN (Just a bit)
-    //TODO: create /login endpoint
     @GetMapping("/")
     public String index(@CookieValue(value = "user", defaultValue = "") String cookie){
         //TODO: add cookieverifier here
@@ -67,11 +70,9 @@ public class ControllerOne {
             return "redirect:/login";
         }
         modelMap.addAttribute("user",profileID);
-        ProjectService ser = new ProjectService();
-        ser.getAdminProjects(profileID,modelMap,false);
-        ser.getOtherProjects(profileID, modelMap, false);
-        ProfileService ser2 = new ProfileService();
-        modelMap.addAttribute("invitations", ser2.getInvitations(profileID));
+        projectService.getAdminProjects(profileID,modelMap,false);
+        projectService.getOtherProjects(profileID, modelMap, false);
+        modelMap.addAttribute("invitations", profileService.getInvitations(profileID));
         return "startside";
     }
 
@@ -83,9 +84,8 @@ public class ControllerOne {
             return "redirect:/login";
         }
         modelMap.addAttribute("user",profileID);
-        ProjectService ser = new ProjectService();
-        ser.getAdminProjects(profileID,modelMap,true);
-        ser.getOtherProjects(profileID, modelMap, true);
+        projectService.getAdminProjects(profileID,modelMap,true);
+        projectService.getOtherProjects(profileID, modelMap, true);
         return "startside";
     }
 
@@ -97,8 +97,7 @@ public class ControllerOne {
             return "redirect:/login";
         }
         int projectID = Integer.parseInt(request.getParameter("projectID"));
-        ProjectService ser = new ProjectService();
-        modelMap.addAttribute("project", ser.getProject(projectID));
+        modelMap.addAttribute("project", projectService.getProject(projectID));
         return "test-project-summary-page";
     }
 
@@ -109,8 +108,7 @@ public class ControllerOne {
         if(profileID == -1){
             return "redirect:/login";
         }
-        ProjectService ser = new ProjectService();
-        int projectID = ser.createProject(profileID);
+        int projectID = projectService.createProject(profileID);
         return "redirect:/projektOverblik?projectID=" + projectID;
     }
 
@@ -122,10 +120,9 @@ public class ControllerOne {
             return "redirect:/login";
         }
         int invitationID = Integer.parseInt(request.getParameter("invID"));
-        ProfileService ser = new ProfileService();
-        int projectID = ser.getProjectIDFromInvitationID(invitationID);
-        if (ser.deleteInvitation(invitationID, profileID)){
-            ser.createUserProjectRelation(profileID,projectID);
+        int projectID = profileService.getProjectIDFromInvitationID(invitationID);
+        if (profileService.deleteInvitation(invitationID, profileID)){
+            profileService.createUserProjectRelation(profileID,projectID);
         }
         return "redirect:/startside";
     }
@@ -138,9 +135,22 @@ public class ControllerOne {
             return "redirect:/login";
         }
         int invitationID = Integer.parseInt(request.getParameter("invID"));
-        ProfileService ser = new ProfileService();
-        ser.deleteInvitation(invitationID, profileID);
+        profileService.deleteInvitation(invitationID, profileID);
         return "redirect:/startside";
+    }
+
+    //JOHN
+    @GetMapping("/brugerAdministration")
+    public String administrateUsers(@CookieValue(value = "user", defaultValue = "") String cookie, WebRequest request, ModelMap modelMap){
+        int profileID = Login.verifyCookie(cookie);
+        if(profileID == -1){
+            return "redirect:/login";
+        }
+        int projectID = Integer.parseInt(request.getParameter("projectID"));
+        //TODO: check if admin/user
+        modelMap.addAttribute("users", profileService.getUserProfiles(projectID));
+        modelMap.addAttribute("project", projectService.getProject(projectID));
+        return "test-administer-users-page";
     }
 
     //JOHN
@@ -170,11 +180,10 @@ public class ControllerOne {
         if(profileID == -1){
             String username = dataFromForm.getParameter("username");
             String password = dataFromForm.getParameter("password");
-            RegistrationService reg = new RegistrationService();
-            if (reg.checkIfUsernameIsTaken(username)){
+            if (registrationService.checkIfUsernameIsTaken(username)){
                 return "register-page";
             }
-            reg.createProfile(username,password);
+            registrationService.createProfile(username,password);
             Cookie userCook = new Cookie("user", Login.generateCookie(10, username));
             response.addCookie(userCook);
             return "redirect:/startside";
@@ -190,8 +199,7 @@ public class ControllerOne {
         if(profileID == -1){
             return "redirect:/login";
         }
-        ProfileService ser = new ProfileService();
-        modelMap.addAttribute("profile", ser.getProfile(profileID));
+        modelMap.addAttribute("profile", profileService.getProfile(profileID));
         return "test-profile-page";
     }
 
@@ -205,10 +213,8 @@ public class ControllerOne {
         String oldPassword = dataFromForm.getParameter("old-password");
         String password = dataFromForm.getParameter("new-password");
 
-        ProfileService ser = new ProfileService();
-
-        if (ser.checkPassword(profileID,oldPassword)){
-            ser.changePassword(profileID, password);
+        if (profileService.checkPassword(profileID,oldPassword)){
+            profileService.changePassword(profileID, password);
         }
         return "redirect:/profil";
     }

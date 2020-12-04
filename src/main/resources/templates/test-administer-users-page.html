@@ -1,10 +1,16 @@
 <!DOCTYPE html>
-<html lang="en">
+<html xmlns:th="http://www.thymeleaf.org" lang="da">
 <head>
     <meta charset="UTF-8">
     <title>Title</title>
 </head>
 <body>
+<p th:text="'ProjektID: ' + ${project.getProjectID()}"></p>
+<a th:href="'/projektOverblik?projectID=' + ${project.getProjectID()}">Tilbage til projekt</a>
+
+<div th:each="profile: ${users}" style="border: solid">
+    <p th:text="${profile.getUsername()}"></p>
+</div>
 
 </body>
 </html>
