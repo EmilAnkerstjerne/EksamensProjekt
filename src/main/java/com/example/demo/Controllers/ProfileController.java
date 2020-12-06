@@ -2,8 +2,6 @@ package com.example.demo.Controllers;
 
 import com.example.demo.Services.Login;
 import com.example.demo.Services.ProfileService;
-import com.example.demo.Services.ProjectService;
-import com.example.demo.Services.RegistrationService;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.ModelMap;
 import org.springframework.web.bind.annotation.CookieValue;
@@ -15,8 +13,6 @@ import org.springframework.web.context.request.WebRequest;
 public class ProfileController {
 
     ProfileService profileService = new ProfileService();
-    ProjectService projectService = new ProjectService();
-    RegistrationService registrationService = new RegistrationService();
 
     //TODO: profile
     //JOHN

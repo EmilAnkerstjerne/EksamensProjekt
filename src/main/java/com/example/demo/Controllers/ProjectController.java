@@ -3,7 +3,6 @@ package com.example.demo.Controllers;
 import com.example.demo.Services.Login;
 import com.example.demo.Services.ProfileService;
 import com.example.demo.Services.ProjectService;
-import com.example.demo.Services.RegistrationService;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.ModelMap;
 import org.springframework.web.bind.annotation.CookieValue;
@@ -16,7 +15,6 @@ public class ProjectController {
 
     ProfileService profileService = new ProfileService();
     ProjectService projectService = new ProjectService();
-    RegistrationService registrationService = new RegistrationService();
 
     //TEST of Project creation (JOHN)
     @GetMapping("/Pro")

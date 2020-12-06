@@ -13,8 +13,6 @@ import javax.servlet.http.HttpServletResponse;
 @Controller
 public class VerifyController {
 
-    ProfileService profileService = new ProfileService();
-    ProjectService projectService = new ProjectService();
     RegistrationService registrationService = new RegistrationService();
 
     //TODO: Login/verify
