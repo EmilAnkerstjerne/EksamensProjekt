@@ -15,7 +15,6 @@ public class ProfileProjectController {
     ProfileService profileService = new ProfileService();
     ProjectService projectService = new ProjectService();
 
-    //TODO: Invitation/profile-project
     //JOHN
     @GetMapping("/acceptInvitation")
     public String acceptInvitation(@CookieValue(value = "user", defaultValue = "") String cookie, WebRequest request){
@@ -31,7 +30,6 @@ public class ProfileProjectController {
         return "redirect:/startside";
     }
 
-    //TODO: Invitation/profile-project
     //JOHN
     @GetMapping("/declineInvitation")
     public String declineInvitation(@CookieValue(value = "user", defaultValue = "") String cookie, WebRequest request){
@@ -44,7 +42,6 @@ public class ProfileProjectController {
         return "redirect:/startside";
     }
 
-    //TODO: Invitation/profile-project
     //JOHN
     @GetMapping("/brugerAdministration")
     public String administrateUsers(@CookieValue(value = "user", defaultValue = "") String cookie, WebRequest request, ModelMap modelMap){

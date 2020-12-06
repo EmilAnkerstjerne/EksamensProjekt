@@ -15,7 +15,6 @@ public class VerifyController {
 
     RegistrationService registrationService = new RegistrationService();
 
-    //TODO: Login/verify
     //JOHN
     @GetMapping("/logud")
     public String logout(@CookieValue(value = "user", defaultValue = "") String cookie, HttpServletResponse response){
@@ -27,7 +26,6 @@ public class VerifyController {
         return "redirect:/login";
     }
 
-    //TODO: Register/verify
     //JOHN
     @PostMapping("/verRegistration")
     public String registration(@CookieValue(value = "user", defaultValue = "") String cookie, WebRequest dataFromForm, HttpServletResponse response){
@@ -47,7 +45,6 @@ public class VerifyController {
         return "redirect:/startside";
     }
 
-    //TODO: register/verify
     //JOHN
     @GetMapping("/opret")
     public String registration(@CookieValue(value = "user", defaultValue = "") String cookie){
@@ -58,7 +55,6 @@ public class VerifyController {
         return "redirect:/startside";
     }
 
-    //TODO: Login/verify
     //JOHN
     @GetMapping("/login")
     public String login(@CookieValue(value = "user", defaultValue = "") String cookie){
@@ -69,7 +65,6 @@ public class VerifyController {
         return "redirect:/startside";
     }
 
-    //TODO: Login/verify
     //EMIL
     @PostMapping("/verLogin")
     public String verLogin(WebRequest dataFromForm, @CookieValue(value = "user", defaultValue = "") String cookie,

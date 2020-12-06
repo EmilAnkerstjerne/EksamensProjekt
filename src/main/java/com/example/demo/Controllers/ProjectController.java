@@ -16,14 +16,6 @@ public class ProjectController {
     ProfileService profileService = new ProfileService();
     ProjectService projectService = new ProjectService();
 
-    //TEST of Project creation (JOHN)
-    @GetMapping("/Pro")
-    public String projectTest(){
-        projectService.createProject(1);
-        return "index";
-    }
-
-    //TODO: Overview/project
     @GetMapping("/startside")
     public String startside(ModelMap modelMap, @CookieValue(value = "user", defaultValue = "") String cookie){
         int profileID = Login.verifyCookie(cookie);
@@ -37,7 +29,6 @@ public class ProjectController {
         return "startside";
     }
 
-    //TODO: Overview/Archive/project
     //JOHN
     @GetMapping("/projektArkiv")
     public String projectArchive(ModelMap modelMap, @CookieValue(value = "user", defaultValue = "") String cookie){
@@ -51,7 +42,6 @@ public class ProjectController {
         return "startside";
     }
 
-    //TODO: summary/project
     //JOHN TODO: verify access to project
     @GetMapping("/projektOverblik")
     public String project(@CookieValue(value = "user", defaultValue = "") String cookie, WebRequest request, ModelMap modelMap){
@@ -64,7 +54,6 @@ public class ProjectController {
         return "test-project-summary-page";
     }
 
-    //TODO: Project
     //JOHN
     @GetMapping("/opretProjekt")
     public String createProject(@CookieValue(value = "user", defaultValue = "") String cookie){
@@ -76,7 +65,6 @@ public class ProjectController {
         return "redirect:/projektOverblik?projectID=" + projectID;
     }
 
-    //TODO: Overview/Project
     //JOHN (Just a bit)
     @GetMapping("/")
     public String index(@CookieValue(value = "user", defaultValue = "") String cookie){

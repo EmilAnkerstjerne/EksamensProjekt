@@ -14,7 +14,6 @@ public class ProfileController {
 
     ProfileService profileService = new ProfileService();
 
-    //TODO: profile
     //JOHN
     @PostMapping("/updatePassword")
     public String savePassword(@CookieValue(value = "user", defaultValue = "") String cookie, WebRequest dataFromForm){
@@ -31,7 +30,6 @@ public class ProfileController {
         return "redirect:/profil";
     }
 
-    //TODO: profile
     //JOHN
     @GetMapping("/profil")
     public String profile(@CookieValue(value = "user", defaultValue = "") String cookie, ModelMap modelMap){
