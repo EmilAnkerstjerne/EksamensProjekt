@@ -57,4 +57,15 @@ public class ProfileService {
     public ArrayList<Profile> getUserProfiles(int projectID){
         return userProjectRelationRepository.getUserProfiles(projectID);
     }
+
+
+    //TODO: Check if both are used when project is done
+    //EMIL
+    public Profile getUserData(int userID){
+        return rep.getProfileData(userID);
+    }
+    //EMIL
+    public Profile getUserData(String username){
+        return rep.getProfileData(username);
+    }
 }
