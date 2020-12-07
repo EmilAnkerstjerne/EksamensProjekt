@@ -35,8 +35,10 @@ public class ProjectRepository {
     //JOHN
     public ArrayList<Project> getAdminProjects(int userID, boolean archived){
         String selectStatement =
-                "SELECT * FROM projects " +
-                "WHERE admin_user_id = ? AND archived = ?";
+                "SELECT pr.*, count(employee_id) as count FROM projects pr " +
+                "LEFT JOIN employees em using(project_id) " +
+                "WHERE admin_user_id = ? AND archived = ? " +
+                "GROUP BY project_id";
         ArrayList<Project> list = new ArrayList<>();
         try {
             PreparedStatement preparedStatement = connection.prepareStatement(selectStatement);
@@ -65,8 +67,9 @@ public class ProjectRepository {
                 int weeklyHours  = resultSet.getInt("weekly_hours");
                 int weeklyDays = resultSet.getInt("weekly_days");
                 int daysOff = resultSet.getInt("days_off");
+                int employees = resultSet.getInt("count");
 
-                list.add(new Project(projectID, name, adminUserID, deadline, startDate, weeklyHours, weeklyDays, daysOff, archived));
+                list.add(new Project(projectID, name, adminUserID, deadline, startDate, weeklyHours, weeklyDays, daysOff, archived, employees));
             }
         }
         catch (SQLException e){
@@ -79,9 +82,11 @@ public class ProjectRepository {
     //JOHN TODO: Rename (Relates to non-admin projects)
     public ArrayList<Project> getOtherProjects(int userID, boolean archived){
         String selectStatement =
-                "SELECT pr.* FROM user_project_relations up " +
+                "SELECT pr.*, count(employee_id) as count FROM user_project_relations up " +
                         "JOIN projects pr ON up.project_id = pr.project_id " +
-                        "WHERE up.user_id = ? AND pr.archived = ?";
+                        "LEFT JOIN employees em ON pr.project_id = em.project_id " +
+                        "WHERE up.user_id = ? AND pr.archived = ? " +
+                        "GROUP BY project_id";
         ArrayList<Project> list = new ArrayList<>();
         try {
             PreparedStatement preparedStatement = connection.prepareStatement(selectStatement);
@@ -90,7 +95,7 @@ public class ProjectRepository {
             ResultSet resultSet = preparedStatement.executeQuery();
 
             while (resultSet.next()){
-                int projectID = resultSet.getInt("projectID");
+                int projectID = resultSet.getInt("project_id");
                 String name = resultSet.getString("name");
                 int adminUserID  = resultSet.getInt("admin_user_id");
 
@@ -110,12 +115,13 @@ public class ProjectRepository {
                 int weeklyHours  = resultSet.getInt("weekly_hours");
                 int weeklyDays = resultSet.getInt("weekly_days");
                 int daysOff = resultSet.getInt("days_off");
+                int employees = resultSet.getInt("count");
 
-                list.add(new Project(projectID, name, adminUserID, deadline, startDate, weeklyHours, weeklyDays, daysOff, archived));
+                list.add(new Project(projectID, name, adminUserID, deadline, startDate, weeklyHours, weeklyDays, daysOff, archived, employees));
             }
         }
         catch (SQLException e){
-            System.out.println("Failed to get invited to projects="+e.getMessage());
+            System.out.println("Failed to get invited to/other projects="+e.getMessage());
             return null;
         }
         return list;
@@ -129,7 +135,8 @@ public class ProjectRepository {
      */
     public Project getProject(int projectID){
         String selectStatement =
-                "SELECT * FROM projects " +
+                "SELECT pr.*, count(employee_id) as count FROM projects pr " +
+                        "JOIN employees em using(project_id)" +
                 "WHERE project_id = ?";
         try{
             PreparedStatement preparedStatement = connection.prepareStatement(selectStatement);
@@ -157,8 +164,9 @@ public class ProjectRepository {
             int weeklyDays = resultSet.getInt("weekly_days");
             int daysOff = resultSet.getInt("days_off");
             boolean archived = resultSet.getBoolean("archived");
+            int employees = resultSet.getInt("count");
 
-            return new Project(projectID, name, adminUserID, deadline, startDate, weeklyHours, weeklyDays, daysOff, archived);
+            return new Project(projectID, name, adminUserID, deadline, startDate, weeklyHours, weeklyDays, daysOff, archived, employees);
         }
         catch (SQLException e){
             System.out.println("Failed to get project="+e.getMessage());
