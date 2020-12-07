@@ -114,6 +114,21 @@ public class Project {
         this.archived = archived;
     }
 
+    //JOHN (Alt. toString for structure of lists)
+    public void printProjectStructure(){ //Prints out a project in structure
+        Project project = this;
+        System.out.println(project);
+        for(Subproject sp : project.getSubprojects()){
+            System.out.println(sp);
+            for(Task t : sp.getTasks()){
+                System.out.println(t);
+                for(Subtask st : t.getSubtasks()){
+                    System.out.println(st);
+                }
+            }
+        }
+    }
+
     @Override
     public String toString() {
         return "Project{" +

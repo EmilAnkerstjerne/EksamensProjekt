@@ -22,26 +22,15 @@ public class ProjectService {
 
     }
 
-    //TEST (JOHN)
-    public void projectTest(int projectID){ //Prints out a project in structure
-        Project project = getProject(projectID);
-        System.out.println(project);
-        for(Subproject sp : project.getSubprojects()){
-            System.out.println(sp);
-            for(Task t : sp.getTasks()){
-                System.out.println(t);
-                for(Subtask st : t.getSubtasks()){
-                    System.out.println(st);
-                }
-            }
-        }
-    }
-
     //TODO: Consider if structure of "downstream" is ok
     //JOHN
     public Project getProject(int projectID){
         //Gets project objects
         Project project = projectRep.getProject(projectID);
+        //Avoids further nullpointer
+        if (project == null){
+            return project;
+        }
         ArrayList<Subproject> subprojects = projectRep.getSubprojects(projectID);
         ArrayList<Task> tasks = projectRep.getTasks(projectID);
         ArrayList<Subtask> subtasks = projectRep.getSubtasks(projectID);
