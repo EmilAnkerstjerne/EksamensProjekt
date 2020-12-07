@@ -65,7 +65,7 @@ public class VerifyController {
         return "redirect:/startside";
     }
 
-    //EMIL
+    //EMIL-TOBIAS
     @PostMapping("/verLogin")
     public String verLogin(WebRequest dataFromForm, @CookieValue(value = "user", defaultValue = "") String cookie,
                            HttpServletResponse response){
