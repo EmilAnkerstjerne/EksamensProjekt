@@ -16,6 +16,15 @@ public class Task {
         this.name = name;
     }
 
+    //JOHN
+    public int getTotalSubtasksTime(){
+        int sum = 0;
+        for(Subtask subtask : subtasks){
+            sum += subtask.getTimeEstimate();
+        }
+        return sum;
+    }
+
     public void addSubtask(Subtask subtask){
         subtasks.add(subtask);
     }

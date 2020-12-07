@@ -16,6 +16,15 @@ public class Subproject {
         this.name = name;
     }
 
+    //JOHN
+    public int getTotalTasksTime(){
+        int sum = 0;
+        for(Task task : tasks){
+            sum += task.getTotalSubtasksTime();
+        }
+        return sum;
+    }
+
     public void addTask(Task task){
         tasks.add(task);
     }
