@@ -12,7 +12,7 @@
     <div class="navbar">
         <div class="navbar-logo-a" style="padding:0;text-align: center;"><img th:src="@{/images/LogoSmallG.png}" alt="logo" class="navbar-logo"></div>
         <!-- TODO: Add relevant hrefs -->
-        <a id="highlighted-focus" href="#">Projektoversigt</a>
+        <a id="highlighted-focus" href="/startside">Projektoversigt</a>
         <a href="#">Opret projekt</a>
         <a href="#">Projekt arkiv</a>
         <a style="float:right;" href="#">Log ud</a>
@@ -69,16 +69,13 @@
     <div class="list-of-projects">
         <div><p class="page-subtitle">Projekter ejet af dig:</p></div>
 
-        <!-- TODO: Thymeleaf each -->
         <!-- TODO: Form: action="/endpoint" - endpoint that redirects the project summary page --->
         <!-- Project box - can be collapsed at <form> -->
-        <form action="" method="post">
-            <!-- TODO: value: project ID and id/name for the input -->
-            <input value="" hidden>
+        <form action="" method="post" th:each="project: ${adminProjects}">
+            <input th:value="'/projektOverblik?projectID=' + ${project.getProjectID()}" hidden>
             <button class="project" type="submit">
                 <div class="project-wrapper">
-                    <!-- TODO: th: Project name -->
-                    <span class="project-name">PROJECTNAME</span>
+                    <span class="project-name" th:text="${project.getName()}">PROJECTNAME</span>
                     <br>
                     <!-- TODO: th: Project DETAIL -->
                     <span class="project-detail">DETAIL 1</span>
@@ -93,7 +90,11 @@
         </form>
 
         <!-- TODO: href="create-project-page" -->
-        <div class="create-project-circle-div"><button class="create-project-circle">+</button></div>
+        <div class="create-project-circle-div">
+            <form action="/opretProjekt">
+            <button class="create-project-circle" type="submit">+</button>
+            </form>
+        </div>
 
     </div>
 
@@ -104,13 +105,12 @@
         <!-- TODO: Thymeleaf each -->
         <!-- TODO: Form: action="/endpoint" - endpoint that redirects the project summary page --->
         <!-- Project box - can be collapsed at <form> -->
-        <form action="" method="post">
-                <!-- TODO: value: project ID and id/name for the input -->
-                <input value="" hidden>
+        <form action="" method="post" th:each="project: ${otherProjects}">
+                <input th:value="'/projektOverblik?projectID=' + ${project.getProjectID()}" hidden>
                 <button class="project" type="submit">
                     <div class="project-wrapper">
                         <!-- TODO: th: Project name -->
-                        <span class="project-name">PROJECTNAME</span>
+                        <span class="project-name" th:text="${project.getName()}">PROJECTNAME</span>
                         <br>
                         <!-- TODO: th: Project DETAIL -->
                         <span class="project-detail">DETAIL 1</span>
