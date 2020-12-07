@@ -14,7 +14,7 @@ public class ProfileService {
 
     //JOHN
     public Profile getProfile(int profileID){
-        return rep.getProfileDataFromProfileID(profileID);
+        return rep.getProfileData(profileID);
     }
 
     //JOHN
@@ -24,7 +24,7 @@ public class ProfileService {
 
     //JOHN
     public boolean checkPassword(int profileID, String password){ //Correct password/match = true
-        Profile profile = rep.getProfileDataFromProfileID(profileID);
+        Profile profile = rep.getProfileData(profileID);
         return profile.getPassword().equals(password);
     }
 

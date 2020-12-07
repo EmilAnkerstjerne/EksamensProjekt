@@ -22,7 +22,7 @@ public class Login {
     //verifyLogin(UN, PW) = -1 //Login not verified
     public static int verifyLogin(String enteredUsername, String enteredPassword){
         ProfileRepository profileRepository = new ProfileRepository();
-        Profile profile = profileRepository.getProfileDataFromUsername(enteredUsername);
+        Profile profile = profileRepository.getProfileData(enteredUsername);
         CookieService.deleteOldCookies();//Deletes any old cookies from DB
         //Checks if entered UN is in list of UN's
         //Checks if entered PW matches UN corresponding PW
@@ -54,7 +54,7 @@ public class Login {
         for(int i = 0; i < cookieSize; i++){
             generatedCookie += characters.charAt(new Random().nextInt(characters.length()));
         }
-        boolean success = profileRepository.insertCookie(profileRepository.getProfileDataFromUsername(username).getProfileID(), generatedCookie);
+        boolean success = profileRepository.insertCookie(profileRepository.getProfileData(username).getProfileID(), generatedCookie);
         if (!success){
             generatedCookie = generateCookie(cookieSize,username);
         }

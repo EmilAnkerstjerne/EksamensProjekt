@@ -28,7 +28,7 @@ public class ProfileRepository {
     }
 
     //EMIL
-    public Profile getProfileDataFromUsername(String username){
+    public Profile getProfileData(String username){
         String selectStatement = "SELECT * FROM users WHERE username = ?";
         try{
             PreparedStatement preparedStatement = connection.prepareStatement(selectStatement);
@@ -48,7 +48,7 @@ public class ProfileRepository {
     }
 
     //Emil
-    public Profile getProfileDataFromProfileID(int profileID){
+    public Profile getProfileData(int profileID){
         String selectStatement = "SELECT * FROM users WHERE user_id = ?";
         try{
             PreparedStatement preparedStatement = connection.prepareStatement(selectStatement);
