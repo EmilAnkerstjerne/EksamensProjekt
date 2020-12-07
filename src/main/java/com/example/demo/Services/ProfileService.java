@@ -34,6 +34,11 @@ public class ProfileService {
     }
 
     //JOHN
+    public boolean createInvitation(int profileID, int projectID){
+        return userProjectRelationRepository.createInvitation(profileID,projectID);
+    }
+
+    //JOHN
     public boolean deleteInvitation(int invitationID, int profileID){
         return userProjectRelationRepository.deleteInvitation(invitationID, profileID);
     }
@@ -56,5 +61,16 @@ public class ProfileService {
     //JOHN
     public ArrayList<Profile> getUserProfiles(int projectID){
         return userProjectRelationRepository.getUserProfiles(projectID);
+    }
+
+
+    //TODO: Check if both are used when project is done
+    //EMIL
+    public Profile getProfileData(int userID){
+        return rep.getProfileData(userID);
+    }
+    //EMIL
+    public Profile getProfileData(String username){
+        return rep.getProfileData(username);
     }
 }

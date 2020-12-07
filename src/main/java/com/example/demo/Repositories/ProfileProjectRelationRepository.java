@@ -208,4 +208,24 @@ public class ProfileProjectRelationRepository { //For utility methods used to id
         return false;
     }
 
+    //JOHN
+    public boolean checkIfInvited(int profileID, int projectID){
+        String selectStatement = "SELECT * FROM invitations WHERE user_id = ? AND project_id = ?";
+        try {
+            PreparedStatement preparedStatement = connection.prepareStatement(selectStatement);
+            preparedStatement.setInt(1, profileID);
+            preparedStatement.setInt(2, projectID);
+            ResultSet resultSet = preparedStatement.executeQuery();
+            if (resultSet.next()){
+                return  true;
+            }
+        }
+        catch (SQLException e){
+            System.out.println("Failed to check if invited="+e.getMessage());
+            //In case of failure: returns true as not to give misinformation about existing invitation
+            return true;
+        }
+        return false;
+    }
+
 }

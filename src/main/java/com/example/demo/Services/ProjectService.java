@@ -72,4 +72,25 @@ public class ProjectService {
     public void getOtherProjects(int userID, ModelMap modelMap, boolean archived){
         modelMap.addAttribute("otherProjects", projectRep.getOtherProjects(userID, archived));
     }
+
+    //JOHN
+    public boolean hasAccess(int profileID, int projectID){
+        boolean admin = relationRepository.checkIfAdminOnProject(profileID,projectID);
+        boolean user = relationRepository.checkIfAssociatedUserProject(profileID,projectID);
+
+        return admin || user;
+    }
+
+    //JOHN
+    public boolean isAdmin(int profileID, int projectID){
+        return relationRepository.checkIfAdminOnProject(profileID,projectID);
+    }
+
+    //JOHN
+    public boolean canBeAdded(int profileID, int projectID){ //If able to create invitation: true
+        boolean admin = relationRepository.checkIfAdminOnProject(profileID,projectID);
+        boolean user = relationRepository.checkIfAssociatedUserProject(profileID,projectID);
+        boolean invitation = relationRepository.checkIfInvited(profileID,projectID);
+        return !admin && !user && !invitation;
+    }
 }

@@ -58,18 +58,19 @@ public class ProjectController {
         return "project-archive";
     }
 
-    //JOHN TODO: verify access to project
     @GetMapping("/projektOverblik")
     public String project(@CookieValue(value = "user", defaultValue = "") String cookie, WebRequest request, ModelMap modelMap){
         int profileID = Login.verifyCookie(cookie);
         if(profileID == -1){
             return "redirect:/login";
         }
-
-
         int projectID = Integer.parseInt(request.getParameter("projectID"));
-        modelMap.addAttribute("project", projectService.getProject(projectID));
-        return "test-project-summary-page";
+        //Checks if user has access to project
+        if (projectService.hasAccess(profileID,projectID)){
+            modelMap.addAttribute("project", projectService.getProject(projectID));
+            return "test-project-summary-page";
+        }
+        return "redirect:/startside";
     }
 
     //JOHN
@@ -86,8 +87,6 @@ public class ProjectController {
     //JOHN (Just a bit)
     @GetMapping("/")
     public String index(@CookieValue(value = "user", defaultValue = "") String cookie){
-        //TODO: add cookieverifier here
-        //should redirect to login page if cookies is not verified.
         int profileID = Login.verifyCookie(cookie);
         if (profileID == -1){
             return "redirect:/login";
