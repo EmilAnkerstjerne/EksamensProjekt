@@ -50,9 +50,35 @@ public class ProfileProjectController {
             return "redirect:/login";
         }
         int projectID = Integer.parseInt(request.getParameter("projectID"));
-        //TODO: check if admin/user
-        modelMap.addAttribute("users", profileService.getUserProfiles(projectID));
-        modelMap.addAttribute("project", projectService.getProject(projectID));
-        return "test-administer-users-page";
+        //Checks if user has access to project TODO: Decide if user or only admin
+        if (projectService.hasAccess(profileID,projectID)){
+            modelMap.addAttribute("users", profileService.getUserProfiles(projectID));
+            modelMap.addAttribute("project", projectService.getProject(projectID));
+            return "test-administer-users-page";
+        }
+        return "redirect:/startside";
+    }
+
+    //JOHN
+    @GetMapping("/tilfojBruger")
+    public String addUser(@CookieValue(value = "user", defaultValue = "") String cookie, WebRequest request){
+        int profileID = Login.verifyCookie(cookie);
+        if(profileID == -1){
+            return "redirect:/login";
+        }
+        //Other user/external
+        String username = request.getParameter("username");
+        int userID = profileService.getProfileData(username).getProfileID();
+        int projectID = Integer.parseInt(request.getParameter("projectID"));
+
+        //Check if profileID is NOT admin in project
+        if (!projectService.isAdmin(profileID,projectID)){
+            return "redirect:/startside";
+        }
+        //Checks if there are any conflicting relations
+        else if(projectService.canBeAdded(userID,projectID)){
+            profileService.createInvitation(userID,projectID);
+        }
+        return "redirect:/brugerAdministration?projectID=" + projectID;
     }
 }

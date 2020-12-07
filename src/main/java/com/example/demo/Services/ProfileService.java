@@ -34,6 +34,11 @@ public class ProfileService {
     }
 
     //JOHN
+    public boolean createInvitation(int profileID, int projectID){
+        return userProjectRelationRepository.createInvitation(profileID,projectID);
+    }
+
+    //JOHN
     public boolean deleteInvitation(int invitationID, int profileID){
         return userProjectRelationRepository.deleteInvitation(invitationID, profileID);
     }
