@@ -87,6 +87,8 @@ body{
     display: block;
     text-align: left;
     border-bottom: 1px solid rgba(107, 110, 112,0.2);
+    height: auto;
+    overflow: auto;
 }
 .variables-invite-text{
     font-style:italic;
@@ -105,11 +107,13 @@ body{
     border-radius: 30px;
     margin-right: 7px;
     border: 1px solid #B5BCC1;
+
 }
 
 .invite-accept-button:hover{
     background-color: #80B732;
     cursor:pointer;
+
 }
 
 .invite-decline-button:hover{

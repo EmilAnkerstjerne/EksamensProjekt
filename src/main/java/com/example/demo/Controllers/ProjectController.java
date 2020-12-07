@@ -30,21 +30,6 @@ public class ProjectController {
         return "project-overview";
     }
 
-    //Testing
-    @GetMapping("/startside2")
-    public String startsideTwo(ModelMap modelMap, @CookieValue(value = "user", defaultValue = "") String cookie){
-        int profileID = Login.verifyCookie(cookie);
-        if(profileID == -1){
-            return "redirect:/login";
-        }
-        modelMap.addAttribute("user",profileID);
-        projectService.getAdminProjects(profileID,modelMap,false);
-        projectService.getOtherProjects(profileID, modelMap, false);
-        modelMap.addAttribute("invitations", profileService.getInvitations(profileID));
-        return "startside";
-    }
-
-
     //JOHN
     @GetMapping("/projektArkiv")
     public String projectArchive(ModelMap modelMap, @CookieValue(value = "user", defaultValue = "") String cookie){

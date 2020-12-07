@@ -7,6 +7,7 @@ import org.springframework.stereotype.Controller;
 import org.springframework.ui.ModelMap;
 import org.springframework.web.bind.annotation.CookieValue;
 import org.springframework.web.bind.annotation.GetMapping;
+import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.context.request.WebRequest;
 
 @Controller
@@ -15,14 +16,16 @@ public class ProfileProjectController {
     ProfileService profileService = new ProfileService();
     ProjectService projectService = new ProjectService();
 
-    //JOHN
-    @GetMapping("/acceptInvitation")
+    //JOHN, TOBIAS
+    @PostMapping("/acceptInvitation")
     public String acceptInvitation(@CookieValue(value = "user", defaultValue = "") String cookie, WebRequest request){
         int profileID = Login.verifyCookie(cookie);
         if(profileID == -1){
             return "redirect:/login";
         }
+
         int invitationID = Integer.parseInt(request.getParameter("invID"));
+        System.out.println(invitationID);
         int projectID = profileService.getProjectIDFromInvitationID(invitationID);
         if (profileService.deleteInvitation(invitationID, profileID)){
             profileService.createUserProjectRelation(profileID,projectID);
@@ -30,8 +33,8 @@ public class ProfileProjectController {
         return "redirect:/startside";
     }
 
-    //JOHN
-    @GetMapping("/declineInvitation")
+    //JOHN, TOBIAS
+    @PostMapping("/declineInvitation")
     public String declineInvitation(@CookieValue(value = "user", defaultValue = "") String cookie, WebRequest request){
         int profileID = Login.verifyCookie(cookie);
         if(profileID == -1){
