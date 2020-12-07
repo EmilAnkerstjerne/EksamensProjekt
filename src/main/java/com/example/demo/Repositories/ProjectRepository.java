@@ -51,7 +51,7 @@ public class ProjectRepository {
                 String name = resultSet.getString("name");
                 int adminUserID  = resultSet.getInt("admin_user_id");
 
-                SimpleDateFormat sdf = new SimpleDateFormat("dd-MM-yyyy");
+                SimpleDateFormat sdf = new SimpleDateFormat("yyyy-MM-dd");
                 Date deadline = null;
                 Date startDate = null;
                 try{
@@ -99,7 +99,7 @@ public class ProjectRepository {
                 String name = resultSet.getString("name");
                 int adminUserID  = resultSet.getInt("admin_user_id");
 
-                SimpleDateFormat sdf = new SimpleDateFormat("dd-MM-yyyy");
+                SimpleDateFormat sdf = new SimpleDateFormat("yyyy-MM-dd");
                 Date deadline = null;
                 Date startDate = null;
                 try{
@@ -147,7 +147,7 @@ public class ProjectRepository {
             String name = resultSet.getString("name");
             int adminUserID  = resultSet.getInt("admin_user_id");
 
-            SimpleDateFormat sdf = new SimpleDateFormat("dd-MM-yyyy");
+            SimpleDateFormat sdf = new SimpleDateFormat("yyyy-MM-dd");
             Date deadline = null;
             Date startDate = null;
             try{

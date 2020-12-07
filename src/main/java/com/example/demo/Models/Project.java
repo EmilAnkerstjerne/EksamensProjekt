@@ -41,17 +41,19 @@ public class Project {
         if (deadline == null && startDate == null){
             return -1;
         }
-        //Has a deadline
-        else if (startDate == null && deadline != null){
+        //Has a deadline (Current date)
+        else if (startDate == null){
             days = (int) getTotalDays(new Date(), deadline);
         }
         //No deadline
-        else if (startDate != null && deadline == null){
+        else if (deadline == null){
             return -1;
         }
         //Has deadline and startDate
-        days = (int) getTotalDays(startDate, deadline);
-        return days * employees - daysOff;
+        else{
+            days = (int) getTotalDays(startDate, deadline);
+        }
+        return ((days - daysOff) * weeklyHours * employees) / 7;
     }
 
     //JOHN
