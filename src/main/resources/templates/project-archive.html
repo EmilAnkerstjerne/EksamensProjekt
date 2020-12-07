@@ -17,33 +17,31 @@
         <a id="highlighted-focus" href="/projektArkiv">Projektarkiv</a>
         <a style="float:right;" href="/logud">Log ud</a>
         <a style="float:right;" href="/profil">Profil</a>
+
         <div class="dropdown" style="float:right">
-            <!-- TODO: Thymeleaf input here: how many invitations-->
-            <button class="dropbtn" onclick="dropDown()">Invitationer (2)
-            </button>
-            <!-- TODO: Thymeleaf each here -->
+            <button class="dropbtn" onclick="dropDown()" th:text="'Invitationer (' + ${invitations.size()} + ')'"></button>
             <div class="dropdown-content" id="myDropdown">
                 <!-- Each invite "form"-->
-                <div class="invite-div">
-                    <span class="variables-invite-text">USERNAME </span><br><span>har inviteret dig til</span><br><span class="variables-invite-text"> PROJEKTNAVN</span>
+                <div class="invite-div" th:each="invitations: ${invitations}">
+                    <span class="variables-invite-text" th:text="${invitations.getAdminUsername()}"></span><br><span>har inviteret dig til</span><br><span class="variables-invite-text" th:text="${invitations.getProjectName()}"> PROJEKTNAVN</span>
                     <br>
                     <div style="text-align: center; margin-top:5px">
                         <!-- TODO: Add accept invitation mapping -->
-                        <input class="invite-accept-button" type="button" value="Accepter" >
-                        <input class="invite-decline-button" type="button" value="Afslå" >
+                        <form action="/acceptInvitation" method="post" style="float:left;">
+                            <input th:value="${invitations.getInvitationID()}" name="invID" hidden>
+                            <button class="invite-accept-button" type="submit">Accepter</button>
+                        </form>
+                        <form action="/declineInvitation" method="post" style="float:right;">
+                            <input th:value="${invitations.getInvitationID()}" name="invID" hidden>
+                            <button class="invite-decline-button" type="submit">Afslå</button>
+                        </form>
+
                     </div>
                 </div>
-                <!-- JUST FOR TESTING, THIS HAS TO BE DELETED WHEN THYMELEAF IS IMPLEMENTED-->
-                <div class="invite-div">
-                    <span class="variables-invite-text">USERNAME </span><br><span>har inviteret dig til</span><br><span class="variables-invite-text"> PROJEKTNAVN</span>
-                    <br>
-                    <div style="text-align: center; margin-top:5px">
-                        <input class="invite-accept-button" type="button" value="Accepter" >
-                        <input class="invite-decline-button" type="button" value="Afslå" >
-                    </div>
-                </div>
+
             </div>
         </div>
+
     </div>
     <script>
         //When the user clicks on the button, toggle between hiding and showing the dropdown content
