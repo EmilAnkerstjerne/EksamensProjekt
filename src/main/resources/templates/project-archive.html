@@ -12,9 +12,9 @@
     <div class="navbar">
         <div class="navbar-logo-a" style="padding:0;text-align: center;"><img th:src="@{/images/LogoSmallG.png}" alt="logo" class="navbar-logo"></div>
         <!-- TODO: Add relevant hrefs -->
-        <a id="highlighted-focus" href="/startside">Projektoversigt</a>
+        <a href="/startside">Projektoversigt</a>
         <a href="/opretProjekt">Opret projekt</a>
-        <a href="/projektArkiv">Projektarkiv</a>
+        <a id="highlighted-focus" href="/projektArkiv">Projektarkiv</a>
         <a style="float:right;" href="/logud">Log ud</a>
         <a style="float:right;" href="/profil">Profil</a>
         <div class="dropdown" style="float:right">
@@ -63,7 +63,7 @@
     </script>
 </header>
 
-    <div class="page-titel"><p>Projektoversigt</p></div>
+    <div class="page-titel"><p>Projektarkiv</p></div>
 
     <!-- List of projects owned by you -->
     <div class="list-of-projects">
@@ -88,13 +88,6 @@
                     <span class="project-detail">DETAIL 3</span>
                 </div>
             </a>
-        </div>
-
-        <!-- Create project "+" -->
-        <div class="create-project-circle-div">
-            <form action="/opretProjekt">
-            <button class="create-project-circle" type="submit">+</button>
-            </form>
         </div>
 
     </div>

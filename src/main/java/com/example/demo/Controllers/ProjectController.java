@@ -55,7 +55,7 @@ public class ProjectController {
         modelMap.addAttribute("user",profileID);
         projectService.getAdminProjects(profileID,modelMap,true);
         projectService.getOtherProjects(profileID, modelMap, true);
-        return "startside";
+        return "project-archive";
     }
 
     //JOHN TODO: verify access to project
