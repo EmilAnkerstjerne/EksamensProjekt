@@ -38,6 +38,6 @@ public class ProfileController {
             return "redirect:/login";
         }
         modelMap.addAttribute("profile", profileService.getProfile(profileID));
-        return "test-profile-page";
+        return "profile-page";
     }
 }

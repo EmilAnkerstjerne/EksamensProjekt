@@ -1,0 +1,37 @@
+@import "navbarStyle.css";
+@import "loginStyle.css";
+
+.profile-div{
+    margin: 0 auto 0 auto;
+    width: 400px;
+    background-color: white;
+    padding: 0 60px 60px 60px;
+}
+
+.username input{
+    background-color: #E3E3E3;
+}
+
+.username input, .password input{
+    width: 174px;
+    height: 31px;
+    margin-top:5px;
+}
+
+.username input:hover{
+    cursor: default;
+}
+
+.signin-btn{
+    margin: 0 100px 0 100px;
+}
+.signin-btn:hover{
+    cursor: pointer;
+}
+.signin-btn:focus, .signin-btn:active{
+    outline:none;
+    border:none;
+    height:49px;
+}
+
+

@@ -1,0 +1,145 @@
+<!DOCTYPE html>
+<html lang="en" xmlns:th="http://www.w3.org/1999/xhtml">
+<head>
+    <meta charset="UTF-8">
+    <title>Profil</title>
+    <link href="profileStyle.css" type="text/css" rel="stylesheet">
+
+</head>
+<body>
+    <header>
+    <div class="navbar">
+        <div class="navbar-logo-a" style="padding:0;text-align: center;"><img th:src="@{/images/LogoSmallG.png}" alt="logo" class="navbar-logo"></div>
+        <!-- TODO: Add relevant hrefs -->
+        <a href="/startside">Projektoversigt</a>
+        <a href="/opretProjekt">Opret projekt</a>
+        <a href="/projektArkiv">Projektarkiv</a>
+        <a style="float:right;" href="/logud">Log ud</a>
+        <a id="highlighted-focus" style="float:right;" href="/profil">Profil</a>
+        <div class="dropdown" style="float:right">
+            <!-- TODO: Thymeleaf input here: how many invitations-->
+            <button class="dropbtn" onclick="dropDown()">Invitationer (2)
+            </button>
+            <!-- TODO: Thymeleaf each here -->
+            <div class="dropdown-content" id="myDropdown">
+                <!-- Each invite "form"-->
+                <div class="invite-div">
+                    <span class="variables-invite-text">USERNAME </span><br><span>har inviteret dig til</span><br><span class="variables-invite-text"> PROJEKTNAVN</span>
+                    <br>
+                    <div style="text-align: center; margin-top:5px">
+                        <!-- TODO: Add accept invitation mapping -->
+                        <input class="invite-accept-button" type="button" value="Accepter" >
+                        <input class="invite-decline-button" type="button" value="Afslå" >
+                    </div>
+                </div>
+                <!-- JUST FOR TESTING, THIS HAS TO BE DELETED WHEN THYMELEAF IS IMPLEMENTED-->
+                <div class="invite-div">
+                    <span class="variables-invite-text">USERNAME </span><br><span>har inviteret dig til</span><br><span class="variables-invite-text"> PROJEKTNAVN</span>
+                    <br>
+                    <div style="text-align: center; margin-top:5px">
+                        <input class="invite-accept-button" type="button" value="Accepter" >
+                        <input class="invite-decline-button" type="button" value="Afslå" >
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+    <script>
+        //When the user clicks on the button, toggle between hiding and showing the dropdown content
+        function dropDown() {
+            document.getElementById("myDropdown").classList.toggle("show");
+        }
+
+        // Close the dropdown if the user clicks outside of it
+        window.onclick = function(e) {
+            if (!e.target.matches('.dropbtn')) {
+                var myDropdown = document.getElementById("myDropdown");
+                if (myDropdown.classList.contains('show')) {
+                    myDropdown.classList.remove('show');
+                }
+            }
+        }
+    </script>
+</header>
+
+    <div class="page-titel"><p>Din profil</p></div>
+
+    <div class="profile-div">
+
+        <form class="form" method="post" action="/updatePassword" id="user-form">
+
+            <!-- USERNAME -->
+            <div class="username">
+                <label for="username">Username:</label><br>
+                <input type="text" placeholder="Username" id="username" name="username" th:value="${profile.getUsername()}" readonly>
+            </div>
+
+            <!-- OLD PASSWORD -->
+            <div class="password" style="margin-bottom: 0">
+                <label for="old-password">Gamle password:</label><br>
+                <input type="password" placeholder="Dit gamle password" id="old-password" name="old-password" required>
+            </div>
+
+            <!-- NEW PASSWORD -->
+            <div class="password" style="margin-bottom: 0">
+                <label for="new-password">Nyt password:</label><br>
+                <input type="password" placeholder="Nyt password" id="new-password" name="new-password" required>
+            </div>
+
+            <!-- NEW PASSWORD RE -->
+            <div class="password">
+                <label for="new-password-re">Gentag nyt password:</label><br>
+                <input type="password" placeholder="Gentag nyt password" id="new-password-re" name="new-password-re" required>
+            </div>
+
+            <div id="error-message-div">
+                <span id="error-message"></span>
+            </div>
+            <input th:value="${profile.getPassword()}" id="getPassword" hidden>
+            <button class="signin-btn" type="submit">Opdater</button>
+
+
+        </form>
+
+    </div>
+
+    <script>
+        function checkPassword(form){
+
+            password = document.getElementById("old-password").value;
+            getPassword = document.getElementById("getPassword").value;
+
+            newPassword = document.getElementById("new-password").value;
+            newPasswordRe = document.getElementById("new-password-re").value;
+            errorMessage ="";
+
+            if(password===getPassword){
+                if (newPassword!==newPasswordRe){
+                    errorMessage = "Dine indtastede nye passwords matcher ikke";
+                    document.getElementById("error-message").textContent = errorMessage;
+                    return false;
+                }
+                else{
+                    alert("Profil opdateret!");
+                    return true;
+                }
+            }
+            else{
+                errorMessage = "Det indtastede password matcher ikke dit nuværende password";
+                document.getElementById("error-message").textContent = errorMessage;
+                return false;
+            }
+        }
+
+        var form = document.getElementById("user-form");
+        function handleForm(event){
+            if(!checkPassword(this)){
+                event.preventDefault();
+            }
+        }
+
+        form.addEventListener('submit', handleForm);
+    </script>
+
+</body>
+</html>
