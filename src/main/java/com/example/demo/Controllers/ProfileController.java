@@ -38,6 +38,7 @@ public class ProfileController {
             return "redirect:/login";
         }
         modelMap.addAttribute("profile", profileService.getProfile(profileID));
+        modelMap.addAttribute("invitations", profileService.getInvitations(profileID));
         return "profile-page";
     }
 }

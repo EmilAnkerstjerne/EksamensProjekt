@@ -40,6 +40,7 @@ public class ProjectController {
         modelMap.addAttribute("user",profileID);
         projectService.getAdminProjects(profileID,modelMap,true);
         projectService.getOtherProjects(profileID, modelMap, true);
+        modelMap.addAttribute("invitations", profileService.getInvitations(profileID));
         return "project-archive";
     }
 
