@@ -13,10 +13,10 @@
         <div class="navbar-logo-a" style="padding:0;text-align: center;"><img th:src="@{/images/LogoSmallG.png}" alt="logo" class="navbar-logo"></div>
         <!-- TODO: Add relevant hrefs -->
         <a id="highlighted-focus" href="/startside">Projektoversigt</a>
-        <a href="#">Opret projekt</a>
-        <a href="#">Projekt arkiv</a>
-        <a style="float:right;" href="#">Log ud</a>
-        <a style="float:right;" href="#">Profil</a>
+        <a href="/opretProjekt">Opret projekt</a>
+        <a href="/projektArkiv">Projekt arkiv</a>
+        <a style="float:right;" href="/logud">Log ud</a>
+        <a style="float:right;" href="/profil">Profil</a>
         <div class="dropdown" style="float:right">
             <!-- TODO: Thymeleaf input here: how many invitations-->
             <button class="dropbtn" onclick="dropDown()">Invitationer (2)
@@ -69,13 +69,14 @@
     <div class="list-of-projects">
         <div><p class="page-subtitle">Projekter ejet af dig:</p></div>
 
-        <!-- TODO: Form: action="/endpoint" - endpoint that redirects the project summary page --->
-        <!-- Project box - can be collapsed at <form> -->
-        <form action="" method="post" th:each="project: ${adminProjects}">
-            <input th:value="'/projektOverblik?projectID=' + ${project.getProjectID()}" hidden>
-            <button class="project" type="submit">
+        <!-- Project box - can be collapsed at <div> -->
+        <div th:each="project: ${adminProjects}">
+            <a th:href="'/projektOverblik?projectID=' + ${project.getProjectID()}" class="project">
                 <div class="project-wrapper">
                     <span class="project-name" th:text="${project.getName()}">PROJECTNAME</span>
+                    <br>
+                    <!-- test -->
+                    <span class="project-name" th:text="'(Temp.)ID: ' + ${project.getProjectID()}">PROJECTNAME</span>
                     <br>
                     <!-- TODO: th: Project DETAIL -->
                     <span class="project-detail">DETAIL 1</span>
@@ -86,10 +87,10 @@
                     <!-- TODO: th: Project DETAIL -->
                     <span class="project-detail">DETAIL 3</span>
                 </div>
-            </button>
-        </form>
+            </a>
+        </div>
 
-        <!-- TODO: href="create-project-page" -->
+        <!-- Create project "+" -->
         <div class="create-project-circle-div">
             <form action="/opretProjekt">
             <button class="create-project-circle" type="submit">+</button>
@@ -102,27 +103,23 @@
     <div class="list-of-projects">
         <div><p class="page-subtitle">Projekter delt med dig:</p></div>
 
-        <!-- TODO: Thymeleaf each -->
-        <!-- TODO: Form: action="/endpoint" - endpoint that redirects the project summary page --->
-        <!-- Project box - can be collapsed at <form> -->
-        <form action="" method="post" th:each="project: ${otherProjects}">
-                <input th:value="'/projektOverblik?projectID=' + ${project.getProjectID()}" hidden>
-                <button class="project" type="submit">
-                    <div class="project-wrapper">
-                        <!-- TODO: th: Project name -->
-                        <span class="project-name" th:text="${project.getName()}">PROJECTNAME</span>
-                        <br>
-                        <!-- TODO: th: Project DETAIL -->
-                        <span class="project-detail">DETAIL 1</span>
-                        <br>
-                        <!-- TODO: th: Project DETAIL -->
-                        <span class="project-detail">DETAIL 2</span>
-                        <br>
-                        <!-- TODO: th: Project DETAIL -->
-                        <span class="project-detail">DETAIL 3</span>
-                    </div>
-                </button>
-            </form>
+        <!-- Project box - can be collapsed at <div> -->
+        <div th:each="project: ${otherProjects}">
+            <a th:href="'/projektOverblik?projectID=' + ${project.getProjectID()}" class="project">
+                <div class="project-wrapper">
+                    <span class="project-name" th:text="${project.getName()}">PROJECTNAME</span>
+                    <br>
+                    <!-- TODO: th: Project DETAIL -->
+                    <span class="project-detail">DETAIL 1</span>
+                    <br>
+                    <!-- TODO: th: Project DETAIL -->
+                    <span class="project-detail">DETAIL 2</span>
+                    <br>
+                    <!-- TODO: th: Project DETAIL -->
+                    <span class="project-detail">DETAIL 3</span>
+                </div>
+            </a>
+        </div>
 
     </div>
 
