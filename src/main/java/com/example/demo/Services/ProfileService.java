@@ -61,11 +61,11 @@ public class ProfileService {
 
     //TODO: Check if both are used when project is done
     //EMIL
-    public Profile getUserData(int userID){
+    public Profile getProfileData(int userID){
         return rep.getProfileData(userID);
     }
     //EMIL
-    public Profile getUserData(String username){
+    public Profile getProfileData(String username){
         return rep.getProfileData(username);
     }
 }
