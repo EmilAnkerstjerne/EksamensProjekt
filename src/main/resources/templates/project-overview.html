@@ -19,10 +19,7 @@
         <a style="float:right;" href="/profil">Profil</a>
 
         <div class="dropdown" style="float:right">
-            <!-- TODO: Thymeleaf input here: how many invitations-->
             <button class="dropbtn" onclick="dropDown()" th:text="'Invitationer (' + ${invitations.size()} + ')'"></button>
-
-            <!-- TODO: Thymeleaf each here -->
             <div class="dropdown-content" id="myDropdown">
                 <!-- Each invite "form"-->
                 <div class="invite-div" th:each="invitations: ${invitations}">
