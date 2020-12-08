@@ -7,21 +7,26 @@
 <body>
 <p th:text="'ProjektID: ' + ${project.getProjectID()}"></p>
 <a th:href="'/projektOverblik?projectID=' + ${project.getProjectID()}">Tilbage til projekt</a><br><br>
-<div class="row">
-    <div class="col">
-        <div th:each="profile: ${users}" style="border: solid">
-            <span th:text="${profile.getUsername()}"></span><span>   </span><a th:href="'/fjernBruger?userID=' + ${profile.getProfileID()}">Fjern</a>
+<div class="container">
+    <div class="row">
+        <div class="col">
+            <h2>Brugere</h2>
+            <div th:each="profile: ${users}" style="border: solid; display: inline-block; padding: 3px; margin: 5px">
+                <span style="font-size: 20px" th:text="${profile.getUsername()}"></span><span>   </span><a th:href="'/fjernBruger?userID=' + ${profile.getProfileID()}">Fjern</a>
+            </div>
+            <br>
         </div>
-        <br>
-    </div>
-    <div class="col">
-        <form method="post" action="/tilfojBruger">
-            <label>Brugernavn</label><br>
-            <input type="text" name="username"><br><br>
-            <input type="submit" value="Tilføj">
-            <input type="hidden" th:value="${project.getProjectID()}" name="projectID">
-        </form>
+        <br><br>
+        <div class="col">
+            <form method="post" action="/tilfojBruger">
+                <label>Brugernavn</label><br>
+                <input type="text" name="username"><br><br>
+                <input type="submit" value="Tilføj">
+                <input type="hidden" th:value="${project.getProjectID()}" name="projectID">
+            </form>
+        </div>
     </div>
 </div>
+
 </body>
 </html>
