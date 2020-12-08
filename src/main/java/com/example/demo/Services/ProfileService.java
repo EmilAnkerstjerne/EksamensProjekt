@@ -59,6 +59,11 @@ public class ProfileService {
     }
 
     //JOHN
+    public boolean deleteUserProjectRelation(int profileID, int projectID){
+        return userProjectRelationRepository.deleteUserProjectRelation(profileID, projectID);
+    }
+
+    //JOHN
     public ArrayList<Profile> getUserProfiles(int projectID){
         return userProjectRelationRepository.getUserProfiles(projectID);
     }

@@ -53,8 +53,8 @@ public class ProfileProjectController {
             return "redirect:/login";
         }
         int projectID = Integer.parseInt(request.getParameter("projectID"));
-        //Checks if user has access to project TODO: Decide if user or only admin
-        if (projectService.hasAccess(profileID,projectID)){
+        //Checks if user has access to project
+        if (projectService.isAdmin(profileID,projectID)){
             modelMap.addAttribute("users", profileService.getUserProfiles(projectID));
             modelMap.addAttribute("project", projectService.getProject(projectID));
             return "test-administer-users-page";
@@ -83,5 +83,17 @@ public class ProfileProjectController {
             profileService.createInvitation(userID,projectID);
         }
         return "redirect:/brugerAdministration?projectID=" + projectID;
+    }
+
+    //JOHN
+    @GetMapping("/forladProjekt")
+    public String leaveProject(@CookieValue(value = "user", defaultValue = "") String cookie, WebRequest request){
+        int profileID = Login.verifyCookie(cookie);
+        if(profileID == -1){
+            return "redirect:/login";
+        }
+        int projectID = Integer.parseInt(request.getParameter("projectID"));
+        profileService.deleteUserProjectRelation(profileID, projectID);
+        return "redirect:/startside";
     }
 }
