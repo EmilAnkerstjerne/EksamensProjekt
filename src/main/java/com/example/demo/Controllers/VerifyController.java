@@ -37,7 +37,7 @@ public class VerifyController {
                 return "register-page";
             }
             registrationService.createProfile(username,password);
-            Cookie userCook = new Cookie("user", Login.generateCookie(10, username));
+            Cookie userCook = new Cookie("user", Login.generateCookie(50, username));
             response.addCookie(userCook);
             return "redirect:/startside";
         }
@@ -83,7 +83,7 @@ public class VerifyController {
             //Checks if entered UN & PW matches DB UN & PW
             if(Login.verifyLogin(enteredUsername, enteredPassword) > 0){
                 //Creates cookie to users browser
-                Cookie userCook = new Cookie("user", Login.generateCookie(10, enteredUsername));
+                Cookie userCook = new Cookie("user", Login.generateCookie(50, enteredUsername));
                 response.addCookie(userCook);
 
 

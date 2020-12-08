@@ -1,0 +1,26 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org" lang="da">
+<head>
+    <meta charset="UTF-8">
+    <title>Title</title>
+</head>
+<body>
+<a th:href="'/projektOverblik?projectID=' + ${project.getProjectID()}"><p>Tilbage til projekt overblik</p></a>
+
+<!--/*@thymesVar id="project" type="com.example.demo.Models.Project"*/-->
+</div>
+<!-- "Insight info" -->
+<div class="col">
+    <div style="display: inline-block">
+        <h3 style="border-bottom: 2px solid">Udvidet Insight</h3><br>
+    </div>
+    <h5 th:text="'Projekt: ' + ${project.getName()}"></h5>
+    <p th:text="'Deadline: ' + ${project.printDeadline()}"></p>
+    <p th:text="'StartDate: ' + ${project.printStartDate()}"></p>
+    <p th:text="'Antal dage: ' + ${project.getTotalDays()}"></p>
+    <p th:text="'Antal timer ledig: ' + ${project.getTotalHoursAvailable()}"></p>
+    <p th:text="'Antal arbejds timer: ' + ${project.getTotalSubprojectsTime()}"></p>
+    <p th:text="'Antal medarbejdere: ' + ${project.getEmployees()}"></p>
+</div>
+</body>
+</html>

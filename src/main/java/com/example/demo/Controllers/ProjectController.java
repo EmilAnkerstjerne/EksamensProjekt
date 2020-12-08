@@ -80,4 +80,19 @@ public class ProjectController {
         return "redirect:/startside";
     }
 
+    @GetMapping("/projektVedligeholdelse")
+    public String projectMaintenance(@CookieValue(value = "user", defaultValue = "") String cookie, WebRequest request, ModelMap modelMap){
+        int profileID = Login.verifyCookie(cookie);
+        if(profileID == -1){
+            return "redirect:/login";
+        }
+        int projectID = Integer.parseInt(request.getParameter("projectID"));
+        //Checks if user has access to project
+        if (projectService.isAdmin(profileID,projectID)){
+            modelMap.addAttribute("project", projectService.getProject(projectID));
+            return "test-maintenance-page";
+        }
+        return "redirect:/startside";
+    }
+
 }

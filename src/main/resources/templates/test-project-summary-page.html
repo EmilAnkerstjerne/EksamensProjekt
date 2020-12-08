@@ -5,15 +5,19 @@
     <title>Title</title>
 </head>
 <body>
-<p th:text="'ProjectID: ' + ${project.getProjectID()}"></p><br>
-<a href="/"><p>Projekt oversigt</p></a>
-<a th:href="'/brugerAdministration?projectID=' + ${project.getProjectID()}"><p>Administrer brugere</p></a>
-<a th:href="'/udvidetInsight?projectID=' + ${project.getProjectID()}"><p>Mere info</p></a>
-<a th:href="'/forladProjekt?projectID=' + ${project.getProjectID()}"><p>Forlad projekt</p></a>
+
 <!--/*@thymesVar id="project" type="com.example.demo.Models.Project"*/-->
 <!--/*@thymesVar id="subproject" type="com.example.demo.Models.Subproject"*/-->
 <!--/*@thymesVar id="task" type="com.example.demo.Models.Task"*/-->
 <!--/*@thymesVar id="subtask" type="com.example.demo.Models.Subtask"*/-->
+
+<p th:text="'ProjectID: ' + ${project.getProjectID()}"></p><br>
+<a href="/"><p>Projekt oversigt</p></a>
+<a th:href="'/brugerAdministration?projectID=' + ${project.getProjectID()}"><p>Administrer brugere</p></a>
+<a th:href="'/projektVedligeholdelse?projectID=' + ${project.getProjectID()}"><p>Vedligeholdelse</p></a>
+<a th:href="'/udvidetInsight?projectID=' + ${project.getProjectID()}"><p>Mere info</p></a>
+<a th:href="'/forladProjekt?projectID=' + ${project.getProjectID()}"><p>Forlad projekt</p></a>
+
 <p th:text="${project.getName()}"></p>
 <div th:each="subproject: ${project.getSubprojects()}" style="margin-left: 20px">
     <p th:text="${subproject.getName()}"></p>

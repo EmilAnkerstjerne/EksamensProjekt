@@ -27,21 +27,22 @@
             <input type='button' value='Add' onclick="add('add');">
         </form>
     </div>
-    <!-- "Insight info" -->
-    <div class="col">
+    <div>
         <div style="display: inline-block">
-            <h3 style="border-bottom: 2px solid">Udvidet Insight</h3><br>
+            <h3 style="border-bottom: 2px solid">Medarbejdere</h3>
+            <form action="" method="">
+                <label>Navn</label><br>
+                <input type="text" name="name">
+                <input type="submit" value="Tilføj">
+            </form>
+            <!--/*@thymesVar id="employee" type="com.example.demo.Models.Employee"*/-->
+            <!--/*@thymesVar id="employees" type="java.util.ArrayList"*/-->
+            <div th:each="emloyee: ${employees}" style="border: solid; margin: 3px; display: inline-block">
+                <p th:text="${employee.getName()}"></p>
+            </div>
         </div>
-        <h5 th:text="'Projekt: ' + ${project.getName()}"></h5>
-        <p th:text="'Deadline: ' + ${project.printDeadline()}"></p>
-        <p th:text="'StartDate: ' + ${project.printStartDate()}"></p>
-        <p th:text="'Antal dage: ' + ${project.getTotalDays()}"></p>
-        <p th:text="'Antal timer ledig: ' + ${project.getTotalHoursAvailable()}"></p>
-        <p th:text="'Antal arbejds timer: ' + ${project.getTotalSubprojectsTime()}"></p>
-        <p th:text="'Antal medarbejdere: ' + ${project.getEmployees()}"></p>
     </div>
 </div>
-
 <script>
 
     var counter = 1;

@@ -62,7 +62,7 @@ public class ControllerOne {
         int projectID = Integer.parseInt(request.getParameter("projectID"));
         if (projectService.hasAccess(profileID,projectID)){
             modelMap.addAttribute("project", projectService.getProject(projectID));
-            return "test-maintenance-page";
+            return "test-udvidet-insight-page";
         }
         return "redirect:/startside";
     }
