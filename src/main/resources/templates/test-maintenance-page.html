@@ -3,15 +3,85 @@
 <head>
     <meta charset="UTF-8">
     <title>Title</title>
+    <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.5.2/css/bootstrap.min.css"
+          integrity="sha384-JcKb8q3iqJ61gNV9KGb8thSsNjpSL0n8PARn9HuZOnIxN0hoP+VmmDGMN5t9UJ0Z" crossorigin="anonymous">
 </head>
 <body>
-<!--/*@thymesVar id="project" type="com.example.demo.Models.Project"*/-->
 <a th:href="'/projektOverblik?projectID=' + ${project.getProjectID()}"><p>Tilbage til projekt overblik</p></a>
 <br><br>
-<p th:text="'Deadline: ' + ${project.printDeadline()}"></p>
-<p th:text="'StartDate: ' + ${project.printStartDate()}"></p>
-<p th:text="'Antal dage: ' + ${project.getTotalDays()}"></p>
-<p th:text="'Antal timer ledig: ' + ${project.getTotalHoursAvailable()}"></p>
-<p th:text="'Antal arbejds timer: ' + ${project.getTotalSubprojectsTime()}"></p>
+<!--/*@thymesVar id="project" type="com.example.demo.Models.Project"*/-->
+<div class="row">
+    <div class="col">
+        <h3 style="color: red">Not implemented</h3>
+        <form action="/add" id="form1">
+            <table border='1' align='center' id='add'>
+                <tr>
+                    <th align='right'>Opgaver</th>
+                </tr>
+                <tr th:each="subproject : ${project.getSubprojects()}">
+                    <td align='left' th:text="${subproject.getName()}"><br/></td>
+                </tr>
+            </table>
+
+            <!-- add funktionen i oneclick tager table's id som parameter -->
+            <input type='button' value='Add' onclick="add('add');">
+        </form>
+    </div>
+    <!-- "Insight info" -->
+    <div class="col">
+        <h3>Udvidet Insight</h3>
+        <p th:text="'Deadline: ' + ${project.printDeadline()}"></p>
+        <p th:text="'StartDate: ' + ${project.printStartDate()}"></p>
+        <p th:text="'Antal dage: ' + ${project.getTotalDays()}"></p>
+        <p th:text="'Antal timer ledig: ' + ${project.getTotalHoursAvailable()}"></p>
+        <p th:text="'Antal arbejds timer: ' + ${project.getTotalSubprojectsTime()}"></p>
+    </div>
+</div>
+
+<script>
+
+    var counter = 1;
+    var temp = 0;
+
+    //Tilfoejer et hidden input field for at kunne tilgaa Counter-attributten i Controlleren
+    var div = document.createElement('input');
+    div.setAttribute('name', 'counterID');
+    div.setAttribute('type', 'hidden');
+    document.getElementById('form1').appendChild(div);
+
+    //Opdaterer det hidden input field, med Counter's vaerdi
+    //funktionen her, eksekveres nede i "function add()" hver gang denne eksekveres
+    //for at opdatere input field, saa det altid er det samme som Counter
+    function counterAdd() {
+        div.setAttribute('value', "" + counter);
+    }
+
+    //Denne funktion tilfoejer et nyt input field og en SUBMIT-KNAP til dette.
+    function add(divName) {
+        //koeres for at opdatere det hidden input field.
+        counterAdd();
+        //Tilfoejer en tr
+        var newdiv = document.createElement('tr');
+        //Tilfoejer en td til tr
+        newdiv.innerHTML = "<td align='left'><input name='opgaver" + counter + "' type='text' required/><br/></td>";
+        //Skriver det til dokumentet
+        document.getElementById(divName).appendChild(newdiv);
+        counter++;
+        //Tilfoejer en knap naar der laves et felt til at skrive i,
+        // og if-statementet med temp soerger for, at der kun oprettes een submit knap,
+        // uanset antallet af nye felter
+        if (temp < 1) {
+            var newdiv2 = document.createElement('input');
+            newdiv2.setAttribute('type', 'submit');
+            newdiv2.setAttribute('name', 'submit');
+            newdiv2.setAttribute('value', 'OK');
+            document.getElementById('form1').appendChild(newdiv2);
+        }
+        temp++;
+
+
+    }
+</script>
+
 </body>
 </html>
