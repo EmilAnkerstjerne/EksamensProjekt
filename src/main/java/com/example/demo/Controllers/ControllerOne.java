@@ -7,6 +7,7 @@ import org.springframework.stereotype.Controller;
 import org.springframework.ui.ModelMap;
 import org.springframework.web.bind.annotation.CookieValue;
 import org.springframework.web.bind.annotation.GetMapping;
+import org.springframework.web.context.request.WebRequest;
 
 @Controller
 public class ControllerOne {
@@ -49,6 +50,21 @@ public class ControllerOne {
         projectService.getOtherProjects(profileID, modelMap, false);
         modelMap.addAttribute("invitations", profileService.getInvitations(profileID));
         return "startside";
+    }
+
+    //JOHN (Link to extended Insight page) TODO: To be moved
+    @GetMapping("/udvidetInsight")
+    public String extendedInfo(@CookieValue(value = "user", defaultValue = "") String cookie, WebRequest request, ModelMap modelMap){
+        int profileID = Login.verifyCookie(cookie);
+        if(profileID == -1){
+            return "redirect:/login";
+        }
+        int projectID = Integer.parseInt(request.getParameter("projectID"));
+        if (projectService.hasAccess(profileID,projectID)){
+            modelMap.addAttribute("project", projectService.getProject(projectID));
+            return "test-maintenance-page";
+        }
+        return "redirect:/startside";
     }
 
 }

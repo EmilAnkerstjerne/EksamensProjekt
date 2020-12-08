@@ -66,12 +66,15 @@ public class Project {
 
     //JOHN
     public long getTotalDays(){
-        Date startDate = this.startDate;
+        Date firstDate = startDate;
         Date endDate = deadline;
-        if (startDate == null || endDate == null){
+        if (firstDate == null && endDate == null){
             return -1;
         }
-        long diffInMillies = Math.abs(endDate.getTime() - startDate.getTime());
+        else if (startDate == null){
+            firstDate = new Date();
+        }
+        long diffInMillies = Math.abs(endDate.getTime() - firstDate.getTime());
         long diff = TimeUnit.DAYS.convert(diffInMillies, TimeUnit.MILLISECONDS);
 
         return diff;

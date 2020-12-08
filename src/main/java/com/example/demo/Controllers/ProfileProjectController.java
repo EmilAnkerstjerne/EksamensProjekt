@@ -63,7 +63,7 @@ public class ProfileProjectController {
     }
 
     //JOHN
-    @GetMapping("/tilfojBruger")
+    @PostMapping("/tilfojBruger")
     public String addUser(@CookieValue(value = "user", defaultValue = "") String cookie, WebRequest request){
         int profileID = Login.verifyCookie(cookie);
         if(profileID == -1){
@@ -81,6 +81,21 @@ public class ProfileProjectController {
         //Checks if there are any conflicting relations
         else if(projectService.canBeAdded(userID,projectID)){
             profileService.createInvitation(userID,projectID);
+        }
+        return "redirect:/brugerAdministration?projectID=" + projectID;
+    }
+
+    //JOHN
+    @GetMapping("/fjernBruger")
+    public String removeUser(@CookieValue(value = "user", defaultValue = "") String cookie, WebRequest request){
+        int profileID = Login.verifyCookie(cookie);
+        if(profileID == -1){
+            return "redirect:/login";
+        }
+        int projectID =  Integer.parseInt(request.getParameter("projectID"));
+        int userID = Integer.parseInt(request.getParameter("userID"));
+        if (projectService.isAdmin(profileID,projectID)){
+            profileService.deleteUserProjectRelation(userID,projectID);
         }
         return "redirect:/brugerAdministration?projectID=" + projectID;
     }
