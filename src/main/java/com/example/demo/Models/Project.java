@@ -80,7 +80,7 @@ public class Project {
     //JOHN
     public String getCurrentDate(){
         Date date = new Date();
-        SimpleDateFormat sdf = new SimpleDateFormat("dd-MM-yyyy");
+        SimpleDateFormat sdf = new SimpleDateFormat("dd/MM/yyyy");
         return sdf.format(date);
     }
 
@@ -91,6 +91,24 @@ public class Project {
             sum += subproject.getTotalTasksTime();
         }
         return sum;
+    }
+
+    //JOHN
+    public String printDeadline(){
+        if (deadline == null){
+            return "00/00/0000";
+        }
+        SimpleDateFormat sdf = new SimpleDateFormat("dd/MM/yyyy");
+        return sdf.format(deadline);
+    }
+
+    //JOHN
+    public String printStartDate(){
+        if (startDate == null){
+            return "00/00/0000";
+        }
+        SimpleDateFormat sdf = new SimpleDateFormat("dd/MM/yyyy");
+        return sdf.format(startDate);
     }
 
     public void addSubproject(Subproject subproject){
