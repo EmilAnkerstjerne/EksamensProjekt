@@ -9,7 +9,10 @@ import com.example.demo.Repositories.ProfileProjectRelationRepository;
 import com.example.demo.Repositories.ProjectRepository;
 import org.springframework.ui.ModelMap;
 
+import java.text.ParseException;
+import java.text.SimpleDateFormat;
 import java.util.ArrayList;
+import java.util.Date;
 
 //JOHN
 public class ProjectService {
@@ -94,5 +97,39 @@ public class ProjectService {
         return !admin && !user && !invitation;
     }
 
+    //JOHN
+    public boolean changeEssentialInformation(int projectID, String deadline, String startDate, int weeklyHours, int weeklyDays, int daysOff){
+        Date sd;
+        Date dl;
 
+        SimpleDateFormat sdf = new SimpleDateFormat("yyyy-MM-dd");
+        if (startDate == null){
+            sd = null;
+        }
+        else {
+            try {
+                sd = sdf.parse(startDate);
+            }
+            catch (ParseException e) {
+                sd = null;
+            }
+        }
+        if (deadline == null){
+            dl = null;
+        }
+        else {
+            try {
+                dl = sdf.parse(deadline);
+            }
+            catch (ParseException e) {
+                dl = null;
+            }
+        }
+        return processRep.changeEssentialInformation(projectID,dl,sd,weeklyHours,weeklyDays,daysOff);
+    }
+
+    //JOHN TODO: add rep
+    public boolean changeArchived(){
+        return false;
+    }
 }

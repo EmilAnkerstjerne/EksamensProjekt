@@ -94,19 +94,34 @@ public class ProcessRepository extends Repository{ //Create, edit, delete proces
     }
 
     //JOHN
-    public boolean changeEssentialInformation(int projectID, Date deadline, Date startDate, int weeklyHours, int weeklyDays, int daysOff, boolean archived){
+    public boolean changeEssentialInformation(int projectID, Date deadline, Date startDate, int weeklyHours, int weeklyDays, int daysOff){
         String updateStatement =
-                "UPDATE projects SET deadline = ?, startdate = ?, weekly_hours = ?, weekly_days = ?, days_off = ?, archived = ? " +
+                "UPDATE projects SET deadline = ?, startdate = ?, weekly_hours = ?, weekly_days = ?, days_off = ? " +
                         "WHERE project_id = ?";
         try{
+            java.sql.Date newDeadline;
+            java.sql.Date newStartDate;
+            if (deadline == null){
+                newDeadline = null;
+            }
+            else {
+                newDeadline = new java.sql.Date((deadline.getTime()));
+            }
+
+            if (startDate == null){
+                newStartDate = null;
+            }
+            else {
+                newStartDate = new java.sql.Date((startDate.getTime()));
+            }
+
             PreparedStatement preparedStatement = connection.prepareStatement(updateStatement);
-            preparedStatement.setDate(1, new java.sql.Date((deadline.getTime())));
-            preparedStatement.setDate(2, new java.sql.Date((startDate.getTime())));
+            preparedStatement.setDate(1, newDeadline);
+            preparedStatement.setDate(2, newStartDate);
             preparedStatement.setInt(3, weeklyHours);
             preparedStatement.setInt(4, weeklyDays);
             preparedStatement.setInt(5,daysOff);
-            preparedStatement.setBoolean(6, archived);
-            preparedStatement.setInt(7, projectID);
+            preparedStatement.setInt(6, projectID);
             preparedStatement.execute();
             return true;
         }
