@@ -35,6 +35,20 @@ public class Project {
     }
 
     //JOHN
+    public int calculateHoursWeekEmployeeNeeded(){
+        double totalDays = getTotalDays();
+        if (totalDays < 0){
+            return -1;
+        }
+        double t = getTotalSubprojectsTime();
+        double d = daysOff;
+        double e = employees;
+        double w = weeklyDays;
+        int hours = (int) Math.ceil(t / (totalDays - d / e) / e / w);
+        return hours;
+    }
+
+    //JOHN
     public int getTotalHoursAvailable(){
         int days = 0;
         //No dates
@@ -74,6 +88,9 @@ public class Project {
         else if (startDate == null){
             firstDate = new Date();
         }
+        else if(deadline == null){
+            return -1;
+        }
         long diffInMillies = Math.abs(endDate.getTime() - firstDate.getTime());
         long diff = TimeUnit.DAYS.convert(diffInMillies, TimeUnit.MILLISECONDS);
 
@@ -106,12 +123,37 @@ public class Project {
     }
 
     //JOHN
+    public String calculateDeadline(){
+        Date startDate = this.startDate;
+        if (startDate == null){
+            startDate = new Date();
+        }
+        double d = daysOff;
+        double e = employees;
+        double h = getTotalSubprojectsTime();
+        double w = weeklyHours;
+        int days = (int) Math.ceil(d / e + h / (w * e / 7));
+        //Milliseconds in a day: 86400000
+        Date deadline = new Date(startDate.getTime() + days * 86400000);
+        SimpleDateFormat sdf = new SimpleDateFormat("dd/MM/yyyy");
+        return sdf.format(deadline);
+    }
+
+    //JOHN
     public String printStartDate(){
         if (startDate == null){
-            return "00/00/0000";
+            return getCurrentDate();
         }
         SimpleDateFormat sdf = new SimpleDateFormat("dd/MM/yyyy");
         return sdf.format(startDate);
+    }
+
+    //JOHN
+    public String printName(){
+        if (name.equals("")){
+            return "Ikke navngivet";
+        }
+        return name;
     }
 
     public void addSubproject(Subproject subproject){

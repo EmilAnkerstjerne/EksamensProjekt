@@ -1,5 +1,5 @@
 <!DOCTYPE html>
-<html lang="en" xmlns:th="http://www.w3.org/1999/xhtml">
+<html xmlns:th="http://www.thymeleaf.org" lang="da">
 <head>
     <meta charset="UTF-8">
     <title>Startside</title>
@@ -75,7 +75,8 @@
                 <br>
                 -->
                 <!-- test -->
-                <span class="project-name" th:text="'ProjectID: #' + ${project.getProjectID()}"></span>
+                <!--/*@thymesVar id="project" type="com.example.demo.Models.Project"*/-->
+                <span class="project-name" th:text="${project.printName()}"></span>
                 <!-- TODO: th: Project DETAIL -->
                 <span class="project-detail">DETAIL 1</span>
                 <br>
@@ -104,7 +105,7 @@
         <div th:each="project: ${otherProjects}">
             <a th:href="'/projektOverblik?projectID=' + ${project.getProjectID()}" class="project">
                 <div class="project-wrapper">
-                    <span class="project-name" th:text="${project.getName()}"></span>
+                    <span class="project-name" th:text="${project.printName()}"></span>
                     <!-- TODO: th: Project DETAIL -->
                     <span class="project-detail">DETAIL 1</span>
                     <br>

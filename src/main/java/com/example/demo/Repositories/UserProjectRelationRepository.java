@@ -8,23 +8,9 @@ import java.sql.*;
 import java.util.ArrayList;
 
 //JOHN
-public class UserProjectRelationRepository {
-    private Connection connection;
-
+public class UserProjectRelationRepository extends Repository{
     public UserProjectRelationRepository() {
         setConnection();
-    }
-
-    public boolean setConnection(){
-        String url = "jdbc:mysql://localhost:3306/skidegodt?serverTimezone=UTC";
-        try{
-            connection = DriverManager.getConnection(url,"SkideGodt","SkideGodt");
-            return true;
-        }
-        catch (SQLException e){
-            System.out.println("No connection to sever="+e.getMessage());
-            return false;
-        }
     }
 
     //JOHN

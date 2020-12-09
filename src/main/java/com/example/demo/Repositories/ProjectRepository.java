@@ -12,24 +12,9 @@ import java.util.ArrayList;
 import java.util.Date;
 
 //JOHN
-public class ProjectRepository {
-
-    private Connection connection;
-
+public class ProjectRepository extends Repository {
     public ProjectRepository() {
         setConnection();
-    }
-
-    public boolean setConnection(){
-        String url = "jdbc:mysql://localhost:3306/skidegodt?serverTimezone=UTC";
-        try{
-            connection = DriverManager.getConnection(url,"SkideGodt","SkideGodt");
-            return true;
-        }
-        catch (SQLException e){
-            System.out.println("No connection to sever="+e.getMessage());
-            return false;
-        }
     }
 
     //JOHN
@@ -38,7 +23,8 @@ public class ProjectRepository {
                 "SELECT pr.*, count(employee_id) as count FROM projects pr " +
                 "LEFT JOIN employees em using(project_id) " +
                 "WHERE admin_user_id = ? AND archived = ? " +
-                "GROUP BY project_id";
+                "GROUP BY project_id " +
+                        "ORDER BY pr.project_id DESC";
         ArrayList<Project> list = new ArrayList<>();
         try {
             PreparedStatement preparedStatement = connection.prepareStatement(selectStatement);
@@ -86,7 +72,8 @@ public class ProjectRepository {
                         "JOIN projects pr ON up.project_id = pr.project_id " +
                         "LEFT JOIN employees em ON pr.project_id = em.project_id " +
                         "WHERE up.user_id = ? AND pr.archived = ? " +
-                        "GROUP BY project_id";
+                        "GROUP BY project_id " +
+                        "ORDER BY pr.project_id DESC";
         ArrayList<Project> list = new ArrayList<>();
         try {
             PreparedStatement preparedStatement = connection.prepareStatement(selectStatement);

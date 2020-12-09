@@ -1,5 +1,5 @@
 <!DOCTYPE html>
-<html lang="en" xmlns:th="http://www.w3.org/1999/xhtml">
+<html xmlns:th="http://www.thymeleaf.org" lang="da">
 <head>
     <meta charset="UTF-8">
     <title>Startside</title>
@@ -71,7 +71,7 @@
         <div th:each="project: ${adminProjects}">
             <a th:href="'/projektOverblik?projectID=' + ${project.getProjectID()}" class="project">
                 <div class="project-wrapper">
-                    <span class="project-name" th:text="${project.getName()}">PROJECTNAME</span>
+                    <span class="project-name" th:text="${project.printName()}">PROJECTNAME</span>
                     <br>
                     <!-- TODO: th: Project DETAIL -->
                     <span class="project-detail">DETAIL 1</span>
@@ -95,7 +95,7 @@
         <div th:each="project: ${otherProjects}">
             <a th:href="'/projektOverblik?projectID=' + ${project.getProjectID()}" class="project">
                 <div class="project-wrapper">
-                    <span class="project-name" th:text="${project.getName()}">PROJECTNAME</span>
+                    <span class="project-name" th:text="${project.printName()}">PROJECTNAME</span>
                     <br>
                     <!-- TODO: th: Project DETAIL -->
                     <span class="project-detail">DETAIL 1</span>
