@@ -108,6 +108,7 @@ public class ProjectController {
         //Checks if user has access to project
         if (projectService.isAdmin(profileID,projectID)){
             modelMap.addAttribute("project", projectService.getProject(projectID));
+            modelMap.addAttribute("employees", projectService.getEmployees(projectID));
             return "test-maintenance-page";
         }
         return "redirect:/startside";

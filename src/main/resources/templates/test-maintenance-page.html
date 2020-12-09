@@ -30,14 +30,16 @@
     <div>
         <div style="display: inline-block">
             <h3 style="border-bottom: 2px solid">Medarbejdere</h3>
-            <form action="" method="">
+            <form action="/tilfojMedarbejder" method="Post">
                 <label>Navn</label><br>
                 <input type="text" name="name">
+                <input type="hidden" name="projectID" th:value="${project.getProjectID()}">
                 <input type="submit" value="Tilføj">
             </form>
+            <br><br>
             <!--/*@thymesVar id="employee" type="com.example.demo.Models.Employee"*/-->
             <!--/*@thymesVar id="employees" type="java.util.ArrayList"*/-->
-            <div th:each="emloyee: ${employees}" style="border: solid; margin: 3px; display: inline-block">
+            <div th:each="employee: ${employees}" style="border: solid; margin: 3px; display: inline-block">
                 <p th:text="${employee.getName()}"></p>
             </div>
         </div>

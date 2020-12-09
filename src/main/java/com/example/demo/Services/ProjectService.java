@@ -1,12 +1,10 @@
 package com.example.demo.Services;
 
-import com.example.demo.Models.Project;
-import com.example.demo.Models.Subproject;
-import com.example.demo.Models.Subtask;
-import com.example.demo.Models.Task;
+import com.example.demo.Models.*;
 import com.example.demo.Repositories.ProcessRepository;
 import com.example.demo.Repositories.ProfileProjectRelationRepository;
 import com.example.demo.Repositories.ProjectRepository;
+import com.example.demo.Repositories.UserProjectRelationRepository;
 import org.springframework.ui.ModelMap;
 
 import java.text.ParseException;
@@ -19,7 +17,8 @@ public class ProjectService {
 
     ProjectRepository projectRep = new ProjectRepository();
     ProcessRepository processRep = new ProcessRepository();
-    ProfileProjectRelationRepository relationRepository = new ProfileProjectRelationRepository();
+    ProfileProjectRelationRepository relationRep = new ProfileProjectRelationRepository();
+    UserProjectRelationRepository userRep = new UserProjectRelationRepository();
 
     public ProjectService(){
 
@@ -78,22 +77,22 @@ public class ProjectService {
 
     //JOHN
     public boolean hasAccess(int profileID, int projectID){
-        boolean admin = relationRepository.checkIfAdminOnProject(profileID,projectID);
-        boolean user = relationRepository.checkIfAssociatedUserProject(profileID,projectID);
+        boolean admin = relationRep.checkIfAdminOnProject(profileID,projectID);
+        boolean user = relationRep.checkIfAssociatedUserProject(profileID,projectID);
 
         return admin || user;
     }
 
     //JOHN
     public boolean isAdmin(int profileID, int projectID){
-        return relationRepository.checkIfAdminOnProject(profileID,projectID);
+        return relationRep.checkIfAdminOnProject(profileID,projectID);
     }
 
     //JOHN
     public boolean canBeAdded(int profileID, int projectID){ //If able to create invitation: true
-        boolean admin = relationRepository.checkIfAdminOnProject(profileID,projectID);
-        boolean user = relationRepository.checkIfAssociatedUserProject(profileID,projectID);
-        boolean invitation = relationRepository.checkIfInvited(profileID,projectID);
+        boolean admin = relationRep.checkIfAdminOnProject(profileID,projectID);
+        boolean user = relationRep.checkIfAssociatedUserProject(profileID,projectID);
+        boolean invitation = relationRep.checkIfInvited(profileID,projectID);
         return !admin && !user && !invitation;
     }
 
@@ -131,5 +130,25 @@ public class ProjectService {
     //JOHN TODO: add rep
     public boolean changeArchived(){
         return false;
+    }
+
+    //JOHN
+    public boolean addEmployee(int projectID, String name){
+        return 0 < userRep.createEmployee(projectID,name);
+    }
+
+    //JOHN
+    public boolean deleteEmployee(int employeeID){
+        return userRep.deleteEmployee(employeeID);
+    }
+
+    //JOHN
+    public ArrayList<Employee> getEmployees(int projectID){
+        ArrayList<Employee> employees = userRep.getEmployees(projectID);
+        System.out.println(employees.size());
+        for (Employee e : employees){
+            System.out.println(e);
+        }
+        return employees;
     }
 }

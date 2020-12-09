@@ -169,7 +169,7 @@ public class UserProjectRelationRepository extends Repository{
         String selectStatement =
                 "SELECT * FROM employees " +
                 "WHERE project_id = ? " +
-                "GROUP BY name";
+                "ORDER BY name";
         ArrayList<Employee> list = new ArrayList<>();
         try{
             PreparedStatement preparedStatement = connection.prepareStatement(selectStatement);

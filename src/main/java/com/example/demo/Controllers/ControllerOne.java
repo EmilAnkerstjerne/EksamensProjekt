@@ -7,6 +7,7 @@ import org.springframework.stereotype.Controller;
 import org.springframework.ui.ModelMap;
 import org.springframework.web.bind.annotation.CookieValue;
 import org.springframework.web.bind.annotation.GetMapping;
+import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.context.request.WebRequest;
 
 @Controller
@@ -66,6 +67,22 @@ public class ControllerOne {
             return "test-udvidet-insight-page";
         }
         return "redirect:/startside";
+    }
+
+    //JOHN
+    @PostMapping("/tilfojMedarbejder")
+    public String addEmployee(@CookieValue(value = "user", defaultValue = "") String cookie, WebRequest request){
+        int profileID = Login.verifyCookie(cookie);
+        if(profileID == -1){
+            return "redirect:/login";
+        }
+        int projectID = Integer.parseInt(request.getParameter("projectID"));
+
+        if (projectService.isAdmin(profileID,projectID)){
+            String name = request.getParameter("name");
+            projectService.addEmployee(projectID,name);
+        }
+        return "redirect:/projektVedligeholdelse?projectID=" + projectID;
     }
 
 }
