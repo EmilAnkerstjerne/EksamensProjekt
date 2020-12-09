@@ -99,6 +99,9 @@
         <div class="quickinsight-bulletpoint">
             <div class="quickinsight-bulletpoint-title"><span>Akkumuleret tid krævet: </span></div>
             <div class="quickinsight-bulletpoint-text"><span th:text="${project.getTotalSubprojectsTime()}+' timer'"></span></div>
+            <a th:href="'/udvidetInsight?projectID=' + ${project.getProjectID()}"><div class="nav-links-admin">Mere info</div></a>
+
+
         </div>
     </div>
 
