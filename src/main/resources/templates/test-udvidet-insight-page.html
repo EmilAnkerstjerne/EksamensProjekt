@@ -3,25 +3,41 @@
 <head>
     <meta charset="UTF-8">
     <title>Title</title>
+    <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.5.2/css/bootstrap.min.css"
+          integrity="sha384-JcKb8q3iqJ61gNV9KGb8thSsNjpSL0n8PARn9HuZOnIxN0hoP+VmmDGMN5t9UJ0Z" crossorigin="anonymous">
 </head>
 <body>
-<a th:href="'/projektOverblik?projectID=' + ${project.getProjectID()}"><p>Tilbage til projekt overblik</p></a>
 
 <!--/*@thymesVar id="project" type="com.example.demo.Models.Project"*/-->
-</div>
+
+<a th:href="'/projektOverblik?projectID=' + ${project.getProjectID()}"><p>Tilbage til projekt overblik</p></a>
+
 <!-- "Insight info" -->
-<div class="col">
-    <div style="display: inline-block">
-        <h3 style="border-bottom: 2px solid">Udvidet Insight</h3><br>
+<div class="row">
+    <div class="col">
+        <h3>Informationsboks</h3>
     </div>
-    <h5 th:text="'Projekt: ' + ${project.getName()}"></h5>
-    <p th:text="'Deadline: ' + ${project.printDeadline()}"></p>
-    <p th:text="'StartDate: ' + ${project.printStartDate()}"></p>
-    <p th:text="'Antal dage i alt (Start dato - deadline): ' + ${project.getTotalDays()}"></p>
-    <p th:text="'Antal timer ledig: ' + ${project.getTotalHoursAvailable()}"></p>
-    <p th:text="'Antal arbejds timer: ' + ${project.getTotalSubprojectsTime()}"></p>
-    <p th:text="'Antal medarbejdere: ' + ${project.getEmployees()}"></p>
-    <p th:text="'Forventet deadline: ' + ${project.calculateDeadline()}"></p>
+    <div class="col">
+        <h3>Grundoplysninger</h3>
+        <form>
+
+        </form>
+    </div>
+    <div class="col">
+        <div style="display: inline-block">
+            <h3 style="border-bottom: 2px solid">Udvidet Insight</h3><br>
+        </div>
+        <h5 th:text="'Projekt: ' + ${project.getName()}"></h5>
+        <p th:text="'Deadline: ' + ${project.printDeadline()}"></p>
+        <p th:text="'StartDate: ' + ${project.printStartDate()}"></p>
+        <p th:text="'Antal dage i alt (Start dato - deadline): ' + ${project.getTotalDays()}"></p>
+        <p th:text="'Antal timer ledig: ' + ${project.getTotalHoursAvailable()}"></p>
+        <p th:text="'Antal arbejds timer: ' + ${project.getTotalSubprojectsTime()}"></p>
+        <p th:text="'Antal medarbejdere: ' + ${project.getEmployees()}"></p>
+        <p th:text="'Forventet deadline: ' + ${project.calculateDeadline()}"></p>
+        <p th:text="'Krævede ugentlige timer pr. medarbejder: ' + ${project.calculateHoursWeekEmployeeNeeded()}"></p>
+    </div>
 </div>
+
 </body>
 </html>
