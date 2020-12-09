@@ -17,10 +17,11 @@
     <h5 th:text="'Projekt: ' + ${project.getName()}"></h5>
     <p th:text="'Deadline: ' + ${project.printDeadline()}"></p>
     <p th:text="'StartDate: ' + ${project.printStartDate()}"></p>
-    <p th:text="'Antal dage: ' + ${project.getTotalDays()}"></p>
+    <p th:text="'Antal dage i alt (Start dato - deadline): ' + ${project.getTotalDays()}"></p>
     <p th:text="'Antal timer ledig: ' + ${project.getTotalHoursAvailable()}"></p>
     <p th:text="'Antal arbejds timer: ' + ${project.getTotalSubprojectsTime()}"></p>
     <p th:text="'Antal medarbejdere: ' + ${project.getEmployees()}"></p>
+    <p th:text="'Forventet deadline: ' + ${project.calculateDeadline()}"></p>
 </div>
 </body>
 </html>
