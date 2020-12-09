@@ -38,7 +38,8 @@ public class ProjectRepository {
                 "SELECT pr.*, count(employee_id) as count FROM projects pr " +
                 "LEFT JOIN employees em using(project_id) " +
                 "WHERE admin_user_id = ? AND archived = ? " +
-                "GROUP BY project_id";
+                "GROUP BY project_id " +
+                        "ORDER BY pr.project_id DESC";
         ArrayList<Project> list = new ArrayList<>();
         try {
             PreparedStatement preparedStatement = connection.prepareStatement(selectStatement);
@@ -86,7 +87,8 @@ public class ProjectRepository {
                         "JOIN projects pr ON up.project_id = pr.project_id " +
                         "LEFT JOIN employees em ON pr.project_id = em.project_id " +
                         "WHERE up.user_id = ? AND pr.archived = ? " +
-                        "GROUP BY project_id";
+                        "GROUP BY project_id " +
+                        "ORDER BY pr.project_id DESC";
         ArrayList<Project> list = new ArrayList<>();
         try {
             PreparedStatement preparedStatement = connection.prepareStatement(selectStatement);
