@@ -161,9 +161,17 @@ public class Project {
         return sdf.format(startDate);
     }
 
+    public boolean formNullStartDate(){
+        return startDate == null;
+    }
+
     public String formDeadline(){
         SimpleDateFormat sdf = new SimpleDateFormat("yyyy-MM-dd");
         return sdf.format(deadline);
+    }
+
+    public boolean formNullDeadline(){
+        return deadline == null;
     }
 
     public void addSubproject(Subproject subproject){
