@@ -122,9 +122,9 @@ public class ProjectRepository extends Repository {
      */
     public Project getProject(int projectID){
         String selectStatement =
-                "SELECT pr.*, count(employee_id) as count FROM projects pr " +
-                        "JOIN employees em using(project_id)" +
-                "WHERE project_id = ?";
+                "SELECT pr.*, count(em.employee_id) as count FROM projects pr " +
+                "LEFT JOIN employees em ON pr.project_id = em.project_id " +
+                "WHERE pr.project_id = ?";
         try{
             PreparedStatement preparedStatement = connection.prepareStatement(selectStatement);
             preparedStatement.setInt(1, projectID);
@@ -152,8 +152,8 @@ public class ProjectRepository extends Repository {
             int daysOff = resultSet.getInt("days_off");
             boolean archived = resultSet.getBoolean("archived");
             int employees = resultSet.getInt("count");
-
-            return new Project(projectID, name, adminUserID, deadline, startDate, weeklyHours, weeklyDays, daysOff, archived, employees);
+            Project project = new Project(projectID, name, adminUserID, deadline, startDate, weeklyHours, weeklyDays, daysOff, archived, employees);
+            return project;
         }
         catch (SQLException e){
             System.out.println("Failed to get project="+e.getMessage());
