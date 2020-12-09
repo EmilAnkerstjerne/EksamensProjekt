@@ -56,9 +56,6 @@ public class ProjectController {
             modelMap.addAttribute("invitations", profileService.getInvitations(profileID));
             modelMap.addAttribute("profile", profileService.getProfile(profileID));
             modelMap.addAttribute("project", projectService.getProject(projectID));
-            // TEST
-            System.out.println(projectService.getProject(projectID));
-            System.out.println("ProjectAdminID: "+projectService.getProject(projectID).getAdminUserID());
 
             return "project-summary-page";
         }
