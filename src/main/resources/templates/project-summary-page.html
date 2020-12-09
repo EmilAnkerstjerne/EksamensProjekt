@@ -67,7 +67,6 @@
         <!-- PROJECT NAME AND BUTTONS/NAV -->
         <div class="project-name-title">
             <div class="project-name-text-div"><span th:text="'ProjektID: ' + ${project.getProjectID()}"></span></div>
-            <span th:text="'AdminID: '+${project.getAdminUserID()}"></span>
             <div class="nav-links" th:if="${project.getAdminUserID()} == ${profile.getProfileID()}">
                 <a th:href="'/brugerAdministration?projectID=' + ${project.getProjectID()}"><div class="nav-links-admin">Administrer brugere</div></a>
                 <a th:href="'/projektVedligeholdelse?projectID=' + ${project.getProjectID()}"><div class="nav-links-admin">Vedligeholdelse</div></a>
