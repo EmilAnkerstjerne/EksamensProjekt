@@ -1,6 +1,7 @@
 package com.example.demo.Repositories;
 
 import com.example.demo.Models.Employee;
+import com.example.demo.Models.EmployeeSkill;
 import com.example.demo.Models.Invitation;
 import com.example.demo.Models.Profile;
 
@@ -208,18 +209,77 @@ public class UserProjectRelationRepository extends Repository{
     }
 
     //JOHN
-    public boolean deleteEmployee(int employeeID){
+    public boolean deleteEmployee(int projectID, int employeeID){
         String updateStatement =
                 "DELETE FROM employees " +
-                "WHERE employee_id = ?";
+                "WHERE employee_id = ? AND project_id = ?";
         try {
             PreparedStatement preparedStatement = connection.prepareStatement(updateStatement);
             preparedStatement.setInt(1, employeeID);
+            preparedStatement.setInt(2, projectID);
             preparedStatement.execute();
             return true;
         }
         catch (SQLException e){
             System.out.println("Failed to delete employee="+e.getMessage());
+            return false;
+        }
+    }
+
+    //JOHN
+    public ArrayList<EmployeeSkill> getEmployeeSkills(int employeeID){
+        String selectStatement =
+                "SELECT * FROM employee_skills " +
+                "WHERE employee_id = ?";
+        ArrayList<EmployeeSkill> list = new ArrayList<>();
+        try {
+            PreparedStatement preparedStatement = connection.prepareStatement(selectStatement);
+            preparedStatement.setInt(1, employeeID);
+            ResultSet resultSet = preparedStatement.executeQuery();
+
+            while (resultSet.next()){
+                int employeeSkillID = resultSet.getInt("employee_skill_id");
+                String value = resultSet.getString("value");
+                EmployeeSkill employeeSkill = new EmployeeSkill(employeeSkillID, employeeID, value);
+                list.add(employeeSkill);
+            }
+        }
+        catch (SQLException e){
+            System.out.println("Failed to get employee skills="+e.getMessage());
+            return null;
+        }
+        return list;
+    }
+
+    //JOHN
+    public boolean createEmployeeSkill(int employeeID, String value){
+        String insertStatement = "INSERT INTO employee_skills (employee_id, value) VALUES (?, ?)";
+        try {
+            PreparedStatement preparedStatement = connection.prepareStatement(insertStatement);
+            preparedStatement.setInt(1, employeeID);
+            preparedStatement.setString(2, value);
+            preparedStatement.execute();
+            return true;
+        }
+        catch (SQLException e){
+            System.out.println("Failed to create employee skill="+e.getMessage());
+            return false;
+        }
+    }
+
+    //JOHN
+    public boolean deleteEmployeeSkill(int employeeSkillID){
+        String updateStatement =
+                "DELETE FROM employee_skills " +
+                "WHERE employee_skill_id = ?";
+        try {
+            PreparedStatement preparedStatement = connection.prepareStatement(updateStatement);
+            preparedStatement.setInt(1, employeeSkillID);
+            preparedStatement.execute();
+            return true;
+        }
+        catch (SQLException e) {
+            System.out.println("Failed to delete employee skill="+e.getMessage());
             return false;
         }
     }

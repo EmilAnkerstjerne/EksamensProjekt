@@ -39,8 +39,22 @@
             <br><br>
             <!--/*@thymesVar id="employee" type="com.example.demo.Models.Employee"*/-->
             <!--/*@thymesVar id="employees" type="java.util.ArrayList"*/-->
-            <div th:each="employee: ${employees}" style="border: solid; margin: 3px; display: inline-block">
-                <p th:text="${employee.getName()}"></p>
+            <div th:each="employee: ${employees}" style="border: solid; margin: 3px;">
+                <span th:text="${employee.getName()}" style="margin: 5px"></span><a style="margin: 5px" th:href="'/fjernMedarbejder?projectID=' + ${employee.getProjectID()} + '&employeeID=' + ${employee.getEmployeeID()}">x</a>
+                <br>
+                <form method="post" action="/tilfojMedSkill">
+                    <input type="text" name="skill">
+                    <input type="hidden" th:value="${employee.getEmployeeID()}" name="employeeID">
+                    <input type="hidden" th:value="${employee.getProjectID()}" name="projectID">
+                    <input type="submit" value="+">
+                    <div th:each="skill: ${employee.getSkills()}" style="background-color: #B5BCC1; margin: 1px">
+                        <div style="display: inline-block">
+                            <span th:text="${skill.getValue()}" style="font-size: 10px"></span>
+                            <a th:href="'/fjernMedSkill?projectID=' + ${employee.getProjectID()} + '&employeeSkillID=' + ${skill.getEmployeeSkillID()}" style="font-size: 10px"> X</a>
+
+                        </div>
+                    </div>
+                </form>
             </div>
         </div>
     </div>

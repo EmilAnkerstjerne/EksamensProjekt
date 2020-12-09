@@ -138,13 +138,26 @@ public class ProjectService {
     }
 
     //JOHN
-    public boolean deleteEmployee(int employeeID){
-        return userRep.deleteEmployee(employeeID);
+    public boolean deleteEmployee(int projectID, int employeeID){
+        return userRep.deleteEmployee(projectID, employeeID);
     }
 
     //JOHN
     public ArrayList<Employee> getEmployees(int projectID){
         ArrayList<Employee> employees = userRep.getEmployees(projectID);
+        for (Employee e : employees){
+            e.setSkills(userRep.getEmployeeSkills(e.getEmployeeID()));
+        }
         return employees;
+    }
+
+    //JOHN
+    public boolean createEmployeeSkill(int employeeID, String value){
+        return userRep.createEmployeeSkill(employeeID, value);
+    }
+
+    //JOHN
+    public boolean removeEmployeeSkill(int employeeSkillID){
+        return userRep.deleteEmployeeSkill(employeeSkillID);
     }
 }

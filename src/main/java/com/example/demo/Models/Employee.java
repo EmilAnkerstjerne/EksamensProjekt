@@ -1,15 +1,27 @@
 package com.example.demo.Models;
 
+import java.util.ArrayList;
+
 //JOHN
 public class Employee {
     private int employeeID;
     private int projectID;
     private String name;
 
+    private ArrayList<EmployeeSkill> skills;
+
     public Employee(int employeeID, int projectID, String name) {
         this.employeeID = employeeID;
         this.projectID = projectID;
         this.name = name;
+    }
+
+    public ArrayList<EmployeeSkill> getSkills() {
+        return skills;
+    }
+
+    public void setSkills(ArrayList<EmployeeSkill> skills) {
+        this.skills = skills;
     }
 
     public int getEmployeeID() {
