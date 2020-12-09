@@ -6,25 +6,9 @@ import com.example.demo.Models.Profile;
 import java.sql.*;
 import java.util.ArrayList;
 
-public class ProfileRepository {
-
-    //EMIL
-    private Connection connection;
+public class ProfileRepository extends Repository{
     public ProfileRepository() {
         setConnection();
-    }
-
-    //EMIL
-    public boolean setConnection(){
-        boolean bres = false;
-        String url = "jdbc:mysql://localhost:3306/skidegodt?serverTimezone=UTC";
-        try{
-            connection = DriverManager.getConnection(url, "SkideGodt", "SkideGodt");
-            bres = true;
-        }catch (SQLException e){
-            System.out.println("No connection to server=" + e.getMessage());
-        }
-        return bres;
     }
 
     //EMIL

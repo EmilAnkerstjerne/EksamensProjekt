@@ -12,24 +12,9 @@ import java.util.ArrayList;
 import java.util.Date;
 
 //JOHN
-public class ProjectRepository {
-
-    private Connection connection;
-
+public class ProjectRepository extends Repository {
     public ProjectRepository() {
         setConnection();
-    }
-
-    public boolean setConnection(){
-        String url = "jdbc:mysql://localhost:3306/skidegodt?serverTimezone=UTC";
-        try{
-            connection = DriverManager.getConnection(url,"SkideGodt","SkideGodt");
-            return true;
-        }
-        catch (SQLException e){
-            System.out.println("No connection to sever="+e.getMessage());
-            return false;
-        }
     }
 
     //JOHN

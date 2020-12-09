@@ -3,26 +3,10 @@ package com.example.demo.Repositories;
 import java.sql.*;
 
 //JOHN
-public class ProfileProjectRelationRepository { //For utility methods used to identify relation between user_id and other elements
-
-    private Connection connection;
-
+public class ProfileProjectRelationRepository extends Repository { //For utility methods used to identify relation between user_id and other elements
     public ProfileProjectRelationRepository() {
         setConnection();
     }
-
-    public boolean setConnection(){
-        String url = "jdbc:mysql://localhost:3306/skidegodt?serverTimezone=UTC";
-        try{
-            connection = DriverManager.getConnection(url,"SkideGodt","SkideGodt");
-            return true;
-        }
-        catch (SQLException e){
-            System.out.println("No connection to sever="+e.getMessage());
-            return false;
-        }
-    }
-
 
     //JOHN
     public boolean checkIfAdminOnProject(int userID, int projectID){

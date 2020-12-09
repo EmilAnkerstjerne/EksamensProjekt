@@ -4,24 +4,11 @@ import java.sql.*;
 import java.util.Date;
 
 //JOHN
-public class ProcessRepository { //Create, edit, delete process elements
-    private Connection connection;
-
+public class ProcessRepository extends Repository{ //Create, edit, delete process elements
     public ProcessRepository() {
         setConnection();
     }
 
-    public boolean setConnection(){
-        String url = "jdbc:mysql://localhost:3306/skidegodt?serverTimezone=UTC";
-        try{
-            connection = DriverManager.getConnection(url,"SkideGodt","SkideGodt");
-            return true;
-        }
-        catch (SQLException e){
-            System.out.println("No connection to sever="+e.getMessage());
-            return false;
-        }
-    }
 
     //JOHN
     public int createProject(int adminUserID){
