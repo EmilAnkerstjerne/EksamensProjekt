@@ -5,10 +5,11 @@
     <title>Title</title>
 </head>
 <body>
-<a th:href="'/projektOverblik?projectID=' + ${project.getProjectID()}"><p>Tilbage til projekt overblik</p></a>
 
 <!--/*@thymesVar id="project" type="com.example.demo.Models.Project"*/-->
-</div>
+
+<a th:href="'/projektOverblik?projectID=' + ${project.getProjectID()}"><p>Tilbage til projekt overblik</p></a>
+
 <!-- "Insight info" -->
 <div class="col">
     <div style="display: inline-block">
@@ -22,6 +23,7 @@
     <p th:text="'Antal arbejds timer: ' + ${project.getTotalSubprojectsTime()}"></p>
     <p th:text="'Antal medarbejdere: ' + ${project.getEmployees()}"></p>
     <p th:text="'Forventet deadline: ' + ${project.calculateDeadline()}"></p>
+    <p th:text="'Krævede ugentlige timer pr. medarbejder: ' + ${project.calculateHoursWeekEmployeeNeeded()}"></p>
 </div>
 </body>
 </html>

@@ -35,6 +35,20 @@ public class Project {
     }
 
     //JOHN
+    public int calculateHoursWeekEmployeeNeeded(){
+        double totalDays = getTotalDays();
+        if (totalDays < 0){
+            return -1;
+        }
+        double t = getTotalSubprojectsTime();
+        double d = daysOff;
+        double e = employees;
+        double w = weeklyDays;
+        int hours = (int) Math.ceil(t / (totalDays - d / e) / e / w);
+        return hours;
+    }
+
+    //JOHN
     public int getTotalHoursAvailable(){
         int days = 0;
         //No dates
