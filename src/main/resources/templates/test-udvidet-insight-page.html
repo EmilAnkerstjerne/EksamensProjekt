@@ -48,15 +48,19 @@
     <div class="col">
         <h3>Grundoplysninger</h3>
         <div style="display: inline-block; border: 2px solid; padding: 20px">
-            <form>
+            <form action="/grundoplysninger" method="post">
                 <label>Start tidspunkt:</label><br>
                 <input type="date" name="startDate" th:unless="${project.formNullStartDate()}" th:value="${project.formStartDate()}" >
                 <input type="date" name="startDate" th:if="${project.formNullStartDate()}">
+                <br>
+                <span>Fjern </span><input type="checkbox" name="removeStartDate">
                 <br><br>
 
                 <label>Deadline:</label><br>
                 <input type="date" name="deadline"} th:if="${project.formNullDeadline()}">
                 <input type="date" name="deadline" th:unless="${project.formNullDeadline()}" th:value="${project.formDeadline()}" >
+                <br>
+                <span>Fjern </span><input type="checkbox" name="removeDeadline">
                 <br><br>
 
                 <label>Timer på en arb. uge:</label><br>
