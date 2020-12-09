@@ -152,7 +152,7 @@ body{
     text-decoration: none;
     color:black;
 }
-.nav-links-admin:hover, .nav-links-admin:hover, .quickinsight-more-info-button:hover{
+.nav-links-admin:hover, .nav-links-admin:hover, .quickinsight-more-info-button:hover, .nav-links-user:hover{
     background-color: #E4E4E4;
 }
 
