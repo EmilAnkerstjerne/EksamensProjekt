@@ -145,10 +145,6 @@ public class ProjectService {
     //JOHN
     public ArrayList<Employee> getEmployees(int projectID){
         ArrayList<Employee> employees = userRep.getEmployees(projectID);
-        System.out.println(employees.size());
-        for (Employee e : employees){
-            System.out.println(e);
-        }
         return employees;
     }
 }
