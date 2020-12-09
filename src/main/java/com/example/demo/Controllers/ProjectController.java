@@ -83,7 +83,6 @@ public class ProjectController {
         }
         String projectName = dataFromForm.getParameter("projectname");
         int projectID = projectService.createProject(profileID, projectName);
-        System.out.println(projectService.getProject(projectID));
         projectService.getProject(projectID).setName(projectName);
         return "redirect:/projektOverblik?projectID=" + projectID;
     }
