@@ -156,6 +156,16 @@ public class Project {
         return name;
     }
 
+    public String formStartDate(){
+        SimpleDateFormat sdf = new SimpleDateFormat("yyyy-MM-dd");
+        return sdf.format(startDate);
+    }
+
+    public String formDeadline(){
+        SimpleDateFormat sdf = new SimpleDateFormat("yyyy-MM-dd");
+        return sdf.format(deadline);
+    }
+
     public void addSubproject(Subproject subproject){
         subprojects.add(subproject);
     }
