@@ -19,9 +19,25 @@
     </div>
     <div class="col">
         <h3>Grundoplysninger</h3>
-        <form>
+        <div style="display: inline-block; border: 2px solid; padding: 20px">
+            <form>
+                <label>Start tidspunkt:</label><br>
+                <input type="date" name="startDate"><span th:text="'  ' + ${project.printStartDate()}"></span><br><br>
+                <label>Deadline:</label><br>
+                <input type="date" name="deadline"><span th:text="'  ' + ${project.printDeadline()}"></span><br><br>
+                <label>Timer på en arb. uge:</label><br>
+                <input type="text" name="weeklyHours" th:value="${project.getWeeklyHours()}"><br><br>
+                <label>Arb. dage på en uge:</label><br>
+                <input type="text" name="weeklyDays" th:value="${project.getWeeklyDays()}"><br><br>
+                <label>Forventede fridage:</label><br>
+                <input type="text" name="daysOff" th:value="${project.getDaysOff()}"><br><br>
+                <label>Medarbejdere:</label><br>
+                <input type="text" th:value="${project.getEmployees()}" readonly><br><br>
+                <input type="hidden" th:value="${project.getProjectID()}" name="projectID">
+                <input type="submit" value="Gem">
+            </form>
+        </div>
 
-        </form>
     </div>
     <div class="col">
         <div style="display: inline-block">
