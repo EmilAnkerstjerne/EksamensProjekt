@@ -96,12 +96,15 @@
 
     <div class="quickinsight">
         <div class="quickinsight-title"><span>Quick Insight</span></div>
-        <div class="quickinsight-bulletpoint">
-            <div class="quickinsight-bulletpoint-title"><span>Akkumuleret tid krævet: </span></div>
-            <div class="quickinsight-bulletpoint-text"><span th:text="${project.getTotalSubprojectsTime()}+' timer'"></span></div>
-            <a th:href="'/udvidetInsight?projectID=' + ${project.getProjectID()}"><div class="nav-links-admin">Mere info</div></a>
+        <div class="quickinsight-bulletpoints-div">
+            <div class="quickinsight-bulletpoint">
+                <div class="quickinsight-bulletpoint-title"><span>Akkumuleret tid krævet: </span></div>
+                <div class="quickinsight-bulletpoint-text"><span th:text="${project.getTotalSubprojectsTime()}+' timer'"></span></div>
 
-
+            </div>
+            <div class="quickinsight-more-info">
+                    <a th:href="'/udvidetInsight?projectID=' + ${project.getProjectID()}"><div class="quickinsight-more-info-button">Mere info</div></a>
+                </div>
         </div>
     </div>
 

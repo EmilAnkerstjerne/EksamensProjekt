@@ -36,7 +36,7 @@ body{
 
 .timeestimate{
     float:right;
-    margin-right: 50%;
+    margin-right: 30%;
 }
 
 .project-tree{
@@ -49,18 +49,20 @@ body{
 .quickinsight{
     float:right;
     margin-right: 20px;
-    border:1px solid black;
-    height: 350px;
+    border:2px solid #B5BCC1;
+    height: 384px;
     width: 250px;
-    padding: 10px 5px;
-    border-radius: 10px;
-    box-shadow: 0 0 16px 0 rgba(0,0,0,0.25);
+    padding: 10px 10px;
+    border-radius: 20px;
+    box-shadow: 0 0 16px 0 rgba(0,0,0,0.3);
+    color: white;
+    background-color: #222629;
 
 }
 
 .quickinsight-title{
     text-align: center;
-    margin: 0 auto 20px auto;
+    margin: 0 auto 10px auto;
     width: auto;
     font-size:24px;
     font-weight: bold;
@@ -71,14 +73,43 @@ body{
     text-align: center;
 }
 
+.quickinsight-bulletpoints-div{
+    background-color: #FFFFFF;
+    border-radius: 10px;
+    height: 344px;
+    width: 250px;
+    display: inline-block;
+}
+
+.quickinsight-bulletpoint{
+    color: black;
+    height: 311px;
+    overflow: hidden;
+    text-align: center;
+}
+
+
 .quickinsight-bulletpoint-title{
     font-size: 16px;
-    margin-bottom: 3px;
+    margin: 10px 0 2px 0;
+
 }
 
 .quickinsight-bulletpoint-text{
-    color:rgba(0,0,0,0.7);
+    color:rgba(0,0,0,0.6);
     font-size: 15px;
+
+}
+
+.quickinsight-more-info{
+    text-align: center;
+    margin:3px auto;
+    width: 230px;
+}
+
+.quickinsight-more-info a{
+    text-decoration: none;
+    color:black;
 }
 
 .project-name-text-div{
@@ -90,22 +121,37 @@ body{
     float:right;
 }
 
-.nav-links-admin, .nav-links-user{
+.nav-links-admin, .nav-links-user, .quickinsight-more-info-button{
     display: inline-block;
     font-size: 16px;
-    border: 1px solid #B5BCC1;
-    border-radius: 30px;
     padding: 2px 6px;
-    margin: 0 4px;
     background-color: #f5f5f5;
     text-align: center;
+    border: 1px solid #B5BCC1;
 
 }
+.nav-links-admin, .nav-links-user{
+    margin: 0 4px;
+    border-radius: 30px;
+
+}
+
+.quickinsight-more-info-button{
+    width: 210px;
+    border-radius: 10px;
+    vertical-align: bottom;
+
+    /*
+    background-color: #222629;
+    color:white;
+    */
+}
+
 .nav-links-admin a, .nav-links-admin a, .nav-links a{
     text-decoration: none;
     color:black;
 }
-.nav-links-admin:hover, .nav-links-admin:hover{
+.nav-links-admin:hover, .nav-links-admin:hover, .quickinsight-more-info-button:hover{
     background-color: #E4E4E4;
 }
 
