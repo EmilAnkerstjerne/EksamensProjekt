@@ -1,0 +1,107 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org" lang="da">
+<head>
+    <meta charset="UTF-8">
+    <title>Projekt overblik</title>
+    <link href="summaryStyle.css" type="text/css" rel="stylesheet">
+</head>
+<body>
+    <!-- Navigation bar - can be collapsed at <header> -->
+    <header>
+        <div class="navbar">
+            <div class="navbar-logo-a" style="padding:0;text-align: center;"><img th:src="@{/images/LogoSmallG.png}" alt="logo" class="navbar-logo"></div>
+            <!-- TODO: Add relevant hrefs -->
+            <a href="/startside">Projektoversigt</a>
+            <a href="/opretProjekt">Opret projekt</a>
+            <a href="/projektArkiv">Projektarkiv</a>
+            <a style="float:right;" href="/logud">Log ud</a>
+            <a style="float:right;" href="/profil">Profil</a>
+
+            <div class="dropdown" style="float:right">
+                <button class="dropbtn" onclick="dropDown()" th:text="'Invitationer (' + ${invitations.size()} + ')'"></button>
+                <div class="dropdown-content" id="myDropdown">
+                    <!-- Each invite "form"-->
+                    <div class="invite-div" th:each="invitations: ${invitations}">
+                        <span class="variables-invite-text" th:text="${invitations.getAdminUsername()}"></span><br><span>har inviteret dig til</span><br><span class="variables-invite-text" th:text="${invitations.getProjectName()}"> PROJEKTNAVN</span>
+                        <br>
+                        <div style="text-align: center; margin-top:5px">
+                            <!-- TODO: Add accept invitation mapping -->
+                            <form action="/acceptInvitation" method="post" style="float:left;">
+                                <input th:value="${invitations.getInvitationID()}" name="invID" hidden>
+                                <button class="invite-accept-button" type="submit">Accepter</button>
+                            </form>
+                            <form action="/declineInvitation" method="post" style="float:right;">
+                                <input th:value="${invitations.getInvitationID()}" name="invID" hidden>
+                                <button class="invite-decline-button" type="submit">Afslå</button>
+                            </form>
+
+                        </div>
+                    </div>
+
+                </div>
+            </div>
+
+        </div>
+        <script>
+            //When the user clicks on the button, toggle between hiding and showing the dropdown content
+            function dropDown() {
+                document.getElementById("myDropdown").classList.toggle("show");
+            }
+
+            // Close the dropdown if the user clicks outside of it
+            window.onclick = function(e) {
+                if (!e.target.matches('.dropbtn')) {
+                    var myDropdown = document.getElementById("myDropdown");
+                    if (myDropdown.classList.contains('show')) {
+                        myDropdown.classList.remove('show');
+                    }
+                }
+            }
+        </script>
+    </header>
+
+    <div class="page-titel"><p>Projektoverblik</p></div>
+
+    <!-- PROJECT TREE -->
+    <div class="project-tree">
+        <!-- PROJECT NAME AND BUTTONS/NAV -->
+        <div class="project-name-title">
+            <div class="project-name-text-div"><span th:text="'ProjektID: ' + ${project.getProjectID()}"></span></div>
+            <span th:text="'AdminID: '+${project.getAdminUserID()}"></span>
+            <div class="nav-links" th:if="${project.getAdminUserID()} == ${profile.getProfileID()}">
+                <a th:href="'/brugerAdministration?projectID=' + ${project.getProjectID()}"><div class="nav-links-admin">Administrer brugere</div></a>
+                <a th:href="'/projektVedligeholdelse?projectID=' + ${project.getProjectID()}"><div class="nav-links-admin">Vedligeholdelse</div></a>
+            </div>
+
+        </div>
+
+        <!-- SUBPROJECTS -->
+        <div th:each="subproject: ${project.getSubprojects()}" class="project-container">
+            <div class="subproject-name-title"><span th:text="${subproject.getName()}" ></span></div>
+
+            <!-- TASKS -->
+            <div th:each="task: ${subproject.getTasks()}" class="project-container">
+                <div class="task-name-title"><span th:text="${task.getName()}"></span></div>
+
+                <!-- SUBTASKS -->
+                <div th:each="subtask: ${task.getSubtasks()}" class="project-container">
+                    <div class="subtask-name-title">
+                        <span th:text="${subtask.getName()}"></span>
+                        <span th:text="${subtask.getTimeEstimate()}+ ' t'" class="timeestimate"></span>
+                    </div>
+
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <div class="quickinsight">
+        <div class="quickinsight-title"><span>Quick Insight</span></div>
+        <div class="quickinsight-bulletpoint">
+            <div class="quickinsight-bulletpoint-title"><span>Akkumuleret tid krævet: </span></div>
+            <div class="quickinsight-bulletpoint-text"><span th:text="${project.getTotalSubprojectsTime()}+' timer'"></span></div>
+        </div>
+    </div>
+
+</body>
+</html>

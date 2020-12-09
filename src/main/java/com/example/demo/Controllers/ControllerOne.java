@@ -52,6 +52,7 @@ public class ControllerOne {
         return "startside";
     }
 
+
     //JOHN (Link to extended Insight page) TODO: To be moved
     @GetMapping("/udvidetInsight")
     public String extendedInfo(@CookieValue(value = "user", defaultValue = "") String cookie, WebRequest request, ModelMap modelMap){

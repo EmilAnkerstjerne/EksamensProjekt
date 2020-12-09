@@ -1,0 +1,118 @@
+@import "navbarStyle.css";
+
+body{
+    font-family: Arial, Helvetica, sans-serif;
+}
+
+.project-name-title{
+    margin-left:10px;
+    margin-bottom: 10px;
+    font-size:24px;
+    display: inline-block;
+}
+
+.project-container{
+    margin-bottom: 10px;
+}
+
+.subproject-name-title{
+    margin-left:15px;
+    margin-bottom: 10px;
+    font-size:20px;
+}
+
+.task-name-title{
+    margin-left:20px;
+    margin-bottom: 10px;
+    font-size:18px;
+
+}
+
+.subtask-name-title{
+    margin-left:25px;
+    margin-bottom: 10px;
+    font-size:16px;
+}
+
+.timeestimate{
+    float:right;
+    margin-right: 50%;
+}
+
+.project-tree{
+    margin-left:10px;
+    float:left;
+    width: 50%;
+
+}
+
+.quickinsight{
+    float:right;
+    margin-right: 20px;
+    border:1px solid black;
+    height: 350px;
+    width: 250px;
+    padding: 10px 5px;
+    border-radius: 10px;
+    box-shadow: 0 0 16px 0 rgba(0,0,0,0.25);
+
+}
+
+.quickinsight-title{
+    text-align: center;
+    margin: 0 auto 20px auto;
+    width: auto;
+    font-size:24px;
+    font-weight: bold;
+
+}
+
+.quickinsight-bulletpoint, .quickinsight-bulletpoint-title, .quickinsight-bulletpoint-text{
+    text-align: center;
+}
+
+.quickinsight-bulletpoint-title{
+    font-size: 16px;
+    margin-bottom: 3px;
+}
+
+.quickinsight-bulletpoint-text{
+    color:rgba(0,0,0,0.7);
+    font-size: 15px;
+}
+
+.project-name-text-div{
+    margin-top: 3px;
+    width: 150px;
+    float: left;
+}
+.nav-links{
+    float:right;
+}
+
+.nav-links-admin, .nav-links-user{
+    display: inline-block;
+    font-size: 16px;
+    border: 1px solid #B5BCC1;
+    border-radius: 30px;
+    padding: 2px 6px;
+    margin: 0 4px;
+    background-color: #f5f5f5;
+    text-align: center;
+
+}
+.nav-links-admin a, .nav-links-admin a, .nav-links a{
+    text-decoration: none;
+    color:black;
+}
+.nav-links-admin:hover, .nav-links-admin:hover{
+    background-color: #E4E4E4;
+}
+
+.nav-links-user{
+
+}
+
+.nav-links-admin{
+
+}
