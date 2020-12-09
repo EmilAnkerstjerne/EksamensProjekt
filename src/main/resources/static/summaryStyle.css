@@ -114,7 +114,8 @@ body{
 
 .project-name-text-div{
     margin-top: 3px;
-    width: 150px;
+    margin-right: 5px;
+    width: auto;
     float: left;
 }
 .nav-links{

@@ -58,8 +58,8 @@ public class ProjectService {
     }
 
     //JOHN TODO: ModelMap parameter? Return project object?
-    public int createProject(int userID){
-        int projectID = processRep.createProject(userID);
+    public int createProject(int userID, String projectName){
+        int projectID = processRep.createProject(userID,projectName);
         return projectID;
     }
 
@@ -93,4 +93,6 @@ public class ProjectService {
         boolean invitation = relationRepository.checkIfInvited(profileID,projectID);
         return !admin && !user && !invitation;
     }
+
+
 }

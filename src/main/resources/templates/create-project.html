@@ -1,0 +1,87 @@
+<!DOCTYPE html>
+<html lang="en" xmlns:th="http://www.w3.org/1999/xhtml">
+<head>
+    <meta charset="UTF-8">
+    <title>Opret projekt</title>
+    <link href="createProjectStyle.css" type="text/css" rel="stylesheet">
+
+</head>
+<body>
+<header>
+    <div class="navbar">
+        <div class="navbar-logo-a" style="padding:0;text-align: center;"><img th:src="@{/images/LogoSmallG.png}" alt="logo" class="navbar-logo"></div>
+        <!-- TODO: Add relevant hrefs -->
+        <a href="/startside">Projektoversigt</a>
+        <a id="highlighted-focus" href="/opretProjekt">Opret projekt</a>
+        <a href="/projektArkiv">Projektarkiv</a>
+        <a style="float:right;" href="/logud">Log ud</a>
+        <a style="float:right;" href="/profil">Profil</a>
+        <div class="dropdown" style="float:right">
+            <button class="dropbtn" onclick="dropDown()" th:text="'Invitationer (' + ${invitations.size()} + ')'"></button>
+            <div class="dropdown-content" id="myDropdown">
+                <!-- Each invite "form"-->
+                <div class="invite-div" th:each="invitations: ${invitations}">
+                    <span class="variables-invite-text" th:text="${invitations.getAdminUsername()}"></span><br><span>har inviteret dig til</span><br><span class="variables-invite-text" th:text="${invitations.getProjectName()}"> PROJEKTNAVN</span>
+                    <br>
+                    <div style="text-align: center; margin-top:5px">
+                        <!-- TODO: Add accept invitation mapping -->
+                        <form action="/acceptInvitation" method="post" style="float:left;">
+                            <input th:value="${invitations.getInvitationID()}" name="invID" hidden>
+                            <button class="invite-accept-button" type="submit">Accepter</button>
+                        </form>
+                        <form action="/declineInvitation" method="post" style="float:right;">
+                            <input th:value="${invitations.getInvitationID()}" name="invID" hidden>
+                            <button class="invite-decline-button" type="submit">Afslå</button>
+                        </form>
+
+                    </div>
+                </div>
+
+            </div>
+        </div>
+    </div>
+    <script>
+        //When the user clicks on the button, toggle between hiding and showing the dropdown content
+        function dropDown() {
+            document.getElementById("myDropdown").classList.toggle("show");
+        }
+
+        // Close the dropdown if the user clicks outside of it
+        window.onclick = function(e) {
+            if (!e.target.matches('.dropbtn')) {
+                var myDropdown = document.getElementById("myDropdown");
+                if (myDropdown.classList.contains('show')) {
+                    myDropdown.classList.remove('show');
+                }
+            }
+        }
+    </script>
+</header>
+
+<div class="page-titel"><p>Opret projekt</p></div>
+
+<div class="profile-div">
+
+    <form class="form" method="post" action="/opretProjektF" id="user-form">
+
+        <!-- USERNAME -->
+        <div class="username">
+            <label for="projectname">Projektnavn:</label><br>
+            <input type="text" placeholder="Projektnavn" id="projectname" name="projectname" required>
+        </div>
+
+
+        <div id="error-message-div">
+            <span id="error-message"></span>
+        </div>
+        <input th:value="${profile.getPassword()}" id="getPassword" hidden>
+        <button class="signin-btn" type="submit">Opret projekt</button>
+
+
+    </form>
+
+</div>
+
+
+</body>
+</html>

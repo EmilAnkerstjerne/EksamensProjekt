@@ -10,12 +10,13 @@ public class ProcessRepository extends Repository{ //Create, edit, delete proces
     }
 
 
-    //JOHN
-    public int createProject(int adminUserID){
-        String insertStatement = "INSERT INTO projects (admin_user_id) VALUES (?)";
+    //JOHN, TOBIAS
+    public int createProject(int adminUserID, String projectName){
+        String insertStatement = "INSERT INTO projects (admin_user_id, name) VALUES (?,?)";
         try {
             PreparedStatement preparedStatement = connection.prepareStatement(insertStatement);
             preparedStatement.setInt(1, adminUserID);
+            preparedStatement.setString(2,projectName);
             preparedStatement.execute();
             return getLastCreatedID();
         }

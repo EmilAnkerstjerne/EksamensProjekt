@@ -66,10 +66,16 @@
     <div class="project-tree">
         <!-- PROJECT NAME AND BUTTONS/NAV -->
         <div class="project-name-title">
-            <div class="project-name-text-div"><span th:text="'ProjektID: ' + ${project.getProjectID()}"></span></div>
+            <div class="project-name-text-div" th:unless="${project.getName()==''}"><span th:text="${project.getName()}"></span></div>
+            <!-- TODO: CAN BE REMOVED, ONLY USEFUL WHEN TESTING -->
+            <div class="project-name-text-div" th:if="${project.getName()==''}"><span>Ikke navngivet</span></div>
+
             <div class="nav-links" th:if="${project.getAdminUserID()} == ${profile.getProfileID()}">
                 <a th:href="'/brugerAdministration?projectID=' + ${project.getProjectID()}"><div class="nav-links-admin">Administrer brugere</div></a>
                 <a th:href="'/projektVedligeholdelse?projectID=' + ${project.getProjectID()}"><div class="nav-links-admin">Vedligeholdelse</div></a>
+            </div>
+            <div class="nav-links" th:unless="${project.getAdminUserID()} == ${profile.getProfileID()}">
+                <a th:href="'/forladProjekt?projectID=' + ${project.getProjectID()}"><div class="nav-links-user">Forlad projekt</div></a>
             </div>
 
         </div>
@@ -94,6 +100,7 @@
         </div>
     </div>
 
+    <!-- QUICK INSIGHT -->
     <div class="quickinsight">
         <div class="quickinsight-title"><span>Quick Insight</span></div>
         <div class="quickinsight-bulletpoints-div">

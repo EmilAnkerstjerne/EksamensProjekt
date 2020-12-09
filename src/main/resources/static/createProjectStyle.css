@@ -1,0 +1,9 @@
+@import "profileStyle.css";
+@import "navbarStyle.css";
+
+.username input{
+    background-color: white;
+}
+.username input:hover{
+    cursor: text;
+}

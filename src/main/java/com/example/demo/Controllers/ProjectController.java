@@ -7,6 +7,7 @@ import org.springframework.stereotype.Controller;
 import org.springframework.ui.ModelMap;
 import org.springframework.web.bind.annotation.CookieValue;
 import org.springframework.web.bind.annotation.GetMapping;
+import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.context.request.WebRequest;
 
 //JOHN
@@ -62,14 +63,28 @@ public class ProjectController {
         return "redirect:/startside";
     }
 
-    //JOHN
     @GetMapping("/opretProjekt")
-    public String createProject(@CookieValue(value = "user", defaultValue = "") String cookie){
+    public String createProjektPage(@CookieValue(value = "user", defaultValue = "") String cookie, ModelMap modelMap){
         int profileID = Login.verifyCookie(cookie);
         if(profileID == -1){
             return "redirect:/login";
         }
-        int projectID = projectService.createProject(profileID);
+        modelMap.addAttribute("invitations", profileService.getInvitations(profileID));
+        modelMap.addAttribute("profile", profileService.getProfile(profileID));
+        return "create-project";
+    }
+
+    //JOHN, TOBIAS
+    @PostMapping("/opretProjektF")
+    public String createProject(@CookieValue(value = "user", defaultValue = "") String cookie, ModelMap modelMap, WebRequest dataFromForm){
+        int profileID = Login.verifyCookie(cookie);
+        if(profileID == -1){
+            return "redirect:/login";
+        }
+        String projectName = dataFromForm.getParameter("projectname");
+        int projectID = projectService.createProject(profileID, projectName);
+        System.out.println(projectService.getProject(projectID));
+        projectService.getProject(projectID).setName(projectName);
         return "redirect:/projektOverblik?projectID=" + projectID;
     }
 
