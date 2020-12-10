@@ -1,7 +1,7 @@
 package com.example.demo.Repositories;
 
 import com.example.demo.Models.Employee;
-import com.example.demo.Models.EmployeeSkill;
+import com.example.demo.Models.Skill;
 import com.example.demo.Models.Invitation;
 import com.example.demo.Models.Profile;
 
@@ -227,11 +227,11 @@ public class UserProjectRelationRepository extends Repository{
     }
 
     //JOHN
-    public ArrayList<EmployeeSkill> getEmployeeSkills(int employeeID){
+    public ArrayList<Skill> getEmployeeSkills(int employeeID){
         String selectStatement =
                 "SELECT * FROM employee_skills " +
                 "WHERE employee_id = ?";
-        ArrayList<EmployeeSkill> list = new ArrayList<>();
+        ArrayList<Skill> list = new ArrayList<>();
         try {
             PreparedStatement preparedStatement = connection.prepareStatement(selectStatement);
             preparedStatement.setInt(1, employeeID);
@@ -240,7 +240,7 @@ public class UserProjectRelationRepository extends Repository{
             while (resultSet.next()){
                 int employeeSkillID = resultSet.getInt("employee_skill_id");
                 String value = resultSet.getString("value");
-                EmployeeSkill employeeSkill = new EmployeeSkill(employeeSkillID, employeeID, value);
+                Skill employeeSkill = new Skill(employeeID, employeeSkillID, value);
                 list.add(employeeSkill);
             }
         }

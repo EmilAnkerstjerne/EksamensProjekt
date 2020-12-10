@@ -1,5 +1,7 @@
 package com.example.demo.Models;
 
+import java.util.ArrayList;
+
 //JOHN
 public class Subtask {
     private int subtaskID;
@@ -7,11 +9,25 @@ public class Subtask {
     private String name;
     private int timeEstimate;
 
+    private ArrayList<Skill> skills;
+
     public Subtask(int subtaskID, int taskID, String name, int timeEstimate) {
         this.subtaskID = subtaskID;
         this.taskID = taskID;
         this.name = name;
         this.timeEstimate = timeEstimate;
+    }
+
+    public void addSkill(Skill skill){
+        skills.add(skill);
+    }
+
+    public ArrayList<Skill> getSkills() {
+        return skills;
+    }
+
+    public void setSkills(ArrayList<Skill> skills) {
+        this.skills = skills;
     }
 
     public int getSubtaskID() {

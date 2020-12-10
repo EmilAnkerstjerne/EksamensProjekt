@@ -8,7 +8,7 @@ public class Employee {
     private int projectID;
     private String name;
 
-    private ArrayList<EmployeeSkill> skills;
+    private ArrayList<Skill> skills;
 
     public Employee(int employeeID, int projectID, String name) {
         this.employeeID = employeeID;
@@ -16,11 +16,11 @@ public class Employee {
         this.name = name;
     }
 
-    public ArrayList<EmployeeSkill> getSkills() {
+    public ArrayList<Skill> getSkills() {
         return skills;
     }
 
-    public void setSkills(ArrayList<EmployeeSkill> skills) {
+    public void setSkills(ArrayList<Skill> skills) {
         this.skills = skills;
     }
 

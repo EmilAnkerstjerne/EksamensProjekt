@@ -165,11 +165,42 @@ public class ProcessController {
         if(profileID == -1){
             return "redirect:/login";
         }
-        ///sletUnderopgave?projectID=1&subtaskID=4
         int projectID = Integer.parseInt(request.getParameter("projectID"));
         if (projectService.isAdmin(profileID,projectID)){
             int subtaskID = Integer.parseInt(request.getParameter("subtaskID"));
             processService.deleteSubtask(profileID, subtaskID);
+        }
+        return "redirect:/projektVedligeholdelse?projectID=" + projectID;
+    }
+
+    //JOHN
+    @PostMapping("/tilfojOpgSkill")
+    public String addSubtaskSkill(@CookieValue(value = "user", defaultValue = "") String cookie, WebRequest request){
+        int profileID = Login.verifyCookie(cookie);
+        if(profileID == -1){
+            return "redirect:/login";
+        }
+        int projectID = Integer.parseInt(request.getParameter("projectID"));
+        if (projectService.isAdmin(profileID,projectID)){
+            String value = request.getParameter("skill");
+            int subtaskID = Integer.parseInt(request.getParameter("subtaskID"));
+            processService.createSubtaskSkill(profileID, subtaskID, value);
+        }
+        return "redirect:/projektVedligeholdelse?projectID=" + projectID;
+    }
+
+    //JOHN
+    @GetMapping("/sletOpgSkill")
+    public String deleteSubtaskSkill(@CookieValue(value = "user", defaultValue = "") String cookie, WebRequest request){
+        int profileID = Login.verifyCookie(cookie);
+        if(profileID == -1){
+            return "redirect:/login";
+        }
+        int projectID = Integer.parseInt(request.getParameter("projectID"));
+        if (projectService.isAdmin(profileID,projectID)){
+            int subtaskID = Integer.parseInt(request.getParameter("subtaskID"));
+            int subtaskSkillID = Integer.parseInt(request.getParameter("skillID"));
+            processService.deleteSubtaskSkill(profileID, subtaskID, subtaskSkillID);
         }
         return "redirect:/projektVedligeholdelse?projectID=" + projectID;
     }

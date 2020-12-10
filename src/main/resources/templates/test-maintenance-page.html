@@ -86,6 +86,21 @@
                         <input type="hidden" th:value="${subtask.getSubtaskID()}" name="subtaskID">
                         <input type="submit" value="Gem">
                     </form>
+
+                    <!-- Subtask skills -->
+                    <div th:each="skill : ${subtask.getSkills()}">
+                        <!-- Delete subtask skill -->
+                        <span th:text="${skill.getValue()}" style="background-color: lightskyblue; border-radius: 5px"></span><a th:href="'/sletOpgSkill?projectID=' + ${project.getProjectID()} + '&subtaskID=' + ${subtask.getSubtaskID()} + '&skillID=' + ${skill.getSkillID()}">  X</a>
+                    </div>
+
+                    <!-- New subtask skill -->
+                    <form method="post" action="/tilfojOpgSkill">
+                        <span>Nyt skill:</span>
+                        <input type="text" name="skill">
+                        <input type="hidden" th:value="${project.getProjectID()}" name="projectID">
+                        <input type="hidden" th:value="${subtask.getSubtaskID()}" name="subtaskID">
+                        <input type="submit" value="Tilføj">
+                    </form>
                 </div>
 
             </div>
@@ -114,7 +129,7 @@
                     <div th:each="skill: ${employee.getSkills()}" style="background-color: #B5BCC1; margin: 1px">
                         <div style="display: inline-block">
                             <span th:text="${skill.getValue()}" style="font-size: 10px"></span>
-                            <a th:href="'/fjernMedSkill?projectID=' + ${employee.getProjectID()} + '&employeeSkillID=' + ${skill.getEmployeeSkillID()}" style="font-size: 10px"> X</a>
+                            <a th:href="'/fjernMedSkill?projectID=' + ${employee.getProjectID()} + '&employeeSkillID=' + ${skill.getSkillID()}" style="font-size: 10px"> X</a>
 
                         </div>
                     </div>

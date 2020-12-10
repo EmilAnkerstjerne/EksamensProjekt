@@ -76,6 +76,38 @@ public class ProcessRepository extends Repository{ //Create, edit, delete proces
     }
 
     //JOHN
+    public boolean createSubtaskSkill(int subtaskID, String value){
+        String insertStatement = "INSERT INTO task_skills (value, subtask_id) VALUES (?, ?)";
+        try {
+            PreparedStatement preparedStatement = connection.prepareStatement(insertStatement);
+            preparedStatement.setString(1, value);
+            preparedStatement.setInt(2, subtaskID);
+            preparedStatement.execute();
+            return true;
+        }
+        catch (SQLException e){
+            System.out.println("Failed to create subtask skill="+e.getMessage());
+            return false;
+        }
+    }
+
+    //JOHN
+    public boolean deleteSubtaskSkill(int subtaskSkillID, int subtaskID){
+        String deleteStatement = "DELETE FROM task_skills WHERE task_skill_id = ? AND subtask_id = ?";
+        try {
+            PreparedStatement preparedStatement = connection.prepareStatement(deleteStatement);
+            preparedStatement.setInt(1, subtaskSkillID);
+            preparedStatement.setInt(2, subtaskID);
+            preparedStatement.execute();
+            return true;
+        }
+        catch (SQLException e) {
+            System.out.println("Failed to delete subtask skill="+e.getMessage());
+        }
+        return false;
+    }
+
+    //JOHN
     public boolean changeProject(int projectID, String name){
         String updateStatement =
                 "UPDATE projects SET name = ? " +

@@ -80,4 +80,20 @@ public class ProcessService {
         }
         return false;
     }
+
+    //JOHN
+    public boolean createSubtaskSkill(int adminID, int subtaskID, String value){
+        if (processRep.checkAdminSubtaskRelation(adminID, subtaskID)){
+            return processRep.createSubtaskSkill(subtaskID, value);
+        }
+        return false;
+    }
+
+    //JOHN
+    public boolean deleteSubtaskSkill(int adminID, int subtaskID, int subtaskSkillID){
+        if (processRep.checkAdminSubtaskRelation(adminID, subtaskID)){
+            return processRep.deleteSubtaskSkill(subtaskSkillID, subtaskID);
+        }
+        return false;
+    }
 }

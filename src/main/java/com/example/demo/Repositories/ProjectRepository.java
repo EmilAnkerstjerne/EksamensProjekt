@@ -1,9 +1,6 @@
 package com.example.demo.Repositories;
 
-import com.example.demo.Models.Project;
-import com.example.demo.Models.Subproject;
-import com.example.demo.Models.Subtask;
-import com.example.demo.Models.Task;
+import com.example.demo.Models.*;
 
 import java.sql.*;
 import java.text.ParseException;
@@ -243,6 +240,32 @@ public class ProjectRepository extends Repository {
         }
         catch (SQLException e) {
             System.out.println("Failed to get subtasks="+e.getMessage());
+            return null;
+        }
+        return list;
+    }
+
+    //JOHN
+    public ArrayList<Skill> getSubtaskSkills(int subtaskID){
+        String selectStatement =
+                "SELECT * FROM task_skills " +
+                        "WHERE subtask_id = ?";
+        ArrayList<Skill> list = new ArrayList<>();
+        try {
+            PreparedStatement preparedStatement = connection.prepareStatement(selectStatement);
+            preparedStatement.setInt(1, subtaskID);
+            ResultSet resultSet = preparedStatement.executeQuery();
+
+            while (resultSet.next()){
+                int skillID = resultSet.getInt("task_skill_id");
+                String value = resultSet.getString("value");
+
+                Skill skill = new Skill(subtaskID, skillID, value);
+                list.add(skill);
+            }
+        }
+        catch (SQLException e){
+            System.out.println();
             return null;
         }
         return list;

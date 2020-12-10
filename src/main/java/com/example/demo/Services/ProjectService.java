@@ -55,7 +55,10 @@ public class ProjectService {
                     break;
                 }
             }
+            //Adds subtask skills
+            st.setSkills(projectRep.getSubtaskSkills(st.getSubtaskID()));
         }
+
         return project;
     }
 
