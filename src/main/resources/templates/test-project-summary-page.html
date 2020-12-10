@@ -25,6 +25,9 @@
         <p th:text="${task.getName()}"></p>
         <div th:each="subtask: ${task.getSubtasks()}" style="margin-left: 20px">
             <p th:text="${subtask.getName()}"></p>
+            <div th:each="skill : ${subtask.getSkills()}" style="margin-left: 20px">
+                <span th:text="${skill.getValue()}" style="margin-right: 4px; font-size: 12px"></span>
+            </div>
         </div>
     </div>
 </div>

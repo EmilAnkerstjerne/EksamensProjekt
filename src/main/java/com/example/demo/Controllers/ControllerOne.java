@@ -16,10 +16,21 @@ public class ControllerOne {
     ProfileService profileService = new ProfileService();
     ProjectService projectService = new ProjectService();
 
-    //Test of template
+    //Test of template TODO: REMOVE
     @GetMapping("/test")
     public String test(){
         return "project-overview";
+    }
+
+    //Test page TODO: REMOVE
+    @GetMapping("/test2")
+    public String test2(@CookieValue(value = "user", defaultValue = "") String cookie, WebRequest request, ModelMap modelMap){
+        int profileID = Login.verifyCookie(cookie);
+        if(profileID == -1){
+            return "redirect:/login";
+        }
+        modelMap.addAttribute("project", projectService.getProject(1));
+        return "test-project-summary-page";
     }
 
     @GetMapping("/formTest")
@@ -28,7 +39,7 @@ public class ControllerOne {
         return "redirect:/startside";
     }
 
-    //Test of profile-page
+    //Test of profile-page TODO: REMOVE
     @GetMapping("/profilT")
     public String profile2(@CookieValue(value = "user", defaultValue = "") String cookie, ModelMap modelMap){
         int profileID = Login.verifyCookie(cookie);
@@ -39,7 +50,7 @@ public class ControllerOne {
         return "profile-page";
     }
 
-    //Testing
+    //Testing TODO: REMOVE
     @GetMapping("/startside2")
     public String startsideTwo(ModelMap modelMap, @CookieValue(value = "user", defaultValue = "") String cookie){
         int profileID = Login.verifyCookie(cookie);
@@ -70,7 +81,7 @@ public class ControllerOne {
         return "redirect:/startside";
     }
 
-    //JOHN
+    //JOHN TODO: To be moved
     @PostMapping("/tilfojMedarbejder")
     public String addEmployee(@CookieValue(value = "user", defaultValue = "") String cookie, WebRequest request){
         int profileID = Login.verifyCookie(cookie);
@@ -86,7 +97,7 @@ public class ControllerOne {
         return "redirect:/projektVedligeholdelse?projectID=" + projectID;
     }
 
-    //JOHN
+    //JOHN TODO: To be moved
     @GetMapping("/fjernMedarbejder")
     public String removeEmployee(@CookieValue(value = "user", defaultValue = "") String cookie, WebRequest request){
         int profileID = Login.verifyCookie(cookie);
@@ -101,7 +112,7 @@ public class ControllerOne {
         return "redirect:/projektVedligeholdelse?projectID=" + projectID;
     }
 
-    //JOHN
+    //JOHN TODO: To be moved
     @PostMapping("/tilfojMedSkill")
     public String addEmpSkill(@CookieValue(value = "user", defaultValue = "") String cookie, WebRequest request){
         int profileID = Login.verifyCookie(cookie);
@@ -117,7 +128,7 @@ public class ControllerOne {
         return "redirect:/projektVedligeholdelse?projectID=" + projectID;
     }
 
-    //JOHN
+    //JOHN TODO: To be moved
     @GetMapping("/fjernMedSkill")
     public String removeEmpSkill(@CookieValue(value = "user", defaultValue = "") String cookie, WebRequest request){
         int profileID = Login.verifyCookie(cookie);
@@ -132,7 +143,7 @@ public class ControllerOne {
         return "redirect:/projektVedligeholdelse?projectID=" + projectID;
     }
 
-    //JOHN
+    //JOHN TODO: To be moved
     @GetMapping("/arkivStatus")
     public String archivedStatus(@CookieValue(value = "user", defaultValue = "") String cookie, WebRequest request){
         int profileID = Login.verifyCookie(cookie);
