@@ -128,8 +128,8 @@ public class ProjectService {
     }
 
     //JOHN TODO: add rep
-    public boolean changeArchived(){
-        return false;
+    public boolean changeArchived(int projectID, boolean status){
+        return projectRep.changeArchived(projectID, status);
     }
 
     //JOHN

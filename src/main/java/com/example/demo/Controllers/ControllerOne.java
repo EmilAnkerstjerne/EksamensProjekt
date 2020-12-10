@@ -131,4 +131,19 @@ public class ControllerOne {
         return "redirect:/projektVedligeholdelse?projectID=" + projectID;
     }
 
+    //JOHN
+    @GetMapping("/arkivStatus")
+    public String archivedStatus(@CookieValue(value = "user", defaultValue = "") String cookie, WebRequest request){
+        int profileID = Login.verifyCookie(cookie);
+        if(profileID == -1){
+            return "redirect:/login";
+        }
+        int projectID = Integer.parseInt(request.getParameter("projectID"));
+        if (projectService.isAdmin(profileID,projectID)){
+            boolean change = request.getParameter("status").equals("1");
+            projectService.changeArchived(projectID, change);
+        }
+        return "redirect:/projektVedligeholdelse?projectID=" + projectID;
+    }
+
 }

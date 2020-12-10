@@ -249,6 +249,24 @@ public class ProjectRepository extends Repository {
     }
 
     //JOHN
+    public boolean changeArchived(int projectID, boolean status){
+        String updateStatement =
+                "UPDATE projects SET archived = ? " +
+                "WHERE project_id = ?";
+        try {
+            PreparedStatement preparedStatement = connection.prepareStatement(updateStatement);
+            preparedStatement.setBoolean(1, status);
+            preparedStatement.setInt(2, projectID);
+            preparedStatement.execute();
+            return true;
+        }
+        catch (SQLException e){
+            System.out.println("Failed to change archive status");
+            return false;
+        }
+    }
+
+    //JOHN
     public int getLastCreatedID(){ //Returns AI ID of last added row (Utility method)
         String selectStatement = "SELECT last_insert_id()";
         int res = -1;

@@ -8,6 +8,8 @@
 </head>
 <body>
 <a th:href="'/projektOverblik?projectID=' + ${project.getProjectID()}"><p>Tilbage til projekt overblik</p></a>
+<a th:href="'/arkivStatus?projectID=' + ${project.getProjectID()} + '&status=1'" th:unless="${project.isArchived()}"><p>Arkiver</p></a>
+<a th:href="'/arkivStatus?projectID=' + ${project.getProjectID()} + '&status=0'" th:if="${project.isArchived()}"><p>Fjern fra arkiv</p></a>
 <br><br>
 <!--/*@thymesVar id="project" type="com.example.demo.Models.Project"*/-->
 <div class="row">
