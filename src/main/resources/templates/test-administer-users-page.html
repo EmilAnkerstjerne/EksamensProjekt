@@ -8,13 +8,16 @@
 </head>
 <body>
 <p th:text="'ProjektID: ' + ${project.getProjectID()}"></p>
-<a th:href="'/projektOverblik?projectID=' + ${project.getProjectID()}">Tilbage til projekt</a><br><br>
+<div style="display: inline-block">
+    <a th:href="'/projektOverblik?projectID=' + ${project.getProjectID()}" style="color: black; border: #B5BCC1 solid 1px; background-color: #f5f5f5; border-radius: 10px; padding: 2px">Tilbage til projekt</a><br><br>
+</div>
+
 <div class="container">
     <div class="row">
         <div class="col">
             <h2>Brugere</h2>
             <div th:each="profile: ${users}" style="border: solid; display: inline-block; padding: 3px; margin: 5px" class="row">
-                <span style="font-size: 20px" th:text="${profile.getUsername()}"></span><span>   </span><a th:href="'/fjernBruger?userID=' + ${profile.getProfileID()} + '&projectID=' + ${project.getProjectID()}">Fjern</a>
+                <span style="font-size: 20px" th:text="${profile.getUsername()}"></span><span>   </span><a th:href="'/fjernBruger?userID=' + ${profile.getProfileID()} + '&projectID=' + ${project.getProjectID()}" style="color: black; border: #B5BCC1 solid 1px; background-color: #f5f5f5; border-radius: 10px; padding: 2px">Fjern</a>
             </div>
             <br>
         </div>

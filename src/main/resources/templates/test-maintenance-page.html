@@ -7,9 +7,12 @@
           integrity="sha384-JcKb8q3iqJ61gNV9KGb8thSsNjpSL0n8PARn9HuZOnIxN0hoP+VmmDGMN5t9UJ0Z" crossorigin="anonymous">
 </head>
 <body>
-<a th:href="'/projektOverblik?projectID=' + ${project.getProjectID()}"><p>Tilbage til projekt overblik</p></a>
-<a th:href="'/arkivStatus?projectID=' + ${project.getProjectID()} + '&status=1'" th:unless="${project.isArchived()}"><p>Arkiver</p></a>
-<a th:href="'/arkivStatus?projectID=' + ${project.getProjectID()} + '&status=0'" th:if="${project.isArchived()}"><p>Fjern fra arkiv</p></a>
+<div style="display: inline-block">
+    <a th:href="'/projektOverblik?projectID=' + ${project.getProjectID()}"><p style="color: black; border: #B5BCC1 solid 1px; background-color: #f5f5f5; border-radius: 10px; padding: 2px">Tilbage til projekt overblik</p></a>
+    <a th:href="'/arkivStatus?projectID=' + ${project.getProjectID()} + '&status=1'" th:unless="${project.isArchived()}"><p style="color: black; border: #B5BCC1 solid 1px; background-color: #f5f5f5; border-radius: 10px; padding: 2px ">Arkiver</p></a>
+    <a th:href="'/arkivStatus?projectID=' + ${project.getProjectID()} + '&status=0'" th:if="${project.isArchived()}"><p style="color: black; border: #B5BCC1 solid 1px; background-color: #f5f5f5; border-radius: 10px; padding: 2px">Fjern fra arkiv</p></a>
+</div>
+
 <br><br>
 <!--/*@thymesVar id="project" type="com.example.demo.Models.Project"*/-->
 <div class="row">
