@@ -14,7 +14,7 @@
         <div class="col">
             <h2>Brugere</h2>
             <div th:each="profile: ${users}" style="border: solid; display: inline-block; padding: 3px; margin: 5px" class="row">
-                <span style="font-size: 20px" th:text="${profile.getUsername()}"></span><span>   </span><a th:href="'/fjernBruger?userID=' + ${profile.getProfileID()}">Fjern</a>
+                <span style="font-size: 20px" th:text="${profile.getUsername()}"></span><span>   </span><a th:href="'/fjernBruger?userID=' + ${profile.getProfileID()} + '&projectID=' + ${project.getProjectID()}">Fjern</a>
             </div>
             <br>
         </div>
