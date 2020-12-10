@@ -75,7 +75,7 @@ public class ProcessRepository extends Repository{ //Create, edit, delete proces
         }
     }
 
-    //JOHN TODO: Split to Essential information
+    //JOHN
     public boolean changeProject(int projectID, String name){
         String updateStatement =
                 "UPDATE projects SET name = ? " +
@@ -252,6 +252,75 @@ public class ProcessRepository extends Repository{ //Create, edit, delete proces
             System.out.println("Failed to delete subtask="+e.getMessage());
             return false;
         }
+    }
+
+    //JOHN
+    public boolean checkAdminSubprojectRelation(int adminID, int subprojectID){
+        String selectStatement =
+                "SELECT s.* FROM projects pr " +
+                "JOIN subprojects s on pr.project_id = s.project_id " +
+                "WHERE admin_user_id = ? AND subproject_id = ?";
+        try {
+            PreparedStatement preparedStatement = connection.prepareStatement(selectStatement);
+            preparedStatement.setInt(1, adminID);
+            preparedStatement.setInt(2, subprojectID);
+            ResultSet resultSet = preparedStatement.executeQuery();
+
+            if (resultSet.next()){
+                return true;
+            }
+        }
+        catch (SQLException e){
+            System.out.println("Failed to check admin subproject relation="+e.getMessage());
+        }
+        return false;
+    }
+
+    //JOHN
+    public boolean checkAdminTaskRelation(int adminID, int taskID){
+        String selectStatement =
+                "SELECT t.* FROM projects pr " +
+                        "JOIN subprojects s on pr.project_id = s.project_id " +
+                        "JOIN tasks t on s.subproject_id = t.subproject_id " +
+                        "WHERE admin_user_id = ? AND task_id = ?";
+        try {
+            PreparedStatement preparedStatement = connection.prepareStatement(selectStatement);
+            preparedStatement.setInt(1, adminID);
+            preparedStatement.setInt(2, taskID);
+            ResultSet resultSet = preparedStatement.executeQuery();
+
+            if (resultSet.next()){
+                return true;
+            }
+        }
+        catch (SQLException e){
+            System.out.println("Failed to check admin task relation="+e.getMessage());
+        }
+        return false;
+    }
+
+    //JOHN
+    public boolean checkAdminSubtaskRelation(int adminID, int subtaskID){
+        String selectStatement =
+                "SELECT t.* FROM projects pr " +
+                        "JOIN subprojects s on pr.project_id = s.project_id " +
+                        "JOIN tasks t on s.subproject_id = t.subproject_id " +
+                        "JOIN subtasks s2 on t.task_id = s2.task_id " +
+                        "WHERE admin_user_id = ? AND subtask_id = ?";
+        try {
+            PreparedStatement preparedStatement = connection.prepareStatement(selectStatement);
+            preparedStatement.setInt(1, adminID);
+            preparedStatement.setInt(2, subtaskID);
+            ResultSet resultSet = preparedStatement.executeQuery();
+
+            if (resultSet.next()){
+                return true;
+            }
+        }
+        catch (SQLException e){
+            System.out.println("Failed to check admin subtask relation="+e.getMessage());
+        }
+        return false;
     }
 
     //JOHN
