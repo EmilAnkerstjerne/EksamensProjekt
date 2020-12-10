@@ -25,7 +25,6 @@ public class ProfileProjectController {
         }
 
         int invitationID = Integer.parseInt(request.getParameter("invID"));
-        System.out.println(invitationID);
         int projectID = profileService.getProjectIDFromInvitationID(invitationID);
         if (profileService.deleteInvitation(invitationID, profileID)){
             profileService.createUserProjectRelation(profileID,projectID);
