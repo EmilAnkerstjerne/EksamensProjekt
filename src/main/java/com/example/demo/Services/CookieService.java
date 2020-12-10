@@ -17,7 +17,7 @@ public class CookieService {
         ProfileRepository profileRepository = new ProfileRepository();
         ArrayList<CookieModel> cookies = profileRepository.getAllCookies();
 
-        int maxDaysOld = -1; //Change this to change the max age of a cookie.
+        int maxDaysOld = 14; //Change this to change the max age of a cookie.
         Date cookieCreatedAt;
         Date now = new Date(System.currentTimeMillis());
         long daysBetween;
