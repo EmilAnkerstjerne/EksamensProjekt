@@ -159,12 +159,13 @@ public class ProcessController {
     }
 
     //JOHN
-    @PostMapping("/sletUnderopgave")
+    @GetMapping("/sletUnderopgave")
     public String deleteSubtask(@CookieValue(value = "user", defaultValue = "") String cookie, WebRequest request){
         int profileID = Login.verifyCookie(cookie);
         if(profileID == -1){
             return "redirect:/login";
         }
+        ///sletUnderopgave?projectID=1&subtaskID=4
         int projectID = Integer.parseInt(request.getParameter("projectID"));
         if (projectService.isAdmin(profileID,projectID)){
             int subtaskID = Integer.parseInt(request.getParameter("subtaskID"));

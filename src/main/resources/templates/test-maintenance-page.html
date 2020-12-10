@@ -15,22 +15,75 @@
 
 <br><br>
 <!--/*@thymesVar id="project" type="com.example.demo.Models.Project"*/-->
+<!--/*@thymesVar id="subtask" type="com.example.demo.Models.Subtask"*/-->
 <div class="row">
     <div class="col">
-        <h3 style="color: red">Not implemented</h3>
-        <form action="/add" id="form1">
-            <table border='1' align='center' id='add'>
-                <tr>
-                    <th align='right'>Opgaver</th>
-                </tr>
-                <tr th:each="subproject : ${project.getSubprojects()}">
-                    <td align='left' th:text="${subproject.getName()}"><br/></td>
-                </tr>
-            </table>
 
-            <!-- add funktionen i oneclick tager table's id som parameter -->
-            <input type='button' value='Add' onclick="add('add');">
+        <!-- New subproject -->
+        <form method="post" action="/nytUnderprojekt" style="background-color: #8fabab; display: inline-block">
+            <label>Underprojekt navn</label>
+            <input type="text" name="name">
+            <input type="hidden" th:value="${project.getProjectID()}" name="projectID">
+            <input type="submit" value="Tilføj">
         </form>
+
+        <!-- Change subproject -->
+        <div th:each="subproject : ${project.getSubprojects()}" style="margin-left: 50px; padding-bottom: 40px">
+            <form method="post" action="/aendreUnderprojekt">
+                <!-- Delete subproject -->
+                <a th:href="'/sletUnderprojekt?projectID=' + ${project.getProjectID()} + '&subprojectID=' + ${subproject.getSubprojectID()}">X</a>
+                <input type="text" th:value="${subproject.getName()}" name="name">
+                <input type="hidden" th:value="${project.getProjectID()}" name="projectID">
+                <input type="hidden" th:value="${subproject.getSubprojectID()}" name="subprojectID">
+                <input type="submit" value="Gem">
+            </form>
+
+            <!-- New task -->
+            <form method="post" action="/nyOpgave" style="background-color: #8fabab; display: inline-block">
+                <label>Opgave navn</label>
+                <input type="text" name="name">
+                <input type="hidden" th:value="${project.getProjectID()}" name="projectID">
+                <input type="hidden" th:value="${subproject.getSubprojectID()}" name="subprojectID">
+                <input type="submit" value="Tilføj">
+            </form>
+
+            <!-- Change task -->
+            <div th:each="task : ${subproject.getTasks()}" style="margin-left: 50px; padding-bottom: 30px">
+                <form method="post" action="/aendreOpgave">
+                    <!-- Delete task -->
+                    <a th:href="'/sletOpgave?projectID=' + ${project.getProjectID()} + '&taskID=' + ${task.getTaskID()}">X</a>
+                    <input type="text" th:value="${task.getName()}" name="name">
+                    <input type="hidden" th:value="${project.getProjectID()}" name="projectID">
+                    <input type="hidden" th:value="${task.getTaskID()}" name="taskID">
+                    <input type="submit" value="Gem">
+                </form>
+
+                <!-- New subtask -->
+                <form method="post" action="/nyUnderopgave" style="background-color: #8fabab; display: inline-block">
+                    <label>Underopgave navn</label>
+                    <input type="text" name="name">
+                    <input type="number" name="timeEstimation">
+                    <label>t</label>
+                    <input type="hidden" th:value="${project.getProjectID()}" name="projectID">
+                    <input type="hidden" th:value="${task.getTaskID()}" name="taskID">
+                    <input type="submit" value="Tilføj">
+                </form>
+
+                <!-- Change subtask -->
+                <div th:each="subtask : ${task.getSubtasks()}" style="margin-left: 50px; padding-bottom: 20px">
+                    <form method="post" action="/aendreUnderopgave">
+                        <!-- Delete subtask -->
+                        <a th:href="'/sletUnderopgave?projectID=' + ${project.getProjectID()} + '&subtaskID=' + ${subtask.getSubtaskID()}">X</a>
+                        <input type="text" th:value="${subtask.getName()}" name="name">
+                        <input type="number" th:value="${subtask.getTimeEstimate()}" name="timeEstimation">
+                        <input type="hidden" th:value="${project.getProjectID()}" name="projectID">
+                        <input type="hidden" th:value="${subtask.getSubtaskID()}" name="subtaskID">
+                        <input type="submit" value="Gem">
+                    </form>
+                </div>
+
+            </div>
+        </div>
     </div>
     <div>
         <div style="display: inline-block">
@@ -64,50 +117,5 @@
         </div>
     </div>
 </div>
-<script>
-
-    var counter = 1;
-    var temp = 0;
-
-    //Tilfoejer et hidden input field for at kunne tilgaa Counter-attributten i Controlleren
-    var div = document.createElement('input');
-    div.setAttribute('name', 'counterID');
-    div.setAttribute('type', 'hidden');
-    document.getElementById('form1').appendChild(div);
-
-    //Opdaterer det hidden input field, med Counter's vaerdi
-    //funktionen her, eksekveres nede i "function add()" hver gang denne eksekveres
-    //for at opdatere input field, saa det altid er det samme som Counter
-    function counterAdd() {
-        div.setAttribute('value', "" + counter);
-    }
-
-    //Denne funktion tilfoejer et nyt input field og en SUBMIT-KNAP til dette.
-    function add(divName) {
-        //koeres for at opdatere det hidden input field.
-        counterAdd();
-        //Tilfoejer en tr
-        var newdiv = document.createElement('tr');
-        //Tilfoejer en td til tr
-        newdiv.innerHTML = "<td align='left'><input name='opgaver" + counter + "' type='text' required/><br/></td>";
-        //Skriver det til dokumentet
-        document.getElementById(divName).appendChild(newdiv);
-        counter++;
-        //Tilfoejer en knap naar der laves et felt til at skrive i,
-        // og if-statementet med temp soerger for, at der kun oprettes een submit knap,
-        // uanset antallet af nye felter
-        if (temp < 1) {
-            var newdiv2 = document.createElement('input');
-            newdiv2.setAttribute('type', 'submit');
-            newdiv2.setAttribute('name', 'submit');
-            newdiv2.setAttribute('value', 'OK');
-            document.getElementById('form1').appendChild(newdiv2);
-        }
-        temp++;
-
-
-    }
-</script>
-
 </body>
 </html>

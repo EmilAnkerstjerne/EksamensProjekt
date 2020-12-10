@@ -60,12 +60,12 @@ public class ProcessRepository extends Repository{ //Create, edit, delete proces
 
     //JOHN
     public boolean createSubtask(int taskID, String name, int timeEstimation){
-        String insertStatement = "INSERT INTO tasks (subproject_id, name, time_estimation) VALUES (?, ?, ?)";
+        String insertStatement = "INSERT INTO subtasks (task_id, name, time_estimation) VALUES (?, ?, ?)";
         try {
             PreparedStatement preparedStatement = connection.prepareStatement(insertStatement);
             preparedStatement.setInt(1, taskID);
             preparedStatement.setString(2, name);
-            preparedStatement.setInt(2, timeEstimation);
+            preparedStatement.setInt(3, timeEstimation);
             preparedStatement.execute();
             return true;
         }
