@@ -70,12 +70,6 @@
         <!-- Project box - can be collapsed at <div> -->
         <div th:each="project: ${adminProjects}">
             <a th:href="'/projektOverblik?projectID=' + ${project.getProjectID()}" class="project">
-                <!-- TODO: PROJECT NAME HERE
-                <span class="project-name" th:text="${project.getName()}"></span>
-                <br>
-                -->
-                <!-- test -->
-                <!--/*@thymesVar id="project" type="com.example.demo.Models.Project"*/-->
                 <span class="project-name" th:text="${project.printName()}"></span>
                 <!-- TODO: th: Project DETAIL -->
                 <span class="project-detail">DETAIL 1</span>
@@ -104,17 +98,15 @@
         <!-- Project box - can be collapsed at <div> -->
         <div th:each="project: ${otherProjects}">
             <a th:href="'/projektOverblik?projectID=' + ${project.getProjectID()}" class="project">
-                <div class="project-wrapper">
-                    <span class="project-name" th:text="${project.printName()}"></span>
-                    <!-- TODO: th: Project DETAIL -->
-                    <span class="project-detail">DETAIL 1</span>
-                    <br>
-                    <!-- TODO: th: Project DETAIL -->
-                    <span class="project-detail">DETAIL 2</span>
-                    <br>
-                    <!-- TODO: th: Project DETAIL -->
-                    <span class="project-detail">DETAIL 3</span>
-                </div>
+                <span class="project-name" th:text="${project.printName()}"></span>
+                <!-- TODO: th: Project DETAIL -->
+                <span class="project-detail">DETAIL 1</span>
+                <br>
+                <!-- TODO: th: Project DETAIL -->
+                <span class="project-detail">DETAIL 2</span>
+                <br>
+                <!-- TODO: th: Project DETAIL -->
+                <span class="project-detail">DETAIL 3</span>
             </a>
         </div>
 

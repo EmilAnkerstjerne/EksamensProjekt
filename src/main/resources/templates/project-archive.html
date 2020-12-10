@@ -70,18 +70,15 @@
         <!-- Project box - can be collapsed at <div> -->
         <div th:each="project: ${adminProjects}">
             <a th:href="'/projektOverblik?projectID=' + ${project.getProjectID()}" class="project">
-                <div class="project-wrapper">
-                    <span class="project-name" th:text="${project.printName()}">PROJECTNAME</span>
-                    <br>
-                    <!-- TODO: th: Project DETAIL -->
-                    <span class="project-detail">DETAIL 1</span>
-                    <br>
-                    <!-- TODO: th: Project DETAIL -->
-                    <span class="project-detail">DETAIL 2</span>
-                    <br>
-                    <!-- TODO: th: Project DETAIL -->
-                    <span class="project-detail">DETAIL 3</span>
-                </div>
+                <span class="project-name" th:text="${project.printName()}"></span>
+                <!-- TODO: th: Project DETAIL -->
+                <span class="project-detail">DETAIL 1</span>
+                <br>
+                <!-- TODO: th: Project DETAIL -->
+                <span class="project-detail">DETAIL 2</span>
+                <br>
+                <!-- TODO: th: Project DETAIL -->
+                <span class="project-detail">DETAIL 3</span>
             </a>
         </div>
 
@@ -94,18 +91,15 @@
         <!-- Project box - can be collapsed at <div> -->
         <div th:each="project: ${otherProjects}">
             <a th:href="'/projektOverblik?projectID=' + ${project.getProjectID()}" class="project">
-                <div class="project-wrapper">
-                    <span class="project-name" th:text="${project.printName()}">PROJECTNAME</span>
-                    <br>
-                    <!-- TODO: th: Project DETAIL -->
-                    <span class="project-detail">DETAIL 1</span>
-                    <br>
-                    <!-- TODO: th: Project DETAIL -->
-                    <span class="project-detail">DETAIL 2</span>
-                    <br>
-                    <!-- TODO: th: Project DETAIL -->
-                    <span class="project-detail">DETAIL 3</span>
-                </div>
+                <span class="project-name" th:text="${project.printName()}"></span>
+                <!-- TODO: th: Project DETAIL -->
+                <span class="project-detail">DETAIL 1</span>
+                <br>
+                <!-- TODO: th: Project DETAIL -->
+                <span class="project-detail">DETAIL 2</span>
+                <br>
+                <!-- TODO: th: Project DETAIL -->
+                <span class="project-detail">DETAIL 3</span>
             </a>
         </div>
 

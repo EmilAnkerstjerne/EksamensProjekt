@@ -1,0 +1,116 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org" lang="da">
+<head>
+    <meta charset="UTF-8">
+    <title>Brugere</title>
+    <link href="adminUsersStyle.css" type="text/css" rel="stylesheet">
+</head>
+<body>
+    <!-- Navigation bar - can be collapsed at <header> -->
+    <header>
+        <div class="navbar">
+            <div class="navbar-logo-a" style="padding:0;text-align: center;"><img th:src="@{/images/LogoSmallG.png}" alt="logo" class="navbar-logo"></div>
+            <!-- TODO: Add relevant hrefs -->
+            <a href="/startside">Projektoversigt</a>
+            <a href="/opretProjekt">Opret projekt</a>
+            <a href="/projektArkiv">Projektarkiv</a>
+            <a style="float:right;" href="/logud">Log ud</a>
+            <a style="float:right;" href="/profil">Profil</a>
+
+            <div class="dropdown" style="float:right">
+                <button class="dropbtn" onclick="dropDown()" th:text="'Invitationer (' + ${invitations.size()} + ')'"></button>
+                <div class="dropdown-content" id="myDropdown">
+                    <!-- Each invite "form"-->
+                    <div class="invite-div" th:each="invitations: ${invitations}">
+                        <span class="variables-invite-text" th:text="${invitations.getAdminUsername()}"></span><br><span>har inviteret dig til</span><br><span class="variables-invite-text" th:text="${invitations.getProjectName()}"> PROJEKTNAVN</span>
+                        <br>
+                        <div style="text-align: center; margin-top:5px">
+                            <!-- TODO: Add accept invitation mapping -->
+                            <form action="/acceptInvitation" method="post" style="float:left;">
+                                <input th:value="${invitations.getInvitationID()}" name="invID" hidden>
+                                <button class="invite-accept-button" type="submit">Accepter</button>
+                            </form>
+                            <form action="/declineInvitation" method="post" style="float:right;">
+                                <input th:value="${invitations.getInvitationID()}" name="invID" hidden>
+                                <button class="invite-decline-button" type="submit">Afslå</button>
+                            </form>
+
+                        </div>
+                    </div>
+
+                </div>
+            </div>
+
+        </div>
+        <script>
+            //When the user clicks on the button, toggle between hiding and showing the dropdown content
+            function dropDown() {
+                document.getElementById("myDropdown").classList.toggle("show");
+            }
+
+            // Close the dropdown if the user clicks outside of it
+            window.onclick = function(e) {
+                if (!e.target.matches('.dropbtn')) {
+                    var myDropdown = document.getElementById("myDropdown");
+                    if (myDropdown.classList.contains('show')) {
+                        myDropdown.classList.remove('show');
+                    }
+                }
+            }
+        </script>
+    </header>
+
+    <div class="page-titel"><p>Administrér brugere</p></div>
+
+    <!-- PROJECT NAME AND BUTTONS/NAV -->
+    <div class="project-name-title">
+        <div class="project-name-text-div" th:unless="${project.getName()==''}"><span th:text="${project.getName()}"></span></div>
+        <!-- TODO: CAN BE REMOVED, ONLY USEFUL WHEN TESTING -->
+        <div class="project-name-text-div" th:if="${project.getName()==''}"><span>Ikke navngivet</span></div>
+
+        <div class="nav-links" th:if="${project.getAdminUserID()} == ${profile.getProfileID()}">
+            <a th:href="'/projektOverblik?projectID=' + ${project.getProjectID()}"><div class="nav-links-admin">Projektoverblik</div></a>
+            <a th:href="'/projektVedligeholdelse?projectID=' + ${project.getProjectID()}"><div class="nav-links-admin">Vedligeholdelse</div></a>
+        </div>
+        <div class="nav-links" th:unless="${project.getAdminUserID()} == ${profile.getProfileID()}">
+            <a th:href="'/forladProjekt?projectID=' + ${project.getProjectID()}"><div class="nav-links-user">Forlad projekt</div></a>
+        </div>
+
+    </div>
+
+    <div class="user-admin-container">
+        <!-- invite user box -->
+        <div class="invite-user-div">
+            <form method="post" action="/tilfojBruger" class="form">
+
+                    <div class="username">
+                        <div class="admin-users-title"><span style="font-size:24px;">Inviter bruger</span></div><br>
+                        <label for="username">Brugernavn</label><br>
+                        <input type="text" placeholder="Username" name="username" id="username"><br>
+                        <button type="submit" id="addButton" class="signin-btn">Tilføj</button>
+                    </div>
+
+                <input type="hidden" th:value="${project.getProjectID()}" name="projectID">
+            </form>
+        </div>
+
+        <!-- Users list -->
+        <div class="users-list">
+            <div class="admin-users-title"><span style="font-size:24px;">Tilknyttede brugere</span></div><br>
+            <span th:if="${users.size()==0}">Ingen brugere er tilknyttet endnu</span>
+            <div th:each="profile: ${users}" class="users-list-single-user">
+                <span th:text="${profile.getUsername()}"></span>
+                <a th:href="'/fjernBruger?userID=' + ${profile.getProfileID()} + '&projectID=' + ${project.getProjectID()}" >X</a>
+            </div>
+        </div>
+
+
+    </div>
+
+
+
+
+
+
+</body>
+</html>

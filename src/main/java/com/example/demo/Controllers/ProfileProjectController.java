@@ -55,8 +55,10 @@ public class ProfileProjectController {
         //Checks if user has access to project
         if (projectService.isAdmin(profileID,projectID)){
             modelMap.addAttribute("users", profileService.getUserProfiles(projectID));
+            modelMap.addAttribute("profile", profileService.getProfile(profileID));
             modelMap.addAttribute("project", projectService.getProject(projectID));
-            return "test-administer-users-page";
+            modelMap.addAttribute("invitations", profileService.getInvitations(profileID));
+            return "administer-users";
         }
         return "redirect:/startside";
     }

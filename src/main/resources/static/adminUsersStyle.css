@@ -1,0 +1,58 @@
+@import "navbarStyle.css";
+@import "summaryStyle.css";
+@import "profileStyle.css";
+
+.signin-btn, .signin-btn:focus{
+    width: 160px;
+    height: 30px;
+    padding: 2px 6px;
+    margin: 5px auto 0;
+    font-size: 16px;
+}
+
+.username, .users-list{
+    width: 330px;
+    padding: 10px 10px 0;
+
+}
+.username{
+    float:left;
+}
+.username input{
+    background-color: white;
+}
+.username input:hover{
+    cursor: text;
+}
+
+.users-list{
+    float:right;
+    text-align: center;
+}
+
+.users-list-single-user{
+    border: 1px solid #B5BCC1;
+    background-color: #f5f5f5;
+    display: inline-block;
+    padding: 3px 6px;
+    margin: 5px;
+    border-radius: 5px;
+}
+.users-list-single-user a{
+    text-decoration: none;
+    color:black;
+    font-weight: bold;
+}
+
+.project-name-title{
+    margin-left:20px;
+}
+
+.user-admin-container{
+    margin: 0 15%;
+}
+
+.admin-users-title{
+    font-size:24px;
+    margin-bottom: 15px;
+}
