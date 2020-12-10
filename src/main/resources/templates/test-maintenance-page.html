@@ -18,7 +18,10 @@
 <!--/*@thymesVar id="subtask" type="com.example.demo.Models.Subtask"*/-->
 <div class="row">
     <div class="col">
-
+        <div style="display: inline-block">
+            <h3 th:text="${project.getName()}" style="border-bottom: 2px solid"></h3>
+        </div>
+        <br><br>
         <!-- New subproject -->
         <form method="post" action="/nytUnderprojekt" style="background-color: #8fabab; display: inline-block">
             <label>Underprojekt navn</label>
@@ -27,8 +30,9 @@
             <input type="submit" value="Tilføj">
         </form>
 
-        <!-- Change subproject -->
+        <!-- Subprojects -->
         <div th:each="subproject : ${project.getSubprojects()}" style="margin-left: 50px; padding-bottom: 40px">
+            <!-- Change subproject -->
             <form method="post" action="/aendreUnderprojekt">
                 <!-- Delete subproject -->
                 <a th:href="'/sletUnderprojekt?projectID=' + ${project.getProjectID()} + '&subprojectID=' + ${subproject.getSubprojectID()}">X</a>
@@ -47,8 +51,9 @@
                 <input type="submit" value="Tilføj">
             </form>
 
-            <!-- Change task -->
+            <!-- Tasks -->
             <div th:each="task : ${subproject.getTasks()}" style="margin-left: 50px; padding-bottom: 30px">
+                <!-- Change task -->
                 <form method="post" action="/aendreOpgave">
                     <!-- Delete task -->
                     <a th:href="'/sletOpgave?projectID=' + ${project.getProjectID()} + '&taskID=' + ${task.getTaskID()}">X</a>
@@ -69,8 +74,9 @@
                     <input type="submit" value="Tilføj">
                 </form>
 
-                <!-- Change subtask -->
+                <!-- Subtasks -->
                 <div th:each="subtask : ${task.getSubtasks()}" style="margin-left: 50px; padding-bottom: 20px">
+                    <!-- Change subtask -->
                     <form method="post" action="/aendreUnderopgave">
                         <!-- Delete subtask -->
                         <a th:href="'/sletUnderopgave?projectID=' + ${project.getProjectID()} + '&subtaskID=' + ${subtask.getSubtaskID()}">X</a>
