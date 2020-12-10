@@ -7,3 +7,11 @@
 .username input:hover{
     cursor: text;
 }
+.signin-btn, .signin-btn:focus{
+    width: 160px;
+    height: 30px;
+    padding: 2px 6px;
+    margin: 5px auto 0;
+    font-size: 16px;
+    text-align: center;
+}

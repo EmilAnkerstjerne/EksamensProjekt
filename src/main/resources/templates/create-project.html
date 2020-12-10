@@ -67,7 +67,8 @@
         <!-- USERNAME -->
         <div class="username">
             <label for="projectname">Projektnavn:</label><br>
-            <input type="text" placeholder="Projektnavn" id="projectname" name="projectname" required>
+            <input type="text" placeholder="Projektnavn" id="projectname" name="projectname" required><br>
+            <button class="signin-btn" type="submit">Opret projekt</button>
         </div>
 
 
@@ -75,7 +76,7 @@
             <span id="error-message"></span>
         </div>
         <input th:value="${profile.getPassword()}" id="getPassword" hidden>
-        <button class="signin-btn" type="submit">Opret projekt</button>
+
 
 
     </form>
