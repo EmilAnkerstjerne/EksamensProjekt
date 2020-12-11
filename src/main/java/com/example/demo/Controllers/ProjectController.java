@@ -115,36 +115,18 @@ public class ProjectController {
     }
 
     //JOHN
-    @PostMapping("/grundoplysninger")
-    public String essentialInformation(@CookieValue(value = "user", defaultValue = "") String cookie, WebRequest request){
+    @GetMapping("/arkivStatus")
+    public String archivedStatus(@CookieValue(value = "user", defaultValue = "") String cookie, WebRequest request){
         int profileID = Login.verifyCookie(cookie);
         if(profileID == -1){
             return "redirect:/login";
         }
         int projectID = Integer.parseInt(request.getParameter("projectID"));
-
         if (projectService.isAdmin(profileID,projectID)){
-            int weeklyHours = Integer.parseInt(request.getParameter("weeklyHours"));
-            int weeklyDays = Integer.parseInt(request.getParameter("weeklyDays"));
-            int daysOff = Integer.parseInt(request.getParameter("daysOff"));
-
-            boolean startDateRemove = request.getParameter("removeStartDate") != null;
-            boolean deadlineRemove = request.getParameter("removeDeadline") != null;
-
-            String startDate = request.getParameter("startDate");
-            String deadline = request.getParameter("deadline");
-            if (startDateRemove){
-                startDate = null;
-            }
-
-            if (deadlineRemove){
-                deadline = null;
-            }
-
-            projectService.changeEssentialInformation(projectID, deadline, startDate, weeklyHours, weeklyDays, daysOff);
+            boolean change = request.getParameter("status").equals("1");
+            projectService.changeArchived(projectID, change);
         }
-
-        return "redirect:/udvidetInsight?projectID=" + projectID;
+        return "redirect:/projektVedligeholdelse?projectID=" + projectID;
     }
 
 }
