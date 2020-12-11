@@ -18,6 +18,10 @@ public class Subtask {
         this.timeEstimate = timeEstimate;
     }
 
+    public int getNumberOfSkills(){
+        return skills.size();
+    }
+
     public void addSkill(Skill skill){
         skills.add(skill);
     }

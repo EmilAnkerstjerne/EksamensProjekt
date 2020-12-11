@@ -2,7 +2,9 @@ package com.example.demo.Models;
 
 import java.text.SimpleDateFormat;
 import java.util.ArrayList;
+import java.util.Collections;
 import java.util.Date;
+import java.util.HashMap;
 import java.util.concurrent.TimeUnit;
 
 //JOHN
@@ -32,6 +34,49 @@ public class Project {
         this.daysOff = daysOff;
         this.archived = archived;
         this.employees = employess;
+    }
+
+    //JOHN
+    public ArrayList<String> getTaskAnalysis(){
+        ArrayList<String> list = new ArrayList<>();
+        int totalSkills = getNumberOfSubtasks();
+        String result = "";
+
+        HashMap<String, Integer> map = new HashMap<>();
+
+        for (Subproject subproject : subprojects){
+            for (Task task : subproject.getTasks()){
+                for (Subtask subtask : task.getSubtasks()){
+                    for (Skill skill : subtask.getSkills()){
+                        String value = skill.getValue();
+                        if (map.containsKey(value)){
+                            Integer count = map.get(value);
+                            count = count.intValue() + 1;
+                            map.put(value, count);
+                        }
+                        else {
+                            map.put(value, 1);
+                        }
+                    }
+                }
+            }
+        }
+        for (String key : map.keySet()){
+            double p = totalSkills;
+            double value = map.get(key);
+            int perc = (int) (value / p * 100);
+            String percentage = perc + "%";
+            if (percentage.length() < 3){
+                percentage = "0" + percentage;
+            }
+            result = percentage + " - " + key + " : " + map.get(key);
+            list.add(result);
+        }
+
+        Collections.sort(list);
+        Collections.reverse(list);
+
+        return list;
     }
 
     //JOHN
@@ -137,6 +182,15 @@ public class Project {
         Date deadline = new Date(startDate.getTime() + days * 86400000);
         SimpleDateFormat sdf = new SimpleDateFormat("dd/MM/yyyy");
         return sdf.format(deadline);
+    }
+
+    //JOHN
+    public int getNumberOfSubtasks(){
+        int count = 0;
+        for (Subproject subproject : subprojects){
+            count += subproject.getNumberOfSubtasks();
+        }
+        return count;
     }
 
     //JOHN

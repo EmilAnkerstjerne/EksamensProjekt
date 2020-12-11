@@ -1,13 +1,12 @@
 package com.example.demo.Controllers;
 
+import com.example.demo.Models.Project;
 import com.example.demo.Services.Login;
 import com.example.demo.Services.ProfileService;
 import com.example.demo.Services.ProjectService;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.ModelMap;
-import org.springframework.web.bind.annotation.CookieValue;
-import org.springframework.web.bind.annotation.GetMapping;
-import org.springframework.web.bind.annotation.PostMapping;
+import org.springframework.web.bind.annotation.*;
 import org.springframework.web.context.request.WebRequest;
 
 @Controller
@@ -63,5 +62,15 @@ public class InsightController {
         }
 
         return "redirect:/udvidetInsight?projectID=" + projectID;
+    }
+
+    //JOHN (TEST) TODO: REMOVE
+    @GetMapping("/Kowalski")
+    public String kowalski(WebRequest request, ModelMap modelMap){
+        int projectID = Integer.parseInt(request.getParameter("projectID"));
+        Project project = projectService.getProject(projectID);
+        //localhost:8081/Kowalski?projectID=1
+        modelMap.addAttribute("test", project.getTaskAnalysis());
+        return "test-skills-kowalski";
     }
 }

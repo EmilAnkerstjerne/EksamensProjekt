@@ -25,6 +25,15 @@ public class Subproject {
         return sum;
     }
 
+    //JOHN
+    public int getNumberOfSubtasks(){
+        int count = 0;
+        for (Task task : tasks){
+            count += task.getNumberOfSubtasks();
+        }
+        return count;
+    }
+
     public void addTask(Task task){
         tasks.add(task);
     }

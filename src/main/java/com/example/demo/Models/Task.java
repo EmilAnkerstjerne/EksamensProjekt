@@ -25,6 +25,11 @@ public class Task {
         return sum;
     }
 
+    //JOHN
+    public int getNumberOfSubtasks(){
+        return subtasks.size();
+    }
+
     public void addSubtask(Subtask subtask){
         subtasks.add(subtask);
     }
