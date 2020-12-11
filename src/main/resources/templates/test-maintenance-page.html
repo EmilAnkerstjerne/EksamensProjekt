@@ -21,6 +21,12 @@
         <div style="display: inline-block">
             <h3 th:text="${project.getName()}" style="border-bottom: 2px solid"></h3>
         </div>
+        <form method="post" action="/projektNavn">
+            <label>Skift projekt navn</label>
+            <input type="text" th:value="${project.getName()}" name="name">
+            <input type="hidden" th:value="${project.getProjectID()}" name="projectID">
+            <input type="submit" value="Skift">
+        </form>
         <br><br>
         <!-- New subproject -->
         <form method="post" action="/nytUnderprojekt" style="background-color: #8fabab; display: inline-block">
