@@ -6,22 +6,18 @@ import com.example.demo.Repositories.ProfileRepository;
 import java.util.Random;
 
 public class Login {
-
-
+    static ProfileRepository profileRepository = new ProfileRepository();
 
     //EMIL
     public Login() {
 
     }
 
-
-
     //EMIL
     //Checks if entered UN & PW matches DB UN &PW. RETURNS the profileID if verified
     //verifyLogin(UN, PW) > 0 //Login verified
     //verifyLogin(UN, PW) = -1 //Login not verified
     public static int verifyLogin(String enteredUsername, String enteredPassword){
-        ProfileRepository profileRepository = new ProfileRepository();
         Profile profile = profileRepository.getProfileData(enteredUsername);
         CookieService.deleteOldCookies();//Deletes any old cookies from DB
         //Checks if entered UN is in list of UN's
@@ -39,14 +35,12 @@ public class Login {
     //verifyCookie(cookie) > 0 //Cookie verified
     //verifyCookie(cookie) = -1 //Cookie not verified
     public static int verifyCookie(String cookie){
-        ProfileRepository profileRepository = new ProfileRepository();
         return profileRepository.getProfileIDFromCookie(cookie);
     }
 
     //EMIL&JOHN
     //Generates random cookie and inserts it to DB
     public static String generateCookie(int cookieSize, String username){
-        ProfileRepository profileRepository = new ProfileRepository();
         String characters = "0123456789aAbBcCdDeEfFgGhHiIjJkKlLmMnNoOpPqQrRsStTuUvVwWxXyYzZ"; //String of characters used to generate a random cookie
         String generatedCookie = ""; //Empty string to save random generated characters in
 
