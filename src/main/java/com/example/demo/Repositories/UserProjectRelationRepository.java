@@ -285,6 +285,51 @@ public class UserProjectRelationRepository extends Repository{
     }
 
     //JOHN
+    public boolean checkAdminEmployeeRelation(int adminID, int employeeID){
+        String selectStatement =
+                "SELECT e.* FROM projects pr " +
+                "JOIN employees e on pr.project_id = e.project_id " +
+                "WHERE admin_user_id = ? AND employee_id = ?";
+        try {
+            PreparedStatement preparedStatement = connection.prepareStatement(selectStatement);
+            preparedStatement.setInt(1, adminID);
+            preparedStatement.setInt(2, employeeID);
+            ResultSet resultSet = preparedStatement.executeQuery();
+
+            if (resultSet.next()){
+                return true;
+            }
+        }
+        catch (SQLException e){
+            System.out.println("Failed to check admin employee relation="+e.getMessage());
+        }
+        return false;
+    }
+
+    //JOHN
+    public boolean checkAdminEmployeeSkillRelation(int adminID, int employeeSkillID){
+        String selectStatement =
+                "SELECT e.* FROM projects pr " +
+                        "JOIN employees e on pr.project_id = e.project_id " +
+                        "JOIN employee_skills es on e.employee_id = es.employee_id " +
+                        "WHERE admin_user_id = ? AND employee_skill_id = ?";
+        try {
+            PreparedStatement preparedStatement = connection.prepareStatement(selectStatement);
+            preparedStatement.setInt(1, adminID);
+            preparedStatement.setInt(2, employeeSkillID);
+            ResultSet resultSet = preparedStatement.executeQuery();
+
+            if (resultSet.next()){
+                return true;
+            }
+        }
+        catch (SQLException e){
+            System.out.println("Failed to check admin employee skill relation="+e.getMessage());
+        }
+        return false;
+    }
+
+    //JOHN
     public int getLastCreatedID(){ //Returns AI ID of last added row (Utility method)
         String selectStatement = "SELECT last_insert_id()";
         int res = -1;
