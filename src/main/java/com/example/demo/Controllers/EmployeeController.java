@@ -55,7 +55,7 @@ public class EmployeeController {
         if (projectService.isAdmin(profileID,projectID)){
             int employeeID = Integer.parseInt(request.getParameter("employeeID"));
             String value = request.getParameter("skill");
-            projectService.createEmployeeSkill(employeeID, value);
+            projectService.createEmployeeSkill(profileID, employeeID, value);
         }
         return "redirect:/projektVedligeholdelse?projectID=" + projectID;
     }
@@ -70,7 +70,7 @@ public class EmployeeController {
         int projectID = Integer.parseInt(request.getParameter("projectID"));
         if (projectService.isAdmin(profileID,projectID)){
             int employeeSkillID = Integer.parseInt(request.getParameter("employeeSkillID"));
-            projectService.removeEmployeeSkill(employeeSkillID);
+            projectService.removeEmployeeSkill(profileID, employeeSkillID);
         }
         return "redirect:/projektVedligeholdelse?projectID=" + projectID;
     }

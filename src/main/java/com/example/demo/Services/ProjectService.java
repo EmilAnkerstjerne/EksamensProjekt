@@ -155,12 +155,18 @@ public class ProjectService {
     }
 
     //JOHN
-    public boolean createEmployeeSkill(int employeeID, String value){
-        return userRep.createEmployeeSkill(employeeID, value);
+    public boolean createEmployeeSkill(int adminID, int employeeID, String value){
+        if (userRep.checkAdminEmployeeRelation(adminID,employeeID)){
+            return userRep.createEmployeeSkill(employeeID, value);
+        }
+        return false;
     }
 
     //JOHN
-    public boolean removeEmployeeSkill(int employeeSkillID){
-        return userRep.deleteEmployeeSkill(employeeSkillID);
+    public boolean removeEmployeeSkill(int adminID, int employeeSkillID){
+        if (userRep.checkAdminEmployeeSkillRelation(adminID, employeeSkillID)){
+            return userRep.deleteEmployeeSkill(employeeSkillID);
+        }
+        return false;
     }
 }
