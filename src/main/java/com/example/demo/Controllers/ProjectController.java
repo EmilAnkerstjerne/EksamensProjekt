@@ -97,7 +97,7 @@ public class ProjectController {
         return "redirect:/startside";
     }
 
-    //JOHN
+    //JOHN, TOBIAS
     @GetMapping("/projektVedligeholdelse")
     public String projectMaintenance(@CookieValue(value = "user", defaultValue = "") String cookie, WebRequest request, ModelMap modelMap){
         int profileID = Login.verifyCookie(cookie);

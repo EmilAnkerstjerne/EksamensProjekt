@@ -93,7 +93,13 @@
                     <div class="subtask-name-title">
                         <span th:text="${subtask.getName()}"></span>
                         <span th:text="${subtask.getTimeEstimate()}+ ' t'" class="timeestimate"></span>
+
                     </div>
+                        <div style="float:left;" class="subtask-name-title"><span class="skill-name-div">Skills:</span></div>
+                        <div th:each="skills: ${subtask.getSkills()}" class="skills">
+                            <span th:text="' '+${skills.getValue()}"></span>
+                            <span th:if="${subtask.getSkills().size()>1 && subtask.getSkills().indexOf(skills)+1!=subtask.getSkills().size()}">,</span>
+                        </div>
 
                 </div>
             </div>

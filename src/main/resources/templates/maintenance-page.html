@@ -91,7 +91,7 @@
             <div class="new-subproject">
                 <form method="post" action="/nytUnderprojekt">
                     <label class="titles">Underprojekt navn: </label>
-                    <input type="text" name="name">
+                    <input type="text" name="name" required>
                     <input type="hidden" th:value="${project.getProjectID()}" name="projectID">
                     <input type="submit" value="Tilføj">
                 </form>
@@ -116,7 +116,7 @@
                 <div class="new-task">
                     <form method="post" action="/nyOpgave">
                         <label class="titles">Opgave navn: </label>
-                        <input type="text" name="name">
+                        <input type="text" name="name" required>
                         <input type="hidden" th:value="${project.getProjectID()}" name="projectID">
                         <input type="hidden" th:value="${subproject.getSubprojectID()}" name="subprojectID">
                         <input type="submit" value="Tilføj">
@@ -142,7 +142,7 @@
                     <div class="new-subtask">
                         <form method="post" action="/nyUnderopgave">
                             <label class="titles">Underopgave navn: </label>
-                            <input type="text" name="name">
+                            <input type="text" name="name" required>
                             <label> Estimeret tidsforbrug (timer): </label>
                             <input type="number" name="timeEstimation" class="set-timeestimate">
                             <input type="hidden" th:value="${project.getProjectID()}" name="projectID">
@@ -171,7 +171,7 @@
                         <div class="new-subtask-skill">
                             <form method="post" action="/tilfojOpgSkill">
                                 <span class="titles">Nyt skill:</span>
-                                <input type="text" name="skill">
+                                <input type="text" name="skill" required>
                                 <input type="hidden" th:value="${project.getProjectID()}" name="projectID">
                                 <input type="hidden" th:value="${subtask.getSubtaskID()}" name="subtaskID">
                                 <input type="submit" value="Tilføj">

@@ -30,6 +30,7 @@ public class Subtask {
         return skills;
     }
 
+
     public void setSkills(ArrayList<Skill> skills) {
         this.skills = skills;
     }
