@@ -37,11 +37,7 @@ public class Project {
     }
 
     //JOHN
-    public ArrayList<String> getTaskAnalysis(){
-        ArrayList<String> list = new ArrayList<>();
-        int totalSkills = getNumberOfSubtasks();
-        String result = "";
-
+    public HashMap<String, Integer> getTasksSkills(){ //Gets all tasks as keys to map and occurrences as value
         HashMap<String, Integer> map = new HashMap<>();
 
         for (Subproject subproject : subprojects){
@@ -61,6 +57,16 @@ public class Project {
                 }
             }
         }
+        return map;
+    }
+
+    //JOHN
+    public ArrayList<String> getTaskAnalysis(){
+        ArrayList<String> list = new ArrayList<>();
+        int totalSkills = getNumberOfSubtasks();
+
+        HashMap<String, Integer> map = getTasksSkills();
+
         for (String key : map.keySet()){
             double p = totalSkills;
             double value = map.get(key);
@@ -69,13 +75,25 @@ public class Project {
             if (percentage.length() < 3){
                 percentage = "0" + percentage;
             }
-            result = percentage + " - " + key + " : " + map.get(key);
+            String result = percentage + " - " + key + " : " + map.get(key);
             list.add(result);
         }
 
         Collections.sort(list);
         Collections.reverse(list);
 
+        return list;
+    }
+
+    //JOHN
+    public ArrayList<String> getAllSubtaskSkills(){
+        HashMap<String, Integer> map = getTasksSkills();
+        ArrayList<String> list = new ArrayList<>();
+
+        for (String key : map.keySet()){
+            list.add(key);
+        }
+        Collections.sort(list);
         return list;
     }
 
