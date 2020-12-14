@@ -1,0 +1,254 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org" lang="da">
+<head>
+    <meta charset="UTF-8">
+    <title>Vedligeholdelse</title>
+    <link href="maintenanceStyle.css" type="text/css" rel="stylesheet">
+
+
+</head>
+<body>
+    <!-- Navigation bar - can be collapsed at <header> -->
+    <header>
+    <div class="navbar">
+        <div class="navbar-logo-a" style="padding:0;text-align: center;"><img th:src="@{/images/LogoSmallG.png}" alt="logo" class="navbar-logo"></div>
+        <!-- TODO: Add relevant hrefs -->
+        <a href="/startside">Projektoversigt</a>
+        <a href="/opretProjekt">Opret projekt</a>
+        <a href="/projektArkiv">Projektarkiv</a>
+        <a style="float:right;" href="/logud">Log ud</a>
+        <a style="float:right;" href="/profil">Profil</a>
+
+        <div class="dropdown" style="float:right">
+            <button class="dropbtn" onclick="dropDown()" th:text="'Invitationer (' + ${invitations.size()} + ')'"></button>
+            <div class="dropdown-content" id="myDropdown">
+                <!-- Each invite "form"-->
+                <div class="invite-div" th:each="invitations: ${invitations}">
+                    <span class="variables-invite-text" th:text="${invitations.getAdminUsername()}"></span><br><span>har inviteret dig til</span><br><span class="variables-invite-text" th:text="${invitations.getProjectName()}"> PROJEKTNAVN</span>
+                    <br>
+                    <div style="text-align: center; margin-top:5px">
+                        <!-- TODO: Add accept invitation mapping -->
+                        <form action="/acceptInvitation" method="post" style="float:left;">
+                            <input th:value="${invitations.getInvitationID()}" name="invID" hidden>
+                            <button class="invite-accept-button" type="submit">Accepter</button>
+                        </form>
+                        <form action="/declineInvitation" method="post" style="float:right;">
+                            <input th:value="${invitations.getInvitationID()}" name="invID" hidden>
+                            <button class="invite-decline-button" type="submit">Afslå</button>
+                        </form>
+
+                    </div>
+                </div>
+
+            </div>
+        </div>
+
+    </div>
+    <script>
+        //When the user clicks on the button, toggle between hiding and showing the dropdown content
+        function dropDown() {
+            document.getElementById("myDropdown").classList.toggle("show");
+        }
+
+        // Close the dropdown if the user clicks outside of it
+        window.onclick = function(e) {
+            if (!e.target.matches('.dropbtn')) {
+                var myDropdown = document.getElementById("myDropdown");
+                if (myDropdown.classList.contains('show')) {
+                    myDropdown.classList.remove('show');
+                }
+            }
+        }
+    </script>
+</header>
+
+    <div class="page-titel"><p>Projekt vedligeholdelse</p></div>
+
+    <!-- PROJECT TREE -->
+    <div class="project-tree">
+        <!-- PROJECT NAME AND BUTTONS/NAV -->
+        <div class="project-name-title">
+            <div class="project-name-text-div" th:unless="${project.getName()==''}"><span th:text="${project.getName()}"></span></div>
+            <!-- TODO: CAN BE REMOVED, ONLY USEFUL WHEN TESTING -->
+            <div class="project-name-text-div" th:if="${project.getName()==''}"><span>Ikke navngivet</span></div>
+
+            <div class="nav-links" th:if="${project.getAdminUserID()} == ${profile.getProfileID()}">
+                <a th:href="'/brugerAdministration?projectID=' + ${project.getProjectID()}"><div class="nav-links-admin">Administrer brugere</div></a>
+                <a th:href="'/projektOverblik?projectID=' + ${project.getProjectID()}"><div class="nav-links-admin">Projektoverblik</div></a>
+                <a th:href="'/arkivStatus?projectID=' + ${project.getProjectID()} + '&status=1'" th:unless="${project.isArchived()}"><div class="nav-links-admin">Arkivér</div></a>
+                <a th:href="'/arkivStatus?projectID=' + ${project.getProjectID()} + '&status=0'" th:if="${project.isArchived()}"><div class="nav-links-admin">Fjern fra arkiv</div></a>
+            </div>
+        </div>
+        <div style="margin-left:20px;">
+            <form method="post" action="/projektNavn">
+                <label>Skift projekt navn</label>
+                <input type="text" th:value="${project.getName()}" name="name">
+                <input type="hidden" th:value="${project.getProjectID()}" name="projectID">
+                <input type="submit" value="Skift">
+            </form>
+            <br><br>
+            <!-- New subproject -->
+            <div class="new-subproject">
+                <form method="post" action="/nytUnderprojekt">
+                    <label class="titles">Underprojekt navn: </label>
+                    <input type="text" name="name">
+                    <input type="hidden" th:value="${project.getProjectID()}" name="projectID">
+                    <input type="submit" value="Tilføj">
+                </form>
+            </div>
+
+            <!-- Subprojects -->
+            <div th:each="subproject : ${project.getSubprojects()}" class="subprojects-div">
+                <!-- Change subproject -->
+                <div class="change-subproject">
+                    <form method="post" action="/aendreUnderprojekt">
+                        <!-- Delete subproject -->
+                        <label>Underprojekt: </label>
+                        <input type="text" th:value="${subproject.getName()}" name="name" class="created-titles">
+                        <input type="hidden" th:value="${project.getProjectID()}" name="projectID">
+                        <input type="hidden" th:value="${subproject.getSubprojectID()}" name="subprojectID">
+                        <input type="submit" value="Gem">
+                        <a th:href="'/sletUnderprojekt?projectID=' + ${project.getProjectID()} + '&subprojectID=' + ${subproject.getSubprojectID()}">X</a>
+                    </form>
+                </div>
+
+                <!-- New task -->
+                <div class="new-task">
+                    <form method="post" action="/nyOpgave">
+                        <label class="titles">Opgave navn: </label>
+                        <input type="text" name="name">
+                        <input type="hidden" th:value="${project.getProjectID()}" name="projectID">
+                        <input type="hidden" th:value="${subproject.getSubprojectID()}" name="subprojectID">
+                        <input type="submit" value="Tilføj">
+                    </form>
+                </div>
+
+                <!-- Tasks -->
+                <div th:each="task : ${subproject.getTasks()}" class="task-div">
+                    <!-- Change task -->
+                    <div class="change-task">
+                        <form method="post" action="/aendreOpgave">
+                            <!-- Delete task -->
+                            <label>Opgave: </label>
+                            <input type="text" th:value="${task.getName()}" name="name" class="created-titles">
+                            <input type="hidden" th:value="${project.getProjectID()}" name="projectID">
+                            <input type="hidden" th:value="${task.getTaskID()}" name="taskID">
+                            <input type="submit" value="Gem">
+                            <a th:href="'/sletOpgave?projectID=' + ${project.getProjectID()} + '&taskID=' + ${task.getTaskID()}">X</a>
+                        </form>
+                    </div>
+
+                    <!-- New subtask -->
+                    <div class="new-subtask">
+                        <form method="post" action="/nyUnderopgave">
+                            <label>Underopgave navn</label>
+                            <input type="text" name="name">
+                            <label> Estimeret tidsforbrug (timer): </label>
+                            <input type="number" name="timeEstimation" class="set-timeestimate">
+                            <input type="hidden" th:value="${project.getProjectID()}" name="projectID">
+                            <input type="hidden" th:value="${task.getTaskID()}" name="taskID">
+                            <input type="submit" value="Tilføj">
+                        </form>
+                    </div>
+
+                    <!-- Subtasks -->
+                    <div th:each="subtask : ${task.getSubtasks()}" class="subtask-div">
+                        <!-- Change subtask -->
+                        <div class="change-subtask">
+                            <form method="post" action="/aendreUnderopgave">
+                                <!-- Delete subtask -->
+                                <label>Underopgave: </label>
+                                <input type="text" th:value="${subtask.getName()}" name="name" class="created-titles">
+                                <input type="number" th:value="${subtask.getTimeEstimate()}" name="timeEstimation" class="set-timeestimate">
+                                <input type="hidden" th:value="${project.getProjectID()}" name="projectID">
+                                <input type="hidden" th:value="${subtask.getSubtaskID()}" name="subtaskID">
+                                <input type="submit" value="Gem">
+                                <a th:href="'/sletUnderopgave?projectID=' + ${project.getProjectID()} + '&subtaskID=' + ${subtask.getSubtaskID()}">X</a>
+                            </form>
+                        </div>
+
+                        <!-- New subtask skill -->
+                        <div class="new-subtask-skill">
+                            <form method="post" action="/tilfojOpgSkill">
+                                <span class="titles">Nyt skill:</span>
+                                <input type="text" name="skill">
+                                <input type="hidden" th:value="${project.getProjectID()}" name="projectID">
+                                <input type="hidden" th:value="${subtask.getSubtaskID()}" name="subtaskID">
+                                <input type="submit" value="Tilføj">
+                            </form>
+                        </div>
+
+                        <!-- Subtask skills -->
+                        <br>
+                        <div th:each="skill : ${subtask.getSkills()}" class="subtask-skill">
+                            <!-- Delete subtask skill -->
+                            <span th:text="${skill.getValue()}"></span><a th:href="'/sletOpgSkill?projectID=' + ${project.getProjectID()} + '&subtaskID=' + ${subtask.getSubtaskID()} + '&skillID=' + ${skill.getSkillID()}">  X</a>
+                        </div>
+                    </div>
+
+                </div>
+            </div>
+        </div>
+
+
+
+
+    </div>
+
+    <!-- employees -->
+    <div class="user-admin-container">
+        <!-- ADD employee box -->
+        <div class="invite-user-div">
+            <form method="post" action="/tilfojMedarbejder" class="form">
+
+                <div class="username">
+                    <div class="admin-users-title"><span style="font-size:24px;">Tilføj medarbejder</span></div>
+                    <label for="name">Navn</label><br>
+                    <input type="text" placeholder="Navn" name="name" id="name"><br>
+                    <button type="submit" id="addButton" class="signin-btn">Tilføj</button>
+                </div>
+
+                <input type="hidden" th:value="${project.getProjectID()}" name="projectID">
+            </form>
+        </div>
+
+        <!-- Employees list -->
+        <div class="users-list">
+            <div class="admin-users-title"><span>Medarbejdere</span></div>
+            <span th:if="${employees.size()==0}">Ingen medarbejdere er tilknyttet endnu</span>
+
+            <div th:each="employee: ${employees}" class="users-list-single-user">
+                <div class="employee-name-div">
+                    <div class="employee-name"><span th:text="${employee.getName()}"></span></div>
+                    <div class="employee-X"><a th:href="'/fjernMedarbejder?projectID=' + ${employee.getProjectID()} + '&employeeID=' + ${employee.getEmployeeID()}" >X</a></div>
+                </div>
+
+                <!--- SKILLS --->
+                <form method="post" action="/tilfojMedSkill">
+                    <div style="margin-bottom: 5px;">
+                        <label for="skil" class="skill-label">Skills:</label><br>
+                        <input type="text" name="skill" id="skil">
+                        <input type="hidden" th:value="${employee.getEmployeeID()}" name="employeeID">
+                        <input type="hidden" th:value="${employee.getProjectID()}" name="projectID">
+                        <input type="submit" value="+">
+                    </div>
+                    <div th:each="skill: ${employee.getSkills()}" style="display:inline-block;">
+                        <div style="display: inline-block">
+                            <div class="skill-div">
+                                <div class="skill-name"><span th:text="${skill.getValue()}"></span></div>
+                                <div class="skill-X"><a th:href="'/fjernMedSkill?projectID=' + ${employee.getProjectID()} + '&employeeSkillID=' + ${skill.getSkillID()}"> X</a></div>
+                            </div>
+
+                        </div>
+                    </div>
+                </form>
+
+            </div>
+
+        </div>
+
+
+    </div>
+
+</body>
+</html>

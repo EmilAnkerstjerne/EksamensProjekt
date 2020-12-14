@@ -21,6 +21,7 @@
         <div style="display: inline-block">
             <h3 th:text="${project.printName()}" style="border-bottom: 2px solid"></h3>
         </div>
+
         <form method="post" action="/projektNavn">
             <label>Skift projekt navn</label>
             <input type="text" th:value="${project.getName()}" name="name">

@@ -1,0 +1,148 @@
+@import "navbarStyle.css";
+@import "summaryStyle.css";
+@import "adminUsersStyle.css";
+
+
+.username, .users-list{
+    float:right;
+    margin:0;
+}
+.username{
+    margin-bottom: 10px;
+}
+
+.user-admin-container{
+    margin: 0 2%;
+    width: 365px;
+    max-width: 365px;
+    float:right;
+}
+
+.project-tree{
+    float: left;
+    width: 65%;
+}
+.admin-users-title{
+    margin-bottom: 8px;
+}
+.skill-label{
+    font-size:14px;
+    font-style: italic;
+}
+
+.skill-div{
+    padding: 2px 6px;
+    border: 1px solid #B5BCC1;
+    font-size: 12px;
+    margin:1px;
+    max-width: 180px;
+    display: inline-block;
+    border-radius: 10px;
+}
+
+.users-list-single-user{
+    width: 250px;
+    max-width: 250px;
+    overflow: hidden;
+
+}
+
+.employee-name-div{
+    margin: 0 5px 0;
+    max-width: 240px;
+    display: inline-block;
+    height: 17px;
+}
+
+.skill-div, .skill-name, .employee-name{
+    text-overflow: ellipsis;
+    white-space: nowrap;
+    overflow: hidden;
+    display: block;
+}
+
+.employee-name{
+    float:left;
+    max-width: 215px;
+    display: inline-block;
+}
+
+.skill-name{
+    max-width: 150px;
+    float:left;
+}
+
+.skill-X{
+    float:right;
+    margin-left:4px;
+}
+.employee-X{
+    margin-left:4px;
+    position: relative;
+    display: inline-block;
+    height: 17px;
+    margin-bottom: 2px;
+}
+
+.set-timeestimate{
+    width: 45px;
+}
+
+.subprojects-div{
+    border-left: 1px solid #B5BCC1;
+    padding-left: 1px;
+    margin-left: 50px;
+    margin-bottom: 10px
+}
+.subprojects-div a{
+    text-decoration: none;
+    color:black;
+    font-weight: bold;
+}
+
+.new-subproject,.change-subproject,.new-task,.change-task,.new-subtask,.change-subtask,.new-subtask-skill,.subtask-skill{
+    padding: 4px 6px;
+    margin-bottom: 5px;
+}
+
+.new-subproject,.new-task,.new-subtask,.new-subtask-skill{
+    display: inline-block;
+    /*border: 1px solid #B5BCC1;*/
+    margin-bottom:10px;
+    margin-top:2px;
+
+}
+.new-subtask-skill{
+    margin-bottom: 7px;
+}
+
+.subtask-skill{
+    padding: 2px 9px;
+    border: 1px solid #B5BCC1;
+    border-radius: 10px;
+    display: inline-block;
+    margin-left:2px;
+}
+.task-div{
+    margin-left: 50px;
+    margin-bottom: 15px;
+    border-left:1px solid #B5BCC1;
+}
+.subtask-div{
+    margin-left: 50px;
+    margin-bottom: 20px;
+    border-left:1px solid #B5BCC1;
+}
+
+.titles{
+    font-weight: bold;
+}
+
+.created-titles{
+    border:none;
+    font-size: 16px;
+    font-style: italic;
+    text-align: center;
+    font-weight: bold;
+}
+

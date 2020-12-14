@@ -29,7 +29,7 @@ body{
 }
 
 .subtask-name-title{
-    margin-left:25px;
+    margin-left:35px;
     margin-bottom: 10px;
     font-size:16px;
 }
@@ -117,6 +117,7 @@ body{
     margin-right: 5px;
     width: auto;
     float: left;
+    font-weight: bold;
 }
 .nav-links{
     float:right;
