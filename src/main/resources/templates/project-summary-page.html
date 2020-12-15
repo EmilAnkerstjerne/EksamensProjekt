@@ -99,7 +99,7 @@
                         <div th:each="skills: ${subtask.getSkills()}" class="skills">
                             <span th:text="' '+${skills.getValue()}"></span>
                             <span th:if="${subtask.getSkills().size()>1 && subtask.getSkills().indexOf(skills)+1!=subtask.getSkills().size()}">,</span>
-                        </div>
+                        </div><br>
 
                 </div>
             </div>
