@@ -122,10 +122,8 @@ public class Project {
             return -1;
         }
         double t = getTotalSubprojectsTime();
-        double d = daysOff;
         double e = employees;
-        double w = weeklyDays;
-        int hours = (int) Math.ceil(t / (totalDays - d / e) / e / w);
+        int hours = (int) Math.ceil((t / e) / (totalDays / 7));
         return hours;
     }
 
@@ -215,7 +213,7 @@ public class Project {
         double w = weeklyHours;
         int days = (int) Math.ceil(d / e + h / (w * e / 7));
         //Milliseconds in a day: 86400000
-        Date deadline = new Date(startDate.getTime() + days * 86400000);
+        Date deadline = new Date(startDate.getTime() + (days * 86400000L));
         SimpleDateFormat sdf = new SimpleDateFormat("dd/MM/yyyy");
         return sdf.format(deadline);
     }
