@@ -19,10 +19,6 @@
     border-radius: 10px;
 }
 
-.info-box,.advanced-info{
-
-}
-
 .info-box{
     margin-right: 6%;
     margin-left: 3%;
@@ -34,6 +30,7 @@
 .advanced-info{
     margin-right: 2%;
     margin-left: 6%;
+    text-align: center;
 }
 
 #employees-readonly{

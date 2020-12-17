@@ -123,45 +123,45 @@
         <span class="calculation-title" th:text="'Projekt: ' + ${project.getName()}"></span><br><br>
 
         <!-- Start date -->
-        <span class="calculation-title">Start dato: </span>
+        <span class="calculation-title">Start dato: </span><br>
         <span th:text="${project.printStartDate()}"></span><br><br>
 
         <!-- Deadline -->
-        <span class="calculation-title">Deadline: </span>
+        <span class="calculation-title">Deadline: </span><br>
         <span th:unless="${project.printDeadline()}=='00/00/0000'" th:text="${project.printDeadline()}"></span>
         <span th:if="${project.printDeadline()}=='00/00/0000'">Ingen deadline er sat</span>
         <br><br>
 
         <!-- Expected deadline -->
-        <span class="calculation-title">Forventet deadline: </span>
+        <span class="calculation-title">Forventet deadline: </span><br>
         <span th:text="${project.calculateDeadline()}"></span>
         <br><br>
 
         <!-- Total days -->
-        <span class="calculation-title">Antal dage i alt (Start dato - deadline): </span>
+        <span class="calculation-title">Antal dage i alt (Start dato - deadline): </span><br>
         <span th:unless="${project.getTotalDays()}==-1" th:text="${project.getTotalDays()}"></span>
         <span th:if="${project.getTotalDays()}==-1">Ikke tilstrækkelig data til at udregne</span>
         <br><br>
 
         <!-- Total hours available -->
-        <span class="calculation-title">Antal ledige timer: </span>
+        <span class="calculation-title">Antal ledige timer: </span><br>
         <span th:unless="${project.getTotalHoursAvailable()}==-1" th:text="${project.getTotalHoursAvailable()}"></span>
         <span th:if="${project.getTotalHoursAvailable()}==-1">Ikke tilstrækkelig data til at udregne</span>
         <br><br>
 
         <!-- Total time for all subprojects (hours) -->
-        <span class="calculation-title">Antal arbejdstimer: </span>
+        <span class="calculation-title">Antal arbejdstimer: </span><br>
         <span th:unless="${project.getTotalSubprojectsTime()}==-1" th:text="${project.getTotalSubprojectsTime()}"></span>
         <span th:if="${project.getTotalSubprojectsTime()}==-1">Ikke tilstrækkelig data til at udregne</span>
         <br><br>
 
         <!-- Number of employees -->
-        <span class="calculation-title">Antal medarbejdere: </span>
+        <span class="calculation-title">Antal medarbejdere: </span><br>
         <span th:text="${project.getEmployees()}"></span>
         <br><br>
 
         <!-- Weekly hours needed per employee -->
-        <span class="calculation-title">Krævede ugentlige timer pr. medarbejder: </span>
+        <span class="calculation-title">Krævede ugentlige timer pr. medarbejder: </span><br>
         <span th:unless="${project.calculateHoursWeekEmployeeNeeded()}==-1" th:text="${project.calculateHoursWeekEmployeeNeeded()}"></span>
         <span th:if="${project.calculateHoursWeekEmployeeNeeded()}==-1">Ikke tilstrækkelig data til at udregne</span>
 
