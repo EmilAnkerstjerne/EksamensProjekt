@@ -10,6 +10,8 @@ import org.springframework.ui.ModelMap;
 import java.text.ParseException;
 import java.text.SimpleDateFormat;
 import java.util.ArrayList;
+import java.util.Collection;
+import java.util.Collections;
 import java.util.Date;
 
 //JOHN
@@ -167,8 +169,13 @@ public class ProjectService {
             }
         }
 
+        Collections.sort(skillsNoDups);
+
         for(int i = 0; i < skillsNoDups.size(); i++){
             skills += skillsNoDups.get(i);
+            if(skillsNoDups.size()-1!=i){
+                skills+= ", ";
+            }
         }
         return skills;
     }

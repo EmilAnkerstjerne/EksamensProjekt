@@ -121,13 +121,19 @@
                 <div class="quickinsight-bulletpoint-title"><span>Akkumuleret tid krævet: </span></div>
                 <div class="quickinsight-bulletpoint-text"><span th:text="${project.getTotalSubprojectsTime()}+' timer'"></span></div>
 
+                <!-- Skills required -->
                 <div class="quickinsight-bulletpoint-title"><span>Skills krævet: </span></div>
                 <div class="quickinsight-bulletpoint-text">
                     <span th:unless="${project.getAllSubtaskSkillsToString()}==''" th:text="${project.getAllSubtaskSkillsToString()}"></span>
                     <span th:if="${project.getAllSubtaskSkillsToString()}==''">Ingen skills er tildelt projektet</span>
                 </div>
 
-
+                <!-- Employee skills -->
+                <div class="quickinsight-bulletpoint-title"><span>Medarbejder skills: </span></div>
+                <div class="quickinsight-bulletpoint-text">
+                    <span th:unless="${employeeSkills}==''" th:text="${employeeSkills}"></span>
+                    <span th:if="${project.getAllSubtaskSkillsToString()}==''">Ingen skills er tildelt projektet</span>
+                </div>
 
 
             </div>

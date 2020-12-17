@@ -57,6 +57,7 @@ public class ProjectController {
             modelMap.addAttribute("invitations", profileService.getInvitations(profileID));
             modelMap.addAttribute("profile", profileService.getProfile(profileID));
             modelMap.addAttribute("project", projectService.getProject(projectID));
+            modelMap.addAttribute("employeeSkills",projectService.getAllEmployeeSkills(projectID));
 
             return "project-summary-page";
         }
