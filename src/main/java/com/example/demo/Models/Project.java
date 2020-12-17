@@ -21,6 +21,7 @@ public class Project {
     private int employees;
     private boolean archived;
 
+
     private ArrayList<Subproject> subprojects = new ArrayList<>();
 
     public Project(int projectID, String name, int adminUserID, Date deadline, Date startDate, int weeklyHours, int weeklyDays, int daysOff, boolean archived, int employess) {
@@ -354,6 +355,7 @@ public class Project {
     public void setEmployees(int employees) {
         this.employees = employees;
     }
+
 
     //JOHN (Alt. toString for structure of lists)
     public void printProjectStructure(){ //Prints out a project in structure

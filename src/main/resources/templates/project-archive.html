@@ -71,14 +71,15 @@
         <div th:each="project: ${adminProjects}">
             <a th:href="'/projektOverblik?projectID=' + ${project.getProjectID()}" class="project">
                 <span class="project-name" th:text="${project.printName()}"></span>
-                <!-- TODO: th: Project DETAIL -->
-                <span class="project-detail">DETAIL 1</span>
+                <!-- Start date -->
+                <span class="project-detail" >Start dato: </span>
+                <span class="project-detail" th:text="${project.printStartDate()}"></span>
                 <br>
-                <!-- TODO: th: Project DETAIL -->
-                <span class="project-detail">DETAIL 2</span>
-                <br>
-                <!-- TODO: th: Project DETAIL -->
-                <span class="project-detail">DETAIL 3</span>
+                <!-- DEADLINE (IF ANY GIVEN) -->
+                <div th:unless="${project.printDeadline()}=='00/00/0000'">
+                    <span class="project-detail">Deadline: </span>
+                    <span class="project-detail" th:text="${project.printDeadline()}"></span>
+                </div>
             </a>
         </div>
 
@@ -92,14 +93,15 @@
         <div th:each="project: ${otherProjects}">
             <a th:href="'/projektOverblik?projectID=' + ${project.getProjectID()}" class="project">
                 <span class="project-name" th:text="${project.printName()}"></span>
-                <!-- TODO: th: Project DETAIL -->
-                <span class="project-detail">DETAIL 1</span>
+                <!-- Start date -->
+                <span class="project-detail" >Start dato: </span>
+                <span class="project-detail" th:text="${project.printStartDate()}"></span>
                 <br>
-                <!-- TODO: th: Project DETAIL -->
-                <span class="project-detail">DETAIL 2</span>
-                <br>
-                <!-- TODO: th: Project DETAIL -->
-                <span class="project-detail">DETAIL 3</span>
+                <!-- DEADLINE (IF ANY GIVEN) -->
+                <div th:unless="${project.printDeadline()}=='00/00/0000'">
+                    <span class="project-detail">Deadline: </span>
+                    <span class="project-detail" th:text="${project.printDeadline()}"></span>
+                </div>
             </a>
         </div>
 
