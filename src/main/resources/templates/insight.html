@@ -1,0 +1,173 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org" lang="da">
+<head>
+    <meta charset="UTF-8">
+    <title>Insight</title>
+    <link href="insightStyle.css" type="text/css" rel="stylesheet">
+</head>
+<body>
+
+    <!-- Navigation bar - can be collapsed at <header> -->
+    <header>
+        <div class="navbar">
+            <div class="navbar-logo-a" style="padding:0;text-align: center;"><img th:src="@{/images/LogoSmallG.png}" alt="logo" class="navbar-logo"></div>
+            <!-- TODO: Add relevant hrefs -->
+            <a href="/startside">Projektoversigt</a>
+            <a href="/opretProjekt">Opret projekt</a>
+            <a href="/projektArkiv">Projektarkiv</a>
+            <a style="float:right;" href="/logud">Log ud</a>
+            <a style="float:right;" href="/profil">Profil</a>
+
+            <div class="dropdown" style="float:right">
+                <button class="dropbtn" onclick="dropDown()" th:text="'Invitationer (' + ${invitations.size()} + ')'"></button>
+                <div class="dropdown-content" id="myDropdown">
+                    <!-- Each invite "form"-->
+                    <div class="invite-div" th:each="invitations: ${invitations}">
+                        <span class="variables-invite-text" th:text="${invitations.getAdminUsername()}"></span><br><span>har inviteret dig til</span><br><span class="variables-invite-text" th:text="${invitations.getProjectName()}"> PROJEKTNAVN</span>
+                        <br>
+                        <div style="text-align: center; margin-top:5px">
+                            <!-- TODO: Add accept invitation mapping -->
+                            <form action="/acceptInvitation" method="post" style="float:left;">
+                                <input th:value="${invitations.getInvitationID()}" name="invID" hidden>
+                                <button class="invite-accept-button" type="submit">Accepter</button>
+                            </form>
+                            <form action="/declineInvitation" method="post" style="float:right;">
+                                <input th:value="${invitations.getInvitationID()}" name="invID" hidden>
+                                <button class="invite-decline-button" type="submit">Afslå</button>
+                            </form>
+
+                        </div>
+                    </div>
+
+                </div>
+            </div>
+
+        </div>
+        <script>
+            //When the user clicks on the button, toggle between hiding and showing the dropdown content
+            function dropDown() {
+                document.getElementById("myDropdown").classList.toggle("show");
+            }
+
+            // Close the dropdown if the user clicks outside of it
+            window.onclick = function(e) {
+                if (!e.target.matches('.dropbtn')) {
+                    var myDropdown = document.getElementById("myDropdown");
+                    if (myDropdown.classList.contains('show')) {
+                        myDropdown.classList.remove('show');
+                    }
+                }
+            }
+        </script>
+    </header>
+
+    <div class="page-titel"><p>Udvidet Insight</p></div>
+    <div class="nav-button">
+        <a th:href="'/projektOverblik?projectID=' + ${project.getProjectID()}">
+            <div class="nav-links-admin">Tilbage til projektoverblik</div>
+        </a>
+    </div>
+
+    <!-- Infobox -->
+    <div class="info-box">
+        <div class="box-title"><span>Info</span></div>
+        <span>
+            På denne side kan du indtaste informationer om dit projekt.
+        </span><br><br>
+        <span>
+            Udfra dine informationer kan vores side beregne mere information, der kan hjælpe med at planlægge et projekt
+            eller beslutte om det overhovedet er et realistisk projekt, at gå igang med.
+        </span><br><br>
+        <span>
+            Her er en oversigt over hvad der kan blive beregnet, og hvad du skal indtaste for at det er muligt:
+        </span><br><br>
+    </div>
+
+    <!-- Essential information -->
+    <div class="essential-info">
+        <div class="box-title"><span>Grundoplysninger</span></div>
+        <form action="/grundoplysninger" method="post" id="info-form">
+            <label>Start tidspunkt:</label><br>
+            <input type="date" name="startDate" th:unless="${project.formNullStartDate()}" th:value="${project.formStartDate()}" >
+            <input type="date" name="startDate" th:if="${project.formNullStartDate()}">
+            <br>
+            <span th:if="${project.getAdminUserID() == profile.getProfileID()}">Fjern </span><input type="checkbox" name="removeStartDate" th:if="${project.getAdminUserID() == profile.getProfileID()}">
+            <br><br>
+
+            <label>Deadline:</label><br>
+            <input type="date" name="deadline" th:if="${project.formNullDeadline()}">
+            <input type="date" name="deadline" th:unless="${project.formNullDeadline()}" th:value="${project.formDeadline()}" >
+            <br>
+            <span th:if="${project.getAdminUserID() == profile.getProfileID()}">Fjern </span><input type="checkbox" name="removeDeadline" th:if="${project.getAdminUserID() == profile.getProfileID()}">
+            <br><br>
+
+            <label>Timer på en arb. uge:</label><br>
+            <input type="text" name="weeklyHours" th:value="${project.getWeeklyHours()}"><br><br>
+            <label>Arb. dage på en uge:</label><br>
+            <input type="text" name="weeklyDays" th:value="${project.getWeeklyDays()}"><br><br>
+            <label>Forventede fridage (ialt):</label><br>
+            <input type="text" name="daysOff" th:value="${project.getDaysOff()}"><br><br>
+            <label>Medarbejdere:</label><br>
+            <input type="text" th:value="${project.getEmployees()}" readonly id="employees-readonly"><br><br>
+
+            <input type="hidden" th:value="${project.getProjectID()}" name="projectID">
+
+            <input type="submit" value="Gem" th:if="${project.getAdminUserID() == profile.getProfileID()}" id="save-button">
+        </form>
+
+    </div>
+
+    <!-- advanced info -->
+    <div class="advanced-info">
+        <div class="box-title"><span>Udvidet insight</span></div>
+        <span class="calculation-title" th:text="'Projekt: ' + ${project.getName()}"></span><br><br>
+
+        <!-- Start date -->
+        <span class="calculation-title">Start dato: </span>
+        <span th:text="${project.printStartDate()}"></span><br><br>
+
+        <!-- Deadline -->
+        <span class="calculation-title">Deadline: </span>
+        <span th:unless="${project.printDeadline()}=='00/00/0000'" th:text="${project.printDeadline()}"></span>
+        <span th:if="${project.printDeadline()}=='00/00/0000'">Ingen deadline er sat</span>
+        <br><br>
+
+        <!-- Expected deadline -->
+        <span class="calculation-title">Forventet deadline: </span>
+        <span th:text="${project.calculateDeadline()}"></span>
+        <br><br>
+
+        <!-- Total days -->
+        <span class="calculation-title">Antal dage i alt (Start dato - deadline): </span>
+        <span th:unless="${project.getTotalDays()}==-1" th:text="${project.getTotalDays()}"></span>
+        <span th:if="${project.getTotalDays()}==-1">Ikke tilstrækkelig data til at udregne</span>
+        <br><br>
+
+        <!-- Total hours available -->
+        <span class="calculation-title">Antal ledige timer: </span>
+        <span th:unless="${project.getTotalHoursAvailable()}==-1" th:text="${project.getTotalHoursAvailable()}"></span>
+        <span th:if="${project.getTotalHoursAvailable()}==-1">Ikke tilstrækkelig data til at udregne</span>
+        <br><br>
+
+        <!-- Total time for all subprojects (hours) -->
+        <span class="calculation-title">Antal arbejdstimer: </span>
+        <span th:unless="${project.getTotalSubprojectsTime()}==-1" th:text="${project.getTotalSubprojectsTime()}"></span>
+        <span th:if="${project.getTotalSubprojectsTime()}==-1">Ikke tilstrækkelig data til at udregne</span>
+        <br><br>
+
+        <!-- Number of employees -->
+        <span class="calculation-title">Antal medarbejdere: </span>
+        <span th:text="${project.getEmployees()}"></span>
+        <br><br>
+
+        <!-- Weekly hours needed per employee -->
+        <span class="calculation-title">Krævede ugentlige timer pr. medarbejder: </span>
+        <span th:unless="${project.calculateHoursWeekEmployeeNeeded()}==-1" th:text="${project.calculateHoursWeekEmployeeNeeded()}"></span>
+        <span th:if="${project.calculateHoursWeekEmployeeNeeded()}==-1">Ikke tilstrækkelig data til at udregne</span>
+
+    </div>
+
+
+
+</body>
+</html>

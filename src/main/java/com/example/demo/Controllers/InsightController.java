@@ -26,7 +26,8 @@ public class InsightController {
         if (projectService.hasAccess(profileID,projectID)){
             modelMap.addAttribute("project", projectService.getProject(projectID));
             modelMap.addAttribute("profile", profileService.getProfile(profileID));
-            return "test-udvidet-insight-page";
+            modelMap.addAttribute("invitations", profileService.getInvitations(profileID));
+            return "insight";
         }
         return "redirect:/startside";
     }
@@ -64,13 +65,4 @@ public class InsightController {
         return "redirect:/udvidetInsight?projectID=" + projectID;
     }
 
-    //JOHN (TEST) TODO: REMOVE
-    @GetMapping("/Kowalski")
-    public String kowalski(WebRequest request, ModelMap modelMap){
-        int projectID = Integer.parseInt(request.getParameter("projectID"));
-        Project project = projectService.getProject(projectID);
-        //localhost:8081/Kowalski?projectID=1
-        modelMap.addAttribute("test", project.getTaskAnalysis());
-        return "test-skills-kowalski";
-    }
 }

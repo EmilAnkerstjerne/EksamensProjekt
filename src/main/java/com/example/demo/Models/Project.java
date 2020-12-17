@@ -97,6 +97,23 @@ public class Project {
         return list;
     }
 
+
+    public String getAllSubtaskSkillsToString(){
+
+        ArrayList<String> allSubtaskSkills = getAllSubtaskSkills();
+        String skillsString="";
+        String tmp;
+
+        for(int i=0; i<allSubtaskSkills.size();i++){
+            tmp=allSubtaskSkills.get(i);
+            skillsString = skillsString + tmp;
+            if (allSubtaskSkills.size()!=1 && allSubtaskSkills.size()-1!=i) {
+                skillsString = skillsString + ", ";
+            }
+        }
+        return skillsString;
+    }
+
     //JOHN
     public int calculateHoursWeekEmployeeNeeded(){
         double totalDays = getTotalDays();

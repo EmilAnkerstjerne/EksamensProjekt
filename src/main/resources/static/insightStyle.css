@@ -1,0 +1,80 @@
+@import "navbarStyle.css";
+@import "summaryStyle.css";
+
+.nav-links-admin{
+    color:black;
+}
+.nav-button{
+    text-align: center;
+}
+
+.info-box,.essential-info,.advanced-info{
+    display: inline-block;
+    overflow: hidden;
+    width: 25%;
+    height: 600px;
+    margin-top:40px;
+    padding:1%;
+    border: 1px solid #CACACA;
+    border-radius: 10px;
+}
+
+.info-box,.advanced-info{
+
+}
+
+.info-box{
+    margin-right: 6%;
+    margin-left: 3%;
+}
+.essential-info{
+    text-align: center;
+
+}
+.advanced-info{
+    margin-right: 2%;
+    margin-left: 6%;
+}
+
+#employees-readonly{
+    background-color: #E8E8E8;
+}
+
+#employees-readonly:hover{
+    cursor: default;
+}
+
+#save-button{
+    font-size: 14px;
+}
+
+#save-button:hover{
+    background-color: #E6E6E6;
+    border-color:#A2A2A2;
+    cursor:pointer;
+}
+
+#info-form input{
+    text-align: center;
+    border-radius: 5px;
+    border: 1px solid #B9B9B9;
+    margin-top: 5px;
+}
+
+#info-form input:focus{
+    outline:none;
+}
+
+#info-form label{
+
+}
+
+.box-title{
+    font-size: 22px;
+    text-align: center;
+    margin-bottom:20px;
+}
+
+.calculation-title{
+    font-weight: bold;
+}

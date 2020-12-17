@@ -95,11 +95,12 @@
                         <span th:text="${subtask.getTimeEstimate()}+ ' t'" class="timeestimate"></span>
 
                     </div>
-                        <div style="float:left;" class="subtask-name-title"><span class="skill-name-div">Skills:</span></div>
+                        <div th:unless="${subtask.getSkills().size()==0}" style="float:left;" class="subtask-name-title"><span class="skill-name-div">Skills:</span></div>
                         <div th:each="skills: ${subtask.getSkills()}" class="skills">
                             <span th:text="' '+${skills.getValue()}"></span>
                             <span th:if="${subtask.getSkills().size()>1 && subtask.getSkills().indexOf(skills)+1!=subtask.getSkills().size()}">,</span>
-                        </div><br>
+                            <br>
+                        </div>
 
                 </div>
             </div>
@@ -113,6 +114,12 @@
             <div class="quickinsight-bulletpoint">
                 <div class="quickinsight-bulletpoint-title"><span>Akkumuleret tid krævet: </span></div>
                 <div class="quickinsight-bulletpoint-text"><span th:text="${project.getTotalSubprojectsTime()}+' timer'"></span></div>
+
+                <div class="quickinsight-bulletpoint-title"><span>Skills krævet: </span></div>
+                <div class="quickinsight-bulletpoint-text"><span th:text="${project.getAllSubtaskSkillsToString()}"></span></div>
+
+                <div class="quickinsight-bulletpoint-title"><span>Medarbejder Skills: </span></div>
+                <div class="quickinsight-bulletpoint-text"><span th:text="${project.getAllSubtaskSkillsToString()}"></span></div>
 
             </div>
             <div class="quickinsight-more-info">

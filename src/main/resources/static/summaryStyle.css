@@ -50,7 +50,7 @@ body{
     float:right;
     margin-right: 20px;
     border:2px solid #B5BCC1;
-    height: 384px;
+    height: 394px;
     width: 250px;
     padding: 10px 10px;
     border-radius: 20px;
@@ -76,9 +76,10 @@ body{
 .quickinsight-bulletpoints-div{
     background-color: #FFFFFF;
     border-radius: 10px;
-    height: 344px;
+    height: 354px;
     width: 250px;
     display: inline-block;
+
 }
 
 .quickinsight-bulletpoint{
@@ -86,6 +87,7 @@ body{
     height: 311px;
     overflow: hidden;
     text-align: center;
+    padding:5px;
 }
 
 
