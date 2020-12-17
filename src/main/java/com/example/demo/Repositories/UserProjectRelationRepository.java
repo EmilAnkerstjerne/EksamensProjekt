@@ -251,6 +251,38 @@ public class UserProjectRelationRepository extends Repository{
         return list;
     }
 
+    //EMIL
+    public ArrayList<String> getAllEmployeeSkills(int projectID){
+        String selectStatement = "Select " +
+                "m.employee_id, " +
+                "m.project_id employees, " +
+                "c.employee_id, " +
+                "c.value " +
+                "from " +
+                "employees m " +
+                "inner join employee_skills c " +
+                "on c.employee_id = m.employee_id " +
+                "where project_id = ?";
+
+        ArrayList<String> allSkills = new ArrayList<>();
+
+        try {
+            PreparedStatement preparedStatement = connection.prepareStatement(selectStatement);
+            preparedStatement.setInt(1, projectID);
+            ResultSet resultSet = preparedStatement.executeQuery();
+
+            while (resultSet.next()){
+                String value = resultSet.getString("value");
+                allSkills.add(value);
+            }
+        }catch (SQLException e){
+            System.out.println("Failed to get employee skills="+e.getMessage());
+            return null;
+        }
+
+        return allSkills;
+    }
+
     //JOHN
     public boolean createEmployeeSkill(int employeeID, String value){
         String insertStatement = "INSERT INTO employee_skills (employee_id, value) VALUES (?, ?)";

@@ -154,7 +154,24 @@ public class ProjectService {
         return employees;
     }
 
+    //EMIL
+    public String getAllEmployeeSkills(int projectID){
+        String skills = "";
+        ArrayList<String> allSkills = userRep.getAllEmployeeSkills(projectID);
+        //ArrayList without duplicates
+        ArrayList<String> skillsNoDups = new ArrayList<>();
 
+        for(int i = 0; i < allSkills.size(); i++){
+            if (!skillsNoDups.contains(allSkills.get(i))){
+                skillsNoDups.add(allSkills.get(i));
+            }
+        }
+
+        for(int i = 0; i < skillsNoDups.size(); i++){
+            skills += skillsNoDups.get(i);
+        }
+        return skills;
+    }
 
     //JOHN
     public boolean createEmployeeSkill(int adminID, int employeeID, String value){
@@ -171,4 +188,6 @@ public class ProjectService {
         }
         return false;
     }
+
+
 }
