@@ -25,7 +25,7 @@ public class ProjectController {
             return "redirect:/login";
         }
         modelMap.addAttribute("user",profileID);
-        projectService.getAdminProjects(profileID,modelMap,false);
+        projectService.getAdminProjects(profileID, modelMap,false);
         projectService.getOtherProjects(profileID, modelMap, false);
         modelMap.addAttribute("invitations", profileService.getInvitations(profileID));
         return "project-overview";

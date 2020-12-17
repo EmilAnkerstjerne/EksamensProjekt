@@ -20,6 +20,7 @@ public class Project {
     private int daysOff;
     private int employees;
     private boolean archived;
+    private int workHours;
 
     private ArrayList<Subproject> subprojects = new ArrayList<>();
 
@@ -190,6 +191,7 @@ public class Project {
         for(Subproject subproject : subprojects){
             sum += subproject.getTotalTasksTime();
         }
+        workHours=sum;
         return sum;
     }
 
@@ -353,6 +355,10 @@ public class Project {
 
     public void setEmployees(int employees) {
         this.employees = employees;
+    }
+
+    public int getWorkHours() {
+        return workHours;
     }
 
     //JOHN (Alt. toString for structure of lists)

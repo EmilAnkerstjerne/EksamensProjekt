@@ -112,6 +112,12 @@
         <div class="quickinsight-title"><span>Quick Insight</span></div>
         <div class="quickinsight-bulletpoints-div">
             <div class="quickinsight-bulletpoint">
+
+                <!-- Start date -->
+                <div class="quickinsight-bulletpoint-title"><span>Start dato: </span></div>
+                <div class="quickinsight-bulletpoint-text"><span th:text="${project.printStartDate()}"></span></div>
+
+                <!-- Accumulated work hours -->
                 <div class="quickinsight-bulletpoint-title"><span>Akkumuleret tid krævet: </span></div>
                 <div class="quickinsight-bulletpoint-text"><span th:text="${project.getTotalSubprojectsTime()}+' timer'"></span></div>
 
@@ -120,6 +126,8 @@
                     <span th:unless="${project.getAllSubtaskSkillsToString()}==''" th:text="${project.getAllSubtaskSkillsToString()}"></span>
                     <span th:if="${project.getAllSubtaskSkillsToString()}==''">Ingen skills er tildelt projektet</span>
                 </div>
+
+
 
 
             </div>
