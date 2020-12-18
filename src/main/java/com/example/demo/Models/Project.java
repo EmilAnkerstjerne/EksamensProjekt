@@ -170,10 +170,10 @@ public class Project {
         else if(deadline == null){
             return -1;
         }
-        long diffInMillies = Math.abs(endDate.getTime() - firstDate.getTime());
-        long diff = TimeUnit.DAYS.convert(diffInMillies, TimeUnit.MILLISECONDS);
+        long diffInMillieSeconds = Math.abs(endDate.getTime() - firstDate.getTime());
+        long diffInDays = TimeUnit.DAYS.convert(diffInMillieSeconds, TimeUnit.MILLISECONDS);
 
-        return diff;
+        return diffInDays;
     }
 
     //JOHN
