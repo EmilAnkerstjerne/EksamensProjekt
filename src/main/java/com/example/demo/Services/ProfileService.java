@@ -69,7 +69,7 @@ public class ProfileService {
     }
 
 
-    //TODO: Check if both are used when project is done
+
     //EMIL
     public Profile getProfileData(int userID){
         return rep.getProfileData(userID);

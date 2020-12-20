@@ -51,6 +51,7 @@ public class ProfileRepository extends Repository{
         }
     }
 
+    //Emil
     public ArrayList<CookieModel> getAllCookies(){
         String selectStatement = "SELECT * FROM cookies";
         ArrayList<CookieModel> cookies = new ArrayList<>();

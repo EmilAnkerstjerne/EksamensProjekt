@@ -1,4 +1,5 @@
 <!DOCTYPE html>
+<!-- TOBIAS -->
 <html xmlns:th="http://www.thymeleaf.org" lang="da">
 <head>
     <meta charset="UTF-8">
@@ -87,7 +88,7 @@
                     <div class="username">
                         <div class="admin-users-title"><span style="font-size:24px;">Inviter bruger</span></div><br>
                         <label for="username">Brugernavn</label><br>
-                        <input type="text" placeholder="Username" name="username" id="username"><br>
+                        <input type="text" placeholder="Username" name="username" id="username" required><br>
                         <button type="submit" id="addButton" class="signin-btn">Tilføj</button>
                     </div>
 
@@ -101,7 +102,7 @@
             <span th:if="${users.size()==0}">Ingen brugere er tilknyttet endnu</span>
             <div th:each="profile: ${users}" class="users-list-single-user">
                 <span th:text="${profile.getUsername()}"></span>
-                <a th:href="'/fjernBruger?userID=' + ${profile.getProfileID()} + '&projectID=' + ${project.getProjectID()}" >X</a>
+                <a th:href="'/fjernBruger?userID=' + ${profile.getProfileID()} + '&projectID=' + ${project.getProjectID()}">X</a>
             </div>
         </div>
 

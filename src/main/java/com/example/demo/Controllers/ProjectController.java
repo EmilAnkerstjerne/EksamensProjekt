@@ -17,7 +17,7 @@ public class ProjectController {
     ProfileService profileService = new ProfileService();
     ProjectService projectService = new ProjectService();
 
-    //more or less done TODO: invitations in navbar
+    //Tobias
     @GetMapping("/startside")
     public String startside(ModelMap modelMap, @CookieValue(value = "user", defaultValue = "") String cookie){
         int profileID = Login.verifyCookie(cookie);
@@ -45,6 +45,7 @@ public class ProjectController {
         return "project-archive";
     }
 
+    //Tobias
     @GetMapping("/projektOverblik")
     public String project(@CookieValue(value = "user", defaultValue = "") String cookie, WebRequest request, ModelMap modelMap){
         int profileID = Login.verifyCookie(cookie);
@@ -64,6 +65,7 @@ public class ProjectController {
         return "redirect:/startside";
     }
 
+    //Tobias
     @GetMapping("/opretProjekt")
     public String createProjektPage(@CookieValue(value = "user", defaultValue = "") String cookie, ModelMap modelMap){
         int profileID = Login.verifyCookie(cookie);

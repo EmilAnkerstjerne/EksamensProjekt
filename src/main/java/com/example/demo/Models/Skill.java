@@ -1,5 +1,6 @@
 package com.example.demo.Models;
 
+//Emil
 public class Skill {
 
     private int ownerID;

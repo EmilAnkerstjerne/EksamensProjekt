@@ -1,5 +1,6 @@
 package com.example.demo.Models;
 
+//Emil
 public class Invitation {
     private int invitationID;
     private int userID;

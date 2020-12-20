@@ -30,7 +30,7 @@ public class ProfileController {
         return "redirect:/profil";
     }
 
-    //JOHN
+    //JOHN & Tobias
     @GetMapping("/profil")
     public String profile(@CookieValue(value = "user", defaultValue = "") String cookie, ModelMap modelMap){
         int profileID = Login.verifyCookie(cookie);
