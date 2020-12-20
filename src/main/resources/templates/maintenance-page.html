@@ -12,7 +12,6 @@
     <header>
     <div class="navbar">
         <div class="navbar-logo-a" style="padding:0;text-align: center;"><img th:src="@{/images/LogoSmallG.png}" alt="logo" class="navbar-logo"></div>
-        <!-- TODO: Add relevant hrefs -->
         <a href="/startside">Projektoversigt</a>
         <a href="/opretProjekt">Opret projekt</a>
         <a href="/projektArkiv">Projektarkiv</a>
@@ -27,7 +26,6 @@
                     <span class="variables-invite-text" th:text="${invitations.getAdminUsername()}"></span><br><span>har inviteret dig til</span><br><span class="variables-invite-text" th:text="${invitations.getProjectName()}"> PROJEKTNAVN</span>
                     <br>
                     <div style="text-align: center; margin-top:5px">
-                        <!-- TODO: Add accept invitation mapping -->
                         <form action="/acceptInvitation" method="post" style="float:left;">
                             <input th:value="${invitations.getInvitationID()}" name="invID" hidden>
                             <button class="invite-accept-button" type="submit">Accepter</button>
@@ -69,7 +67,8 @@
         <!-- PROJECT NAME AND BUTTONS/NAV -->
         <div class="project-name-title">
             <div class="project-name-text-div" th:unless="${project.getName()==''}"><span th:text="${project.getName()}"></span></div>
-            <!-- TODO: CAN BE REMOVED, ONLY USEFUL WHEN TESTING -->
+            <!-- Reason of this: while testing, projects could be created without a name. If a problem happens with
+            getting data from database, instead of nothing "ikke navngivet" will show -->
             <div class="project-name-text-div" th:if="${project.getName()==''}"><span>Ikke navngivet</span></div>
 
             <div class="nav-links" th:if="${project.getAdminUserID()} == ${profile.getProfileID()}">
