@@ -10,12 +10,13 @@ import java.util.Date;
 
 public class CookieService {
 
+    static ProfileRepository profileRepository = new ProfileRepository();
+
     //Emil
     public CookieService() {
     }
 
     public static boolean deleteOldCookies(){
-        ProfileRepository profileRepository = new ProfileRepository();
         ArrayList<CookieModel> cookies = profileRepository.getAllCookies();
 
         int maxDaysOld = 14; //Change this to change the max age of a cookie.
@@ -35,7 +36,6 @@ public class CookieService {
     }
 
     public static boolean deleteCookie(String cookieValue){
-        ProfileRepository profileRepository = new ProfileRepository();
         profileRepository.deleteCookie(cookieValue);
         return true;
     }
